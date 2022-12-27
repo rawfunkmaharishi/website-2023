@@ -1,0 +1,23 @@
+---
+const gigs = await fetch("https://json.rawfunkmaharishi.uk/gigs.json")
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (json) {
+    return json;
+  });
+
+console.log(gigs);
+---
+
+<ul>
+  {
+    gigs.map((gig) => (
+      <li>
+        <a href=`/gigs/${gig.offSchema.nameBits.join("/")}`>
+            {gig.startDate.split("T").slice(0, 1)} - {gig.location.name}
+            </a>
+      </li>
+    ))
+  }
+</ul>

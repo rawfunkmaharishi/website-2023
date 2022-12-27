@@ -1,0 +1,27 @@
+---
+import Navigation from "../data/navigation.yaml";
+---
+
+<nav>
+  <ul>
+    {
+      Navigation.map((item) => (
+        <li>
+          <a href={item.path}>{item.title}</a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<style>
+  ul {
+    display: flex;
+  }
+
+  li {
+    list-style-type: none;
+    flex-grow: 1;
+    text-align: center;
+  }
+</style>

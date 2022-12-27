@@ -1,0 +1,11 @@
+- title: Gigs
+  path:  /gigs/
+
+- title: Music
+  path:  /albums/
+
+- title: Videos
+  path:  /videos/
+
+- title: Band
+  path:  /the-band/

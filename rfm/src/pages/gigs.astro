@@ -1,21 +1,34 @@
 ---
+import Layout from "../layouts/Layout.astro";
+
 const gigs = await fetch("https://json.rawfunkmaharishi.uk/gigs.json")
   .then(function (response) {
     return response.json();
   })
   .then(function (json) {
     return json;
+  })
+  .then(function (items) {
+    return items.map((gig) => {
+      return {
+        href: "/gigs/" + gig.offSchema.nameBits.join("/"),
+        date: gig.offSchema.nameBits.slice(0, 3).join("-"),
+        name: gig.location.name,
+      };
+    });
   });
 ---
 
-<ul>
-  {
-    gigs.map((gig) => (
-      <li>
-        <a href=`/gigs/${gig.offSchema.nameBits.join("/")}`>
-            {gig.startDate.split("T").slice(0, 1)} - {gig.location.name}
-            </a>
-      </li>
-    ))
-  }
-</ul>
+<Layout>
+  <ul>
+    {
+      gigs.map((gig) => (
+        <li>
+          <a href={gig.href}>
+            {gig.date} - {gig.name}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</Layout>

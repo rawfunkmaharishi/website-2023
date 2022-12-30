@@ -11,6 +11,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@mdi/font": "^7.1.96",
     "@rollup/plugin-yaml": "^4.0.1",
     "astro": "^1.8.0",
     "astro-html-beautifier": "^1.0.4",

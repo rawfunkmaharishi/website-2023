@@ -1,5 +1,12 @@
 ---
+import moment from "moment";
 import Layout from "../../layouts/Layout.astro";
+import "@mdi/font/css/materialdesignicons.css";
+
+const services = {
+  "apple music": "mdi-apple",
+  "amazon": "mdi-music"
+};
 
 export async function getStaticPaths() {
   const response = await fetch("https://json.rawfunkmaharishi.uk/records.json");
@@ -18,6 +25,8 @@ export async function getStaticPaths() {
 const { record } = Astro.props;
 
 const title = record.name;
+const imgPath = "/record-covers/" + record.offSchema.image
+const releaseDate = moment(record.datePublished).format("MMMM YYYY");
 
 // https://stackoverflow.com/a/7220510
 // https://stackoverflow.com/a/53443378
@@ -25,5 +34,49 @@ const jsonLD = JSON.stringify((({ offSchema, ...o }) => o)(record), null, 2);
 ---
 
 <Layout title={title} jsonLD={jsonLD}>
-foo
+  <h1>{title}</h1>
+
+  <img src={imgPath} />
+
+  <dl>
+    <dt>Released:</dt>
+    <dd>{releaseDate}</dd>
+    <dt>Get it:</dt>
+    <dd>
+      <ul>
+        <li>
+          <a href={record.offSchema.YouTubeURL}>
+            <span class:list={["mdi", "mdi-youtube"]}></span>
+            YouTube
+          </a>
+        </li>
+        <li>
+          <a href={record.offSchema.SpotifyURL}>
+            <span class:list={["mdi", "mdi-spotify"]}></span>
+            Spotify
+          </a>
+        </li>
+        {
+          record.offSchema.otherOutlets.map((outlet) => (
+            <li>
+              <span class:list={["mdi", services[outlet.name]]} />
+              <a href={outlet.url}>{outlet.name}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </dd>
+    <dt>Tracks:</dt>
+    <dd>
+      <ul>
+        {record.track.map((trk) => <li>{trk.name}</li>)}
+      </ul>
+    </dd>
+  </dl>
 </Layout>
+
+<style>
+  img {
+    max-height: 100px;
+  }
+</style>

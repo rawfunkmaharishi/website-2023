@@ -23,7 +23,7 @@ const time = gig.startDate.split("T").slice(1);
 
 // https://stackoverflow.com/a/7220510
 // https://stackoverflow.com/a/53443378
-const jsonLD = JSON.stringify((({ offSchema, ...o }) => o)(gig), null, 2)
+const jsonLD = JSON.stringify((({ offSchema, ...o }) => o)(gig), null, 2);
 ---
 
 <Layout>
@@ -65,10 +65,12 @@ const jsonLD = JSON.stringify((({ offSchema, ...o }) => o)(gig), null, 2)
           <dt>
             <ul>
               {gig.sameAs
-                .filter((url) => ! url.startsWith("https://rawfunkmaharishi.uk/"))
+                .filter(
+                  (url) => !url.startsWith("https://rawfunkmaharishi.uk/")
+                )
                 .map((url) => (
                   <li>
-                    <a href={url}>{url.split("/").slice(2,3)[0]}</a>
+                    <a href={url}>{url.split("/").slice(2, 3)[0]}</a>
                   </li>
                 ))}
             </ul>
@@ -78,6 +80,31 @@ const jsonLD = JSON.stringify((({ offSchema, ...o }) => o)(gig), null, 2)
     }
   </dl>
 
-  <script type="application/ld+json" set:html={jsonLD}></script>
+  <div id="map"></div>
 
+  <script type="application/ld+json" set:html={jsonLD}></script>
 </Layout>
+
+<script
+  define:vars={{
+    latitude: gig.location.geo.latitude,
+    longitude: gig.location.geo.longitude,
+  }}
+>
+  const map = L.map("map").setView([latitude, longitude], 13);
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution:
+      '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  }).addTo(map);
+
+  const marker = L.marker([latitude, longitude]).addTo(map);
+</script>
+
+<style>
+  div#map {
+    height: 200px;
+    width: 50%;
+    margin-inline: auto;
+  }
+</style>

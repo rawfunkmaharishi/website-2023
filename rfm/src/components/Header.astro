@@ -1,11 +1,28 @@
 ---
-import Navigation from "../data/navigation.yaml";
+const navs = [
+  {
+    "title": "Gigs",
+    "path": "/gigs/"
+  },
+  {
+    "title": "Music",
+    "path": "/records/"
+  },
+  {
+    "title": "Videos",
+    "path": "/videos/"
+  },
+  {
+    "title": "Band",
+    "path": "/the-band/"
+  }
+]
 ---
 
 <nav>
   <ul>
     {
-      Navigation.map((item) => (
+      navs.map((item) => (
         <li>
           <a href={item.path}>{item.title}</a>
         </li>

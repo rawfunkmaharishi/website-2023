@@ -1,5 +1,5 @@
 {
-  "name": "@example/minimal",
+  "name": "rawfunkmarishi.uk",
   "type": "module",
   "version": "0.0.1",
   "private": true,
@@ -13,6 +13,7 @@
   "dependencies": {
     "@rollup/plugin-yaml": "^4.0.1",
     "astro": "^1.8.0",
+    "astro-html-beautifier": "^1.0.4",
     "moment": "^2.29.4"
   }
 }

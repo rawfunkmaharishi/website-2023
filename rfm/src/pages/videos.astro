@@ -22,7 +22,7 @@ const videos = await fetch("https://json.rawfunkmaharishi.uk/gigs.json")
       return {
         date: item.startDate,
         venue: item.location.name,
-        youtube: "https://www.youtube.com/embed/" + item.recordedIn["@id"].split("=").slice(-1)
+        youtube: item.recordedIn.embedUrl
       };
     });
   });

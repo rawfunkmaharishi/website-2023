@@ -8,6 +8,9 @@ const gigs = await fetch("https://json.rawfunkmaharishi.uk/gigs.json")
   .then(function (json) {
     return json;
   })
+  .then(function(items) {
+    return items.reverse()
+  })
   .then(function (items) {
     return items.map((gig) => {
       return {

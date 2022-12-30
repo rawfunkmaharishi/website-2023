@@ -1,0 +1,45 @@
+---
+import moment from "moment";
+import Layout from "../layouts/Layout.astro";
+
+const videosToShow = 8
+
+const videos = await fetch("https://json.rawfunkmaharishi.uk/gigs.json")
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (json) {
+    return json;
+  })
+  .then(function (items) {
+    return items.filter((item) => "recordedIn" in item)
+  })
+  .then(function(items) {
+    return items.reverse().slice(0, videosToShow)
+  })
+  .then(function (items) {
+    return items.map((item) => {
+      return {
+        date: item.startDate,
+        venue: item.location.name,
+        youtube: "https://www.youtube.com/embed/" + item.recordedIn["@id"].split("=").slice(-1)
+      };
+    });
+  });
+
+  console.log(videos)
+---
+
+<Layout title="Videos">
+  <ul>
+    {videos.map((video) => <li>
+      <h2>{video.venue}</h2>
+      <h3>{moment(video.date).format("MMMM Do YYYY")}</h3>
+      <div class="video-wrapper">
+          <iframe src={video.youtube} allowfullscreen
+            frameborder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
+        </div>
+      </li>)}
+  </ul>
+</Layout>

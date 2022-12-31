@@ -11,13 +11,16 @@ const records = await fetch("https://json.rawfunkmaharishi.uk/records.json")
   .then(function (items) {
     return items.map((record) => {
       return {
-        href: "/records/" + record["offSchema"]["id"],
-        year: record.datePublished.split("-").slice(0, 1),
+        href: record.url,
+        year: record.datePublished.split("-").slice(0, 1)[0],
         name: record.name,
-        image: "/record-covers/" + record["offSchema"]["image"]
+        image: record.image.contentUrl
       };
     });
   });
+
+
+  console.log(records)
 
 ---
 

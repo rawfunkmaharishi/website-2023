@@ -25,7 +25,6 @@ export async function getStaticPaths() {
 const { record } = Astro.props;
 
 const title = record.name;
-const imgPath = "/record-covers/" + record.offSchema.image
 const releaseDate = moment(record.datePublished).format("MMMM YYYY");
 
 // https://stackoverflow.com/a/7220510
@@ -36,7 +35,7 @@ const jsonLD = JSON.stringify((({ offSchema, ...o }) => o)(record), null, 2);
 <Layout title={title} jsonLD={jsonLD}>
   <h1>{title}</h1>
 
-  <img src={imgPath} />
+  <img src={record.image.contentUrl} />
 
   <dl>
     <dt>Released:</dt>

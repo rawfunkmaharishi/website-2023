@@ -17,18 +17,19 @@ const { title, jsonLD } = Astro.props;
       <slot />
     </main>
     <style is:global>
+    @import url("https://fonts.googleapis.com/css?family=Roboto");
+
       :root {
-        --accent: 124, 58, 237;
-        --accent-gradient: linear-gradient(
-          45deg,
-          rgb(var(--accent)),
-          #da62c4 30%,
-          white 60%
-        );
+        --colour-background: rgb(27, 17, 4);
+        --colour-primary: rgb(121, 121, 121);
+        --colour-link: rgb(104, 91, 30);
+        --colour-link-hover: rgb(149, 130, 45);
+        --font-primary: Roboto;
+
       }
       html {
-        font-family: system-ui, sans-serif;
-        background-color: #f6f6f6;
+        font-family: var(--font-primary);
+        background-color: var(--colour-background);
       }
       * {
         box-sizing: border-box;
@@ -37,7 +38,15 @@ const { title, jsonLD } = Astro.props;
       }
 
       #logo {
-        fill: green;
+        fill: var(--colour-primary);
+      }
+
+      a {
+        color: var(--colour-link);
+      }
+
+      a:hover {
+        color: var(--colour-link-hover)
       }
     </style>
   </body>

@@ -1,0 +1,28 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const people = await fetch("https://json.rawfunkmaharishi.uk/people.json")
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (json) {
+    return json;
+  })
+  .then(function (items) {
+    return items;
+  });
+---
+
+<Layout title="Videos">
+  <ul>
+    {
+      people.map((person) => (
+        <li>
+          <img src={person.image.contentUrl} />
+          <h2>{person.name}</h2>
+          <h3>{person.knowsAbout}</h3>
+        </li>
+      ))
+    }
+  </ul>
+</Layout>

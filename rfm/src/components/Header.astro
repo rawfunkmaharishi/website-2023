@@ -1,22 +1,24 @@
 ---
+import Logo from "../components/Logo.astro";
+
 const navs = [
   {
-    "title": "Gigs",
-    "path": "/gigs/"
+    title: "Gigs",
+    path: "/gigs/",
   },
   {
-    "title": "Music",
-    "path": "/records/"
+    title: "Music",
+    path: "/records/",
   },
   {
-    "title": "Videos",
-    "path": "/videos/"
+    title: "Videos",
+    path: "/videos/",
   },
   {
-    "title": "Band",
-    "path": "/the-band/"
-  }
-]
+    title: "Band",
+    path: "/the-band/",
+  },
+];
 ---
 
 <nav>
@@ -31,6 +33,8 @@ const navs = [
   </ul>
 </nav>
 
+<Logo />
+
 <style>
   ul {
     display: flex;
@@ -41,4 +45,7 @@ const navs = [
     flex-grow: 1;
     text-align: center;
   }
+
+
+
 </style>

@@ -1,0 +1,94 @@
+---
+import moment from "moment";
+import Layout from "../../layouts/Layout.astro";
+
+export async function getStaticPaths({ paginate }) {
+  const gigs = await fetch("https://json.rawfunkmaharishi.uk/gigs.json")
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (json) {
+      return json;
+    })
+    .then(function (items) {
+      return items.filter((item) => new Date(item.startDate) > new Date());
+    })
+    .then(function (items) {
+      return items.map((gig) => {
+        return {
+          href: "/gigs/" + gig.offSchema.nameBits.join("/"),
+          date: gig.offSchema.nameBits.slice(0, 3).join("-"),
+          name: gig.location.name,
+        };
+      });
+    });
+  return paginate(gigs, { pageSize: 4 });
+}
+
+const { page } = Astro.props;
+
+
+---
+
+<Layout title="Upcoming Gigs">
+  <ul>
+    {
+      page.data.map((gig) => (
+        <li>
+          <a href={gig.href}>
+            {moment(gig.date).format("dddd MMM Do")}
+            <span class="venue">{gig.name}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+
+  <div id="paginators">
+    {page.url.prev && <a href={page.url.prev}>«</a> || <span class="dead">«</span>}
+    {page.url.next && <a href={page.url.next}>»</a> || <span class="dead">»</span>}
+  </div>
+</Layout>
+
+<style>
+  ul {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  @media only screen and (max-width: 600px) {
+    ul {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  li {
+    list-style-type: none;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .venue {
+    display: block;
+    font-size: 1.5rem;
+  }
+
+  .dead {
+    color: var(--colour-grey);
+  }
+
+  #paginators {
+    padding-top: 5rem;
+    font-size: 2rem;
+  }
+
+  @media only screen and (max-width: 600px) {
+    #paginators {
+      text-align: center;
+    }
+  }
+</style>

@@ -1,10 +1,9 @@
 ---
-import Logo from "../components/Logo.astro";
 
 const navs = [
   {
     title: "Gigs",
-    path: "/gigs/",
+    path: "/gigs/1",  // TODO fix this?
   },
   {
     title: "Music",
@@ -19,6 +18,8 @@ const navs = [
     path: "/the-band/",
   },
 ];
+
+const { title } = Astro.props;
 ---
 
 <nav>
@@ -33,9 +34,10 @@ const navs = [
   </ul>
 </nav>
 
-<Logo />
 
 <style>
+
+
   ul {
     display: flex;
     width: 80%;
@@ -51,8 +53,7 @@ const navs = [
     font-size: 1rem;
   }
 
-a {
-  text-decoration: none;
-}
-
+  a {
+    text-decoration: none;
+  }
 </style>

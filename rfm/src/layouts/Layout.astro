@@ -1,6 +1,8 @@
 ---
 import Head from "../components/Head.astro";
 import Header from "../components/Header.astro";
+import conf from "../conf.json";
+
 export interface Props {
   title: string;
 }
@@ -12,24 +14,38 @@ const { title, jsonLD } = Astro.props;
 <html lang="en">
   <Head title={title} jsonLD={jsonLD} />
   <body>
-    <Header />
+    <Header title={title} />
     <main>
-      <slot />
+      <div id="logo">
+        <img src="/logos/rfm.svg" />
+      </div>
+      <h1>{title}</h1>
+      <div id="content">
+        <slot />
+      </div>
     </main>
+
     <style is:global>
-    @import url("https://fonts.googleapis.com/css?family=Roboto");
+      @import url("https://fonts.googleapis.com/css?family=Roboto");
+      @import url("https://fonts.googleapis.com/css?family=Josefin+Sans");
 
       :root {
         --colour-background: rgb(27, 17, 4);
+        --colour-panel: rgb(82, 64, 30);
         --colour-primary: rgb(121, 121, 121);
         --colour-link: rgb(104, 91, 30);
         --colour-link-hover: rgb(149, 130, 45);
-        --font-primary: Roboto;
+        --colour-grey: rgb(46, 46, 46);
 
+        --font-primary: Roboto;
+        --font-heading: "Josefin Sans";
+
+        --padding: 2rem;
       }
       html {
         font-family: var(--font-primary);
         background-color: var(--colour-background);
+        color: var(--colour-primary);
       }
       * {
         box-sizing: border-box;
@@ -37,16 +53,46 @@ const { title, jsonLD } = Astro.props;
         margin: 0;
       }
 
-      #logo {
-        fill: var(--colour-primary);
+      main {
+        display: grid;
+        grid-template-areas:
+          "logo content"
+          "title content";
+        grid-template-columns: 2fr 3fr;
+        gap: var(--padding);
+
+        margin: var(--padding);
+      }
+      @media only screen and (max-width: 600px) {
+        main {
+          grid-template-areas:
+            "logo"
+            "title"
+            "content";
+          grid-template-rows: 2fr 1fr 5fr;
+          grid-template-columns: 1fr;
+        }
       }
 
+      div#logo {
+        grid-area: logo;
+      }
+      h1 {
+        font-family: var(--font-heading);
+        text-transform: uppercase;
+        text-align: center;
+        grid-area: title;
+      }
+
+      #content {
+        grid-area: content;
+      }
       a {
         color: var(--colour-link);
       }
 
       a:hover {
-        color: var(--colour-link-hover)
+        color: var(--colour-link-hover);
       }
     </style>
   </body>

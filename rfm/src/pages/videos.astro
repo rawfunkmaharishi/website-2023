@@ -1,33 +1,26 @@
 ---
 import moment from "moment";
 import Layout from "../layouts/Layout.astro";
+import { fetchFromAPI } from "../tools";
 
 const videosToShow = 8
 
-const videos = await fetch("https://json.rawfunkmaharishi.uk/gigs.json")
-  .then(function (response) {
-    return response.json();
+const videos = await fetchFromAPI("gigs")
+  .then(function (gigs) {
+    return gigs.filter((item) => "recordedIn" in item)
   })
-  .then(function (json) {
-    return json;
+  .then(function(gigs) {
+    return gigs.reverse().slice(0, videosToShow)
   })
-  .then(function (items) {
-    return items.filter((item) => "recordedIn" in item)
-  })
-  .then(function(items) {
-    return items.reverse().slice(0, videosToShow)
-  })
-  .then(function (items) {
-    return items.map((item) => {
+  .then(function (videos) {
+    return videos.map((video) => {
       return {
-        date: item.startDate,
-        venue: item.location.name,
-        youtube: item.recordedIn.embedUrl
+        date: video.startDate,
+        venue: video.location.name,
+        youtube: video.recordedIn.embedUrl
       };
     });
   });
-
-  console.log(videos)
 ---
 
 <Layout title="Videos">

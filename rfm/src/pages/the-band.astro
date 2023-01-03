@@ -1,19 +1,14 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { fetchFromAPI } from "../tools";
 
-const people = await fetch("https://json.rawfunkmaharishi.uk/people.json")
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (json) {
-    return json;
-  })
-  .then(function (items) {
-    return items;
+const people = await fetchFromAPI("people")
+  .then(function (people) {
+    return people;
   });
 ---
 
-<Layout title="Videos">
+<Layout title="The Band">
   <ul>
     {
       people.map((person) => (

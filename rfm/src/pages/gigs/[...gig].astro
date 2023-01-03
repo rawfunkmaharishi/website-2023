@@ -1,19 +1,20 @@
 ---
 import moment from "moment";
 import Layout from "../../layouts/Layout.astro";
+import { fetchFromAPI } from "../../tools";
 
 export async function getStaticPaths() {
-  const response = await fetch("https://json.rawfunkmaharishi.uk/gigs.json");
-  const data = await response.json();
-
-  return data.map((gig) => {
-    return {
-      params: {
-        gig: gig.offSchema.nameBits.join("/"),
-      },
-      props: { gig },
-    };
+  return await fetchFromAPI("gigs").then(function(items){
+    return items.map((gig) => {
+      return {
+        params: {
+          gig: gig.url.replace("/gigs/", "")
+        },
+        props: { gig },
+      };
+    });
   });
+
 }
 
 const { gig } = Astro.props;
@@ -58,7 +59,7 @@ const jsonLD = JSON.stringify((({ offSchema, ...o }) => o)(gig), null, 2);
     }
 
     {
-      gig.offSchema.hasMoreInfo && (
+      Array.isArray(gig.sameAs) && (
         <>
           <dd>More info:</dd>
           <dt>

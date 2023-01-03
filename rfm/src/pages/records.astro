@@ -1,15 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { fetchFromAPI } from "../tools";
 
-const records = await fetch("https://json.rawfunkmaharishi.uk/records.json")
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (json) {
-    return json;
-  })
-  .then(function (items) {
-    return items.map((record) => {
+const records = await fetchFromAPI("records")
+  .then(function (records) {
+    return records.map((record) => {
       return {
         href: record.url,
         year: record.datePublished.split("-").slice(0, 1)[0],
@@ -18,9 +13,6 @@ const records = await fetch("https://json.rawfunkmaharishi.uk/records.json")
       };
     });
   });
-
-
-  console.log(records)
 
 ---
 

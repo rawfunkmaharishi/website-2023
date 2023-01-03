@@ -11,8 +11,8 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/rss": "^2.0.0",
     "@mdi/font": "^7.1.96",
-    "@rollup/plugin-yaml": "^4.0.1",
     "astro": "^1.8.0",
     "astro-html-beautifier": "^1.0.4",
     "moment": "^2.29.4"

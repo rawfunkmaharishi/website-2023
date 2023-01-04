@@ -24,12 +24,10 @@ const date = moment(gig.startDate).format("MMMM Do YYYY");
 const time = gig.startDate.split("T").slice(1);
 
 // https://stackoverflow.com/a/7220510
-// https://stackoverflow.com/a/53443378
-const jsonLD = JSON.stringify((({ offSchema, ...o }) => o)(gig), null, 2);
+const jsonLD = JSON.stringify(gig, null, 2);
 ---
 
 <Layout title={title} jsonLD={jsonLD}>
-  <h1>{title}</h1>
 
   <dl>
     <dt>Date:</dt>

@@ -2,10 +2,9 @@
 import Layout from "../layouts/Layout.astro";
 import { fetchFromAPI } from "../tools";
 
-const people = await fetchFromAPI("people")
-  .then(function (people) {
-    return people;
-  });
+const people = await fetchFromAPI("people").then(function (people) {
+  return people;
+});
 ---
 
 <Layout title="The Band">
@@ -13,11 +12,26 @@ const people = await fetchFromAPI("people")
     {
       people.map((person) => (
         <li>
-          <img src={person.image.contentUrl} />
           <h2>{person.name}</h2>
+          <img src={person.image.contentUrl} />
           <h3>{person.knowsAbout}</h3>
         </li>
       ))
     }
   </ul>
 </Layout>
+
+<style>
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  li {
+    margin: auto;
+    padding-bottom: 1rem;
+    flex-basis: 40%;
+  }
+</style>

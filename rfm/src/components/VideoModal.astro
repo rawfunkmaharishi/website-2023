@@ -1,0 +1,21 @@
+---
+const { service, url } = Astro.props;
+const oc = "document.getElementById('" + service + "').close()";
+---
+
+<dialog id={service} class="embedded-player video-wrapper">
+  <iframe allowfullscreen src={url}></iframe>
+  <a href="#" class="close" onclick={oc}>✕</a>
+</dialog>
+
+<style>
+  .close {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    background-color: var(--colour-background);
+    padding: 1rem;
+    border-radius: 30%;
+    font-size: 2rem;
+  }
+</style>

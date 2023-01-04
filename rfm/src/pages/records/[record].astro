@@ -1,13 +1,9 @@
 ---
 import moment from "moment";
 import Layout from "../../layouts/Layout.astro";
+import VideoModal from "../../components/VideoModal.astro";
 import "@mdi/font/css/materialdesignicons.css";
-import { fetchFromAPI } from "../../tools";
-
-const services = {
-  "apple music": "mdi-apple",
-  amazon: "mdi-music",
-};
+import { fetchFromAPI, streamingServices } from "../../tools";
 
 export async function getStaticPaths() {
   return await fetchFromAPI("records").then(function (records) {
@@ -28,54 +24,80 @@ const title = record.name;
 const releaseDate = moment(record.datePublished).format("MMMM YYYY");
 
 // https://stackoverflow.com/a/7220510
-// https://stackoverflow.com/a/53443378
-const jsonLD = JSON.stringify((({ offSchema, ...o }) => o)(record), null, 2);
+const jsonLD = JSON.stringify(record, null, 2);
+const services = streamingServices(record.sameAs);
 ---
 
 <Layout title={title} jsonLD={jsonLD}>
-  <h1>{title}</h1>
+  <div class="record">
+    <img class="record-sleeve" src={record.image.contentUrl} />
 
-  <img src={record.image.contentUrl} />
+    <dl id="record-description">
+      <dt>Released:</dt>
+      <dd>{releaseDate}</dd>
+      <dt>Get it:</dt>
+      <dd>
+        <ul>
+          <li>
+            <a
+              href="#"
+              onclick="document.getElementById('youtube').showModal()"
+            >
+              <span class:list={["mdi", "mdi-youtube"]}></span>
+              YouTube
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              onclick="document.getElementById('spotify').showModal()"
+            >
+              <span class:list={["mdi", "mdi-spotify"]}></span>
+              Spotify
+            </a>
+          </li>
+          {
+            services.otherServices.map((service) => (
+              <li>
+                <span class:list={["mdi", service.icon]} />
+                <a href={service.url}>{service.name}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </dd>
+      <dt>Tracks:</dt>
+      <dd>
+        <ul>
+          {record.track.map((trk) => <li>{trk.name}</li>)}
+        </ul>
+      </dd>
+    </dl>
+  </div>
 
-  <dl>
-    <dt>Released:</dt>
-    <dd>{releaseDate}</dd>
-    <dt>Get it:</dt>
-    <dd>
-      <ul>
-        <li>
-          <a href={record.offSchema.YouTubeURL}>
-            <span class:list={["mdi", "mdi-youtube"]}></span>
-            YouTube - SHOULD BE A MODAL
-          </a>
-        </li>
-        <li>
-          <a href={record.offSchema.SpotifyURL}>
-            <span class:list={["mdi", "mdi-spotify"]}></span>
-            Spotify - MODAL
-          </a>
-        </li>
-        {
-          record.offSchema.otherOutlets.map((outlet) => (
-            <li>
-              <span class:list={["mdi", services[outlet.name]]} />
-              <a href={outlet.url}>{outlet.name}</a>
-            </li>
-          ))
-        }
-      </ul>
-    </dd>
-    <dt>Tracks:</dt>
-    <dd>
-      <ul>
-        {record.track.map((trk) => <li>{trk.name}</li>)}
-      </ul>
-    </dd>
-  </dl>
+  <VideoModal service="youtube" url={services.YouTubeURL}></VideoModal>
+  <VideoModal service="spotify" url={services.SpotifyURL}></VideoModal>
 </Layout>
 
 <style>
+  div.record {
+    display: grid;
+    grid-template-rows: auto auto;
+    justify-content: center;
+    gap: 1rem;
+  }
   img {
-    max-height: 100px;
+    max-width: 80%;
+    margin-inline: auto;
+  }
+
+  dl {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 1rem;
+  }
+
+  dt {
+    text-align: right;
   }
 </style>

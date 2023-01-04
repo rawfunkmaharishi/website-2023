@@ -2,31 +2,56 @@
 import Layout from "../layouts/Layout.astro";
 import { fetchFromAPI } from "../tools";
 
-const records = await fetchFromAPI("records")
-  .then(function (records) {
-    return records.map((record) => {
-      return {
-        href: record.url,
-        year: record.datePublished.split("-").slice(0, 1)[0],
-        name: record.name,
-        image: record.image.contentUrl
-      };
-    });
+const records = await fetchFromAPI("records").then(function (records) {
+  return records.reverse().map((record) => {
+    return {
+      href: record.url,
+      year: record.datePublished.split("-").slice(0, 1)[0],
+      name: record.name,
+      image: record.image.contentUrl,
+    };
   });
-
+});
 ---
 
-<Layout>
+<Layout title="Records">
   <ul>
     {
       records.map((record) => (
         <li>
-          <a href={record.href}>
-            <img src={record.image} />
-            {record.year} - {record.name}
-          </a>
+          <div class="record">
+            <h2>
+              {record.name} <small>({record.year})</small>
+            </h2>
+            <a href={record.href}>
+              <img src={record.image} />
+            </a>
+          </div>
         </li>
       ))
     }
   </ul>
 </Layout>
+
+<style>
+  img {
+    width: 50vw;
+  }
+
+  h2 {
+    padding: 1rem;
+  }
+
+  div.record {
+    padding-bottom: 5rem;
+    display: grid;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  @media only screen and (max-width: 600px) {
+    img {
+      width: 70vw;
+    }
+  }
+</style>

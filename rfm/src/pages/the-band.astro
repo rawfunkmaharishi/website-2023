@@ -1,16 +1,15 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { fetchFromAPI } from "../tools";
+import { fetchFromAPI, getJSONLD } from "../tools";
 
-const people = await fetchFromAPI("people").then(function (people) {
-  return people;
-});
+const band = await fetchFromAPI("raw-funk-maharishi")
+
 ---
 
-<Layout title="The Band">
+<Layout title="The Band" jsonLD={getJSONLD(band)}>
   <ul>
     {
-      people.map((person) => (
+      band.member.map((person) => (
         <li>
           <h2>{person.name}</h2>
           <img src={person.image.contentUrl} />

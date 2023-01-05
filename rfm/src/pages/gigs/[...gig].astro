@@ -1,84 +1,90 @@
 ---
 import moment from "moment";
 import Layout from "../../layouts/Layout.astro";
-import { fetchFromAPI } from "../../tools";
+import { fetchFromAPI, getJSONLD } from "../../tools";
 
 export async function getStaticPaths() {
-  return await fetchFromAPI("gigs").then(function(items){
+  return await fetchFromAPI("gigs").then(function (items) {
     return items.map((gig) => {
       return {
         params: {
-          gig: gig.url.replace("/gigs/", "")
+          gig: gig.url.replace("/gigs/", ""),
         },
         props: { gig },
       };
     });
   });
-
 }
 
 const { gig } = Astro.props;
 
 const title = "Live at " + gig.location.name;
-const date = moment(gig.startDate).format("MMMM Do YYYY");
+
+var formatString = "dddd MMMM Do"
+if (new Date(gig.startDate).getFullYear() != new Date().getFullYear()) {
+  formatString += ", YYYY"
+}
+const date = moment(gig.startDate).format(formatString);
+
 const time = gig.startDate.split("T").slice(1);
 
 // https://stackoverflow.com/a/7220510
-const jsonLD = JSON.stringify(gig, null, 2);
+// const jsonLD = JSON.stringify(gig, null, 2);
 ---
 
-<Layout title={title} jsonLD={jsonLD}>
+<Layout title={title} jsonLD={getJSONLD(gig)}>
+  <div class="gig">
+    <dl>
+      <dt>Date:</dt>
+      <dd>{date}</dd>
+      <dt>Time:</dt>
+      <dd>{time}</dd>
+      <dt>Location:</dt>
+      <dd>{gig.location.address.streetAddress}</dd>
 
-  <dl>
-    <dt>Date:</dt>
-    <dd>{date}</dd>
-    <dt>Time:</dt>
-    <dd>{time}</dd>
-    <dt>Location:</dt>
-    <dd>{gig.location.address.streetAddress}</dd>
+      {
+        gig.performer instanceof Array && (
+          <>
+            <dt>With:</dt>
+            <dd>
+              <ul>
+                {gig.performer
+                  .filter((act) => act.sameAs != "https://rawfunkmaharishi.uk/")
+                  .map((act) => (
+                    <li>
+                      <a href={act.sameAs}>{act.name}</a>
+                    </li>
+                  ))}
+              </ul>
+            </dd>
+          </>
+        )
+      }
 
-    {
-      gig.performer instanceof Array && (
-        <>
-          <dt>With:</dt>
-          <dd>
-            <ul>
-              {gig.performer
-                .filter((act) => act.sameAs != "https://rawfunkmaharishi.uk/")
-                .map((act) => (
-                  <li>
-                    <a href={act.sameAs}>{act.name}</a>
-                  </li>
-                ))}
-            </ul>
-          </dd>
-        </>
-      )
-    }
+      {
+        Array.isArray(gig.sameAs) && (
+          <>
+            <dt>More info:</dt>
+            <dd>
+              <ul>
+                {gig.sameAs
+                  .filter(
+                    (url) => !url.startsWith("https://rawfunkmaharishi.uk/")
+                  )
+                  .map((url) => (
+                    <li>
+                      <a href={url}>{url.split("/").slice(2, 3)[0]}</a>
+                    </li>
+                  ))}
+              </ul>
+            </dd>
+          </>
+        )
+      }
+    </dl>
 
-    {
-      Array.isArray(gig.sameAs) && (
-        <>
-          <dd>More info:</dd>
-          <dt>
-            <ul>
-              {gig.sameAs
-                .filter(
-                  (url) => !url.startsWith("https://rawfunkmaharishi.uk/")
-                )
-                .map((url) => (
-                  <li>
-                    <a href={url}>{url.split("/").slice(2, 3)[0]}</a>
-                  </li>
-                ))}
-            </ul>
-          </dt>
-        </>
-      )
-    }
-  </dl>
-
-  <div id="map"></div>
+    <div id="map"></div>
+  </div>
 </Layout>
 
 <script
@@ -87,7 +93,7 @@ const jsonLD = JSON.stringify(gig, null, 2);
     longitude: gig.location.geo.longitude,
   }}
 >
-  const map = L.map("map").setView([latitude, longitude], 13);
+  const map = L.map("map").setView([latitude, longitude], 15);
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19,
     attribution:
@@ -98,9 +104,19 @@ const jsonLD = JSON.stringify(gig, null, 2);
 </script>
 
 <style>
+  dl {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 1rem;
+    padding-bottom: 5rem;
+  }
+
+  dt {
+    text-align: right;
+  }
   div#map {
-    height: 200px;
-    width: 50%;
+    height: 50vh;
+    width: 80%;
     margin-inline: auto;
   }
 </style>

@@ -48,3 +48,7 @@ export function streamingServices(referenceUrls) {
     otherServices: otherServices(),
   };
 }
+
+export function getJSONLD(data) {
+  return JSON.stringify(data, null, 2);
+}

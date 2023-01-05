@@ -1,6 +1,6 @@
 import rss from "@astrojs/rss";
 import { fetchFromAPI } from "../tools";
-
+ // TODO: fix publish data, at least
 export const get = async () =>
   rss({
     title: "Raw Funk Maharishi Gig Calendar",

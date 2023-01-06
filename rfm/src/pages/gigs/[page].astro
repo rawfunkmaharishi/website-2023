@@ -1,13 +1,10 @@
 ---
 import moment from "moment";
 import Layout from "../../layouts/Layout.astro";
-import { fetchFromAPI } from "../../tools";
+import { futureGigs } from "../../tools";
 
 export async function getStaticPaths({ paginate }) {
-  const gigs = await fetchFromAPI("gigs")
-    .then(function (gigs) {
-      return gigs.filter((gig) => new Date(gig.startDate) > new Date());
-    })
+  const gigs = await futureGigs()
     .then(function (items) {
       return items.map((gig) => {
         return {

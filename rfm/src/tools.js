@@ -8,6 +8,12 @@ export async function fetchFromAPI(page) {
   );
 }
 
+export async function futureGigs() {
+  return await fetchFromAPI("gigs").then(function (gigs) {
+    return gigs.filter((gig) => new Date(gig.startDate) > new Date());
+  });
+}
+
 export function streamingServices(referenceUrls) {
   const urls = [...referenceUrls];
   const lookups = {

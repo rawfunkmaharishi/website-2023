@@ -1,5 +1,7 @@
 ---
 import moment from "moment";
+import "@mdi/font/css/materialdesignicons.css";
+
 import Layout from "../../layouts/Layout.astro";
 import { futureGigs } from "../../tools";
 
@@ -39,6 +41,17 @@ const { page } = Astro.props;
     {page.url.prev && <a href={page.url.prev}>«</a> || <span class="dead">«</span>}
     {page.url.next && <a href={page.url.next}>»</a> || <span class="dead">»</span>}
   </div>
+
+  <div id="calendars">
+    <a href="/gigs/calendar.ics">
+      <span class:list={["mdi", "mdi-calendar"]}></span>
+    </a>
+    <a href="/gigs/rss.xml">
+      <span class:list={["mdi", "mdi-rss"]}></span>
+    </a>
+  </div>
+
+
 </Layout>
 
 <style>

@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export async function fetchFromAPI(page) {
   return await fetch("https://json.rawfunkmaharishi.uk/" + page + ".json").then(
     function (response) {
@@ -51,4 +53,17 @@ export function streamingServices(referenceUrls) {
 
 export function getJSONLD(data) {
   return JSON.stringify(data, null, 2);
+}
+
+export function niceDate(uglyDate, forceYear = false) {
+  var formatString = "dddd MMMM Do";
+
+  if (
+    new Date(uglyDate).getFullYear() != new Date().getFullYear() ||
+    forceYear
+  ) {
+    formatString += ", YYYY";
+  }
+
+  return moment(uglyDate).format(formatString);
 }

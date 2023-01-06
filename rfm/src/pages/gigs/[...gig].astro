@@ -1,7 +1,6 @@
 ---
-import moment from "moment";
 import Layout from "../../layouts/Layout.astro";
-import { fetchFromAPI, getJSONLD } from "../../tools";
+import { fetchFromAPI, getJSONLD ,niceDate} from "../../tools";
 
 export async function getStaticPaths() {
   return await fetchFromAPI("gigs").then(function (items) {
@@ -20,11 +19,7 @@ const { gig } = Astro.props;
 
 const title = "Live at " + gig.location.name;
 
-var formatString = "dddd MMMM Do"
-if (new Date(gig.startDate).getFullYear() != new Date().getFullYear()) {
-  formatString += ", YYYY"
-}
-const date = moment(gig.startDate).format(formatString);
+const date = niceDate(gig.startDate)
 
 const time = gig.startDate.split("T").slice(1);
 

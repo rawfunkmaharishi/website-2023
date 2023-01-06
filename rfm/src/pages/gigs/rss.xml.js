@@ -1,6 +1,7 @@
 import rss from "@astrojs/rss";
-import { fetchFromAPI } from "../tools";
- // TODO: fix publish data, at least
+import { fetchFromAPI } from "../../tools";
+import { niceDate } from "../../tools";
+
 export const get = async () =>
   rss({
     title: "Raw Funk Maharishi Gig Calendar",
@@ -15,9 +16,9 @@ export const get = async () =>
       .then(function (gigs) {
         return gigs.map((gig) => {
           return {
+            title: gig.location.name + ", " + niceDate(gig.startDate, true),
             link: import.meta.env.SITE.slice(-1) + gig.url, // remove double-slash
-            pubDate: gig.startDate.slice(0, 10),
-            title: gig.location.name,
+            pubDate: new Date(),
           };
         });
       }),

@@ -23,8 +23,6 @@ const date = niceDate(gig.startDate)
 
 const time = gig.startDate.split("T").slice(1);
 
-// https://stackoverflow.com/a/7220510
-// const jsonLD = JSON.stringify(gig, null, 2);
 ---
 
 <Layout title={title} jsonLD={getJSONLD(gig)}>

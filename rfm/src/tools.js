@@ -27,10 +27,6 @@ export function streamingServices(referenceUrls) {
     },
   };
 
-  // remove ourselves
-  const RFMURL = urls.filter((url) => url.includes("rawfunkmaharishi.uk"))[0];
-  urls.splice(urls.indexOf(RFMURL), 1);
-
   const YouTubeURL = urls.filter((url) => url.includes("youtube.com"))[0];
   urls.splice(urls.indexOf(YouTubeURL), 1);
 

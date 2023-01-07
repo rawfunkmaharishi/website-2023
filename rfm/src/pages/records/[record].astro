@@ -59,8 +59,10 @@ const services = streamingServices(record.sameAs);
           {
             services.otherServices.map((service) => (
               <li>
-                <span class:list={["mdi", service.icon]} />
-                <a href={service.url}>{service.name}</a>
+                <a href={service.url}>
+                  <span class:list={["mdi", service.icon]} />
+                  {service.name}
+                </a>
               </li>
             ))
           }
@@ -75,8 +77,8 @@ const services = streamingServices(record.sameAs);
     </dl>
   </div>
 
-  <VideoModal service="youtube" url={services.YouTubeURL}></VideoModal>
-  <VideoModal service="spotify" url={services.SpotifyURL}></VideoModal>
+  <VideoModal service="youtube" url={services.YouTubeURL} />
+  <VideoModal service="spotify" url={services.SpotifyURL} />
 </Layout>
 
 <style>

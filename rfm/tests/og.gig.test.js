@@ -2,6 +2,13 @@ import { ogFromJSON } from "../src/lib/OpenGraph";
 
 it("gets the data", () => {
   const og = new ogFromJSON(data, "https://somesite.com");
+  expect(og.render()).toEqual(String.raw`
+  <meta property="og:description" content="Raw Funk Maharishi live at Luna Lounge on Thursday December 14th" />
+  <meta property="og:image" content="https://somesite.co/logos/rfm.png" />
+  <meta property="og:title" content="Raw Funk Maharishi live at Luna Lounge" />
+  <meta property="og:type" content="event" />
+  <meta property="og:url" content="https://somesite.co/gigs/2023/12/14/luna" />
+`);
 });
 
 const data = {

@@ -11,7 +11,7 @@ export const get = async () =>
     customData:
       '<atom:link href="' +
       import.meta.env.SITE +
-      'rss.xml" rel="self" type="application/rss+xml" />',
+      'gigs/rss.xml" rel="self" type="application/rss+xml" />',
     stylesheet: "/styles.xsl",
 
     items: await futureGigs().then(function (gigs) {

@@ -1,12 +1,20 @@
+import { niceDate } from "../tools";
+
 class ogFromJSON {
   constructor(data, site) {
-    site = site.slice(-1);
+    site = site.slice(0, -1);
     this.title = data.name;
     this.image = site + "/logos/rfm.png";
-    this.url = site + data.url; // TODO double-slash
+
+    if (data.url.startsWith("http")) {
+      this.url = data.url;
+    } else {
+      this.url = site + data.url;
+    }
 
     if (data["@type"] == "MusicEvent") {
       this.type = "event";
+      this.description = data.name + " on " + niceDate(data.startDate);
     }
   }
 

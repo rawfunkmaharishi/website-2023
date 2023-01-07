@@ -1,12 +1,14 @@
 ---
 import Leaflet from "../components/Leaflet.astro";
 import { ogFromJSON } from "../lib/OpenGraph";
-const { title, jsonLD } = Astro.props;
+import { fetchFromAPI } from "../tools";
+var { title, jsonLD } = Astro.props;
 
-var og = null
-if(jsonLD) {
-  og = new ogFromJSON(JSON.parse(jsonLD), import.meta.env.SITE)
+if (!jsonLD) {
+  jsonLD = JSON.stringify(await fetchFromAPI("raw-funk-maharishi"));
 }
+
+const og = new ogFromJSON(JSON.parse(jsonLD), import.meta.env.SITE);
 ---
 
 <head>
@@ -19,9 +21,10 @@ if(jsonLD) {
 
   {jsonLD && <script type="application/ld+json" set:html={jsonLD} />}
 
-  {og &&
-  <Fragment set:html={og.render()}>
-  }
-
-  <title>{title}</title>
+  {
+    og && (
+        <Fragment set:html={og.render()}></Fragment>
+        )
+      }
+      <title>{title}</title>
 </head>

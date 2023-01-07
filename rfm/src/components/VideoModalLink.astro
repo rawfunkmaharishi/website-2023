@@ -1,0 +1,14 @@
+---
+
+const { name, id } = Astro.props
+
+const classes = ["mdi", "mdi-" + id]
+const onClick = "document.getElementById('" + id + "').showModal()"
+---
+
+<li>
+    <a href="#" onclick={onClick}>
+      <span class:list={classes}></span>
+      {name}
+    </a>
+  </li>

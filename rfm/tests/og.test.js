@@ -1,9 +1,7 @@
 import { ogFromJSON } from "../src/lib/OpenGraph";
 
 it("gets the data", () => {
-  const og = new ogFromJSON(data);
-
-  console.log(og.render());
+  const og = new ogFromJSON(data, "https://somesite.com");
 });
 
 const data = {

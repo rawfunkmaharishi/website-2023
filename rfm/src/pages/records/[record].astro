@@ -1,9 +1,11 @@
 ---
 import moment from "moment";
+import "@mdi/font/css/materialdesignicons.css";
+
 import Layout from "../../layouts/Layout.astro";
 import VideoModal from "../../components/VideoModal.astro";
-import "@mdi/font/css/materialdesignicons.css";
-import { fetchFromAPI, streamingServices } from "../../tools";
+import VideoModalLink from "../../components/VideoModalLink.astro";
+import { fetchFromAPI, streamingServices } from "../../lib/tools";
 
 export async function getStaticPaths() {
   return await fetchFromAPI("records").then(function (records) {
@@ -38,24 +40,9 @@ const services = streamingServices(record.sameAs);
       <dt>Get it:</dt>
       <dd>
         <ul>
-          <li>
-            <a
-              href="#"
-              onclick="document.getElementById('youtube').showModal()"
-            >
-              <span class:list={["mdi", "mdi-youtube"]}></span>
-              YouTube
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              onclick="document.getElementById('spotify').showModal()"
-            >
-              <span class:list={["mdi", "mdi-spotify"]}></span>
-              Spotify
-            </a>
-          </li>
+          <VideoModalLink name="YouTube" id="youtube" />
+          <VideoModalLink name="Spotify" id="spotify" />
+          <VideoModalLink name="Apple Music" id="apple" />
           {
             services.otherServices.map((service) => (
               <li>
@@ -79,6 +66,7 @@ const services = streamingServices(record.sameAs);
 
   <VideoModal service="youtube" url={services.YouTubeURL} />
   <VideoModal service="spotify" url={services.SpotifyURL} />
+  <VideoModal service="apple" url={services.AppleURL} />
 </Layout>
 
 <style>

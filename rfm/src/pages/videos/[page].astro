@@ -1,7 +1,7 @@
 ---
 import moment from "moment";
 import Layout from "../../layouts/Layout.astro";
-import { fetchFromAPI } from "../../tools";
+import { fetchFromAPI } from "../../lib/tools";
 
 export async function getStaticPaths({ paginate }) {
   const videos = await fetchFromAPI("gigs")

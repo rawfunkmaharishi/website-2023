@@ -3,7 +3,7 @@ import moment from "moment";
 import "@mdi/font/css/materialdesignicons.css";
 
 import Layout from "../../layouts/Layout.astro";
-import { futureGigs } from "../../tools";
+import { futureGigs } from "../../lib/tools";
 
 export async function getStaticPaths({ paginate }) {
   const gigs = await futureGigs()

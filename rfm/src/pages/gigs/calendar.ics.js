@@ -1,5 +1,5 @@
 import moment from "moment";
-import { futureGigs } from "../../tools";
+import { futureGigs } from "../../lib/tools";
 
 const boilerPlate = String.raw`
 BEGIN:VCALENDAR

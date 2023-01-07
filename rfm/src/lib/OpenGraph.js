@@ -1,4 +1,4 @@
-import { niceDate } from "../tools";
+import { niceDate } from "./tools";
 
 class ogFromJSON {
   constructor(data, site) {

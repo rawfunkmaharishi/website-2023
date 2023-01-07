@@ -1,6 +1,5 @@
 import rss from "@astrojs/rss";
-import { futureGigs } from "../../tools";
-import { niceDate } from "../../tools";
+import { futureGigs, niceDate } from "../../lib/tools";
 
 export const get = async () =>
   rss({

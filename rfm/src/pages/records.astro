@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { fetchFromAPI } from "../tools";
+import { fetchFromAPI } from "../lib/tools";
 
 const records = await fetchFromAPI("records").then(function (records) {
   return records.reverse().map((record) => {

@@ -4,7 +4,7 @@ import { futureGigs } from "../../tools";
 const boilerPlate = String.raw`
 BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//rawfunkhamarishi.uk//
+PRODID:-//import.meta.env.SITE//
 X-WR-CALNAME:Raw Funk Maharishi Gigs
 CALSCALE:GREGORIAN
 BEGIN:VTIMEZONE
@@ -26,7 +26,7 @@ DTSTART:19701025T020000
 RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
 END:STANDARD
 END:VTIMEZONE
-`;
+`.replaceAll('"', "");
 
 const tail = String.raw`
 END:VCALENDAR

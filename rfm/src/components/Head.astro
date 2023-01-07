@@ -3,7 +3,10 @@ import Leaflet from "../components/Leaflet.astro";
 import { ogFromJSON } from "../lib/OpenGraph";
 const { title, jsonLD } = Astro.props;
 
-const og = new ogFromJSON(JSON.parse(jsonLD), import.meta.env.SITE)
+var og = null
+if(jsonLD) {
+  og = new ogFromJSON(JSON.parse(jsonLD), import.meta.env.SITE)
+}
 ---
 
 <head>
@@ -16,7 +19,9 @@ const og = new ogFromJSON(JSON.parse(jsonLD), import.meta.env.SITE)
 
   {jsonLD && <script type="application/ld+json" set:html={jsonLD} />}
 
+  {og &&
   <Fragment set:html={og.render()}>
+  }
 
   <title>{title}</title>
 </head>

@@ -7,6 +7,7 @@ export const get = async () =>
     title: "Raw Funk Maharishi Gig Calendar",
     description: "Upcoming Raw Funk Maharishi shows",
     site: import.meta.env.SITE,
+    xmlns: { atom: "http://www.w3.org/2005/Atom" },
     stylesheet: "/styles.xsl",
 
     items: await futureGigs().then(function (gigs) {

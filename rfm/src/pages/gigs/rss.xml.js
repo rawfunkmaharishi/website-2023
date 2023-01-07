@@ -8,6 +8,10 @@ export const get = async () =>
     description: "Upcoming Raw Funk Maharishi shows",
     site: import.meta.env.SITE,
     xmlns: { atom: "http://www.w3.org/2005/Atom" },
+    customData:
+      '<atom:link href="' +
+      import.meta.env.SITE +
+      'rss.xml" rel="self" type="application/rss+xml" />',
     stylesheet: "/styles.xsl",
 
     items: await futureGigs().then(function (gigs) {

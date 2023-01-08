@@ -1,6 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { fetchFromAPI, getJSONLD ,niceDate} from "../../lib/tools";
+import { fetchFromAPI, getJSONLD, niceDate } from "../../lib/tools";
 
 export async function getStaticPaths() {
   return await fetchFromAPI("gigs").then(function (items) {
@@ -18,10 +18,11 @@ export async function getStaticPaths() {
 const { gig } = Astro.props;
 
 const title = "Live at " + gig.location.name;
-
-const date = niceDate(gig.startDate)
-
+const date = niceDate(gig.startDate);
 const time = gig.startDate.split("T").slice(1);
+
+// const tiles = "Stamen.TonerLite"
+const tiles="Stadia.AlidadeSmoothDark"
 
 ---
 
@@ -84,16 +85,18 @@ const time = gig.startDate.split("T").slice(1);
   define:vars={{
     latitude: gig.location.geo.latitude,
     longitude: gig.location.geo.longitude,
+    tiles: tiles
   }}
 >
-  const map = L.map("map").setView([latitude, longitude], 15);
+  const map = L.map("map").setView([latitude, longitude], 16);
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19,
     attribution:
       '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   }).addTo(map);
+  L.tileLayer.provider(tiles).addTo(map);
 
-  const marker = L.marker([latitude, longitude]).addTo(map);
+  L.marker([latitude, longitude]).addTo(map);
 </script>
 
 <style>

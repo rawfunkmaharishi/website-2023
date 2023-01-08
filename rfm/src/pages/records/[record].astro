@@ -43,6 +43,7 @@ const services = streamingServices(record.sameAs);
           <VideoModalLink name="YouTube" id="youtube" />
           <VideoModalLink name="Spotify" id="spotify" />
           <VideoModalLink name="Apple Music" id="apple" />
+          <VideoModalLink name="Deezer" id="deezer" />
           {
             services.otherServices.map((service) => (
               <li>
@@ -67,7 +68,7 @@ const services = streamingServices(record.sameAs);
   <VideoModal service="youtube" url={services.YouTubeURL} />
   <VideoModal service="spotify" url={services.SpotifyURL} />
   <VideoModal service="apple" url={services.AppleURL} />
-</Layout>
+  <VideoModal service="deezer" url={services.DeezerURL} />
 
 <style>
   div.record {

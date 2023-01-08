@@ -1,14 +1,17 @@
 ---
+const { name, id } = Astro.props;
 
-const { name, id } = Astro.props
+const valid_mdis = ["apple", "spotify", "youtube"];
 
-const classes = ["mdi", "mdi-" + id]
-const onClick = "document.getElementById('" + id + "').showModal()"
+const icon = valid_mdis.includes(id) ? id : "music";
+
+const classes = ["mdi", "mdi-" + icon];
+const onClick = "document.getElementById('" + id + "').showModal()";
 ---
 
 <li>
-    <a href="#" onclick={onClick}>
-      <span class:list={classes}></span>
-      {name}
-    </a>
-  </li>
+  <a href="#" onclick={onClick}>
+    <span class:list={classes}></span>
+    {name}
+  </a>
+</li>

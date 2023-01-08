@@ -36,6 +36,9 @@ export function streamingServices(referenceUrls) {
   const AppleURL = urls.filter((url) => url.includes("music.apple.com"))[0];
   urls.splice(urls.indexOf(AppleURL), 1);
 
+  const DeezerURL = urls.filter((url) => url.includes("widget.deezer.com"))[0];
+  urls.splice(urls.indexOf(DeezerURL), 1);
+
   const otherServices = function () {
     const results = [];
     Object.keys(lookups).forEach(function (key) {
@@ -53,6 +56,7 @@ export function streamingServices(referenceUrls) {
     YouTubeURL: YouTubeURL,
     SpotifyURL: SpotifyURL,
     AppleURL: AppleURL,
+    DeezerURL: DeezerURL,
     otherServices: otherServices(),
   };
 }

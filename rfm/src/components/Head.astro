@@ -9,6 +9,8 @@ if (!jsonLD) {
 }
 
 const og = new ogFromJSON(JSON.parse(jsonLD), import.meta.env.SITE);
+
+const headerTitle = title || "Raw Funk Maharishi"
 ---
 
 <head>
@@ -26,5 +28,5 @@ const og = new ogFromJSON(JSON.parse(jsonLD), import.meta.env.SITE);
         <Fragment set:html={og.render()}></Fragment>
         )
       }
-      <title>{title}</title>
+      <title>{headerTitle}</title>
 </head>

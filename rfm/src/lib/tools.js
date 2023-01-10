@@ -16,49 +16,40 @@ export async function futureGigs() {
 
 export function streamingServices(referenceUrls) {
   const urls = [...referenceUrls];
-  const lookups = {
-    "apple.com": {
-      name: "Apple Music",
-      icon: "mdi-apple",
+  const lookups = [
+    // the ordering here is IMPORTANT!!!
+    {
+      matcher: "spotify.com",
+      name: "Spotify",
+      icon: "mdi-spotify",
     },
-    "amazon.co": {
-      name: "Amazon Music",
-      icon: "mdi-music",
+    { matcher: "music.apple.com", name: "Apple Music", icon: "mdi-apple" },
+    {
+      matcher: "youtube.com",
+      name: "YouTube",
+      icon: "mdi-youtube",
     },
-  };
+    { matcher: "deezer.com", name: "Deezer", icon: "mdi-chart-bar-stacked" },
+    { matcher: "music.amazon.co", name: "Amazon Music", icon: "mdi-music" },
+  ];
 
-  const YouTubeURL = urls.filter((url) => url.includes("youtube.com"))[0];
-  urls.splice(urls.indexOf(YouTubeURL), 1);
+  const services = [];
 
-  const SpotifyURL = urls.filter((url) => url.includes("spotify.com"))[0];
-  urls.splice(urls.indexOf(SpotifyURL), 1);
-
-  const AppleURL = urls.filter((url) => url.includes("music.apple.com"))[0];
-  urls.splice(urls.indexOf(AppleURL), 1);
-
-  const DeezerURL = urls.filter((url) => url.includes("widget.deezer.com"))[0];
-  urls.splice(urls.indexOf(DeezerURL), 1);
-
-  const otherServices = function () {
-    const results = [];
-    Object.keys(lookups).forEach(function (key) {
-      urls.forEach(function (url) {
-        if (url.includes(key)) {
-          lookups[key]["url"] = url;
-          results.push(lookups[key]);
-        }
-      });
+  lookups.forEach(function (lookup) {
+    const urlForLookup = urls.filter(function (url) {
+      return url.includes(lookup.matcher);
     });
-    return results;
-  };
+    if (urlForLookup.length > 0) {
+      const data = { ...lookup };
+      delete data.matcher;
+      data.url = urlForLookup[0];
+      data.id = kebabCase(data.name);
 
-  return {
-    YouTubeURL: YouTubeURL,
-    SpotifyURL: SpotifyURL,
-    AppleURL: AppleURL,
-    DeezerURL: DeezerURL,
-    otherServices: otherServices(),
-  };
+      services.push(data);
+    }
+  });
+
+  return services;
 }
 
 export function getJSONLD(data) {
@@ -76,4 +67,8 @@ export function niceDate(uglyDate, forceYear = false) {
   }
 
   return moment(uglyDate).format(formatString);
+}
+
+export function kebabCase(name) {
+  return name.toLowerCase().replaceAll(" ", "-");
 }

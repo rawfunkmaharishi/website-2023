@@ -1,17 +1,20 @@
 ---
-const { name, id } = Astro.props;
+const { data } = Astro.props;
 
-const valid_mdis = ["apple", "spotify", "youtube"];
-
-const icon = valid_mdis.includes(id) ? id : "music";
-
-const classes = ["mdi", "mdi-" + icon];
-const onClick = "document.getElementById('" + id + "').showModal()";
+const classes = ["mdi", data.icon];
+const name = data.name;
+const elementId = data.id + "-control";
 ---
 
 <li>
-  <a href="#" onclick={onClick}>
+  <a href="#" id={elementId}>
     <span class:list={classes}></span>
     {name}
   </a>
 </li>
+
+<script define:vars={{ id: data.id }}>
+  document.getElementById(id + "-control").addEventListener("click", () => {
+    document.getElementById(id).showModal();
+  });
+</script>

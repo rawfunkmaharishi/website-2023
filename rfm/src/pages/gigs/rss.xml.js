@@ -17,7 +17,7 @@ export const get = async () =>
       return gigs.map((gig) => {
         return {
           title: gig.location.name + ", " + niceDate(gig.startDate, true),
-          link: import.meta.env.SITE.slice(0, -1) + gig.url, // remove double-slash
+          link: import.meta.env.SITE.slice(0, -1) + gig.url, // remove double-slash TODO playwright test here
           pubDate: new Date(),
         };
       });

@@ -17,12 +17,14 @@ jobs:
     - name: Install dependencies
       working-directory: rfm
       run: npm ci
-    # - name: Install Playwright Browsers
-    #   run: npx playwright install --with-deps
-    # - name: Run Playwright tests
-    #   run: npx playwright test
-    #   env:
-    #     PLAYWRIGHT_TEST_BASE_URL: ${{ github.event.deployment_status.target_url }}
+    - name: Install Playwright Browsers
+      working-directory: rfm
+      run: npx playwright install --with-deps
+    - name: Run Playwright tests
+      working-directory: rfm
+      run: npx playwright test
+      env:
+        PLAYWRIGHT_TEST_BASE_URL: ${{ github.event.deployment_status.target_url }}
     # - uses: actions/upload-artifact@v3
     #   if: always()
     #   with:

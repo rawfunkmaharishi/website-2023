@@ -9,9 +9,9 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: rfm
+    # defaults:
+    #   run:
+    #     working-directory: rfm
 
     steps:
     - run: echo ${PLAYWRIGHT_TEST_BASE_URL}

@@ -56,8 +56,12 @@ export function getJSONLD(data) {
   return JSON.stringify(data, null, 2);
 }
 
-export function niceDate(uglyDate, forceYear = false) {
-  var formatString = "dddd MMMM Do";
+export function niceDate(uglyDate, forceYear = false, withDay = true) {
+  var formatString = "MMMM Do";
+
+  if (withDay) {
+    formatString = "dddd " + formatString;
+  }
 
   if (
     new Date(uglyDate).getFullYear() != new Date().getFullYear() ||
@@ -71,4 +75,8 @@ export function niceDate(uglyDate, forceYear = false) {
 
 export function kebabCase(name) {
   return name.toLowerCase().replaceAll(" ", "-");
+}
+
+export function isActive(link, url) {
+  return link.split("/")[1] == url.split("/")[1];
 }

@@ -1,0 +1,45 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { fetchFromAPI, getJSONLD, niceDate } from "../../lib/tools";
+
+export async function getStaticPaths() {
+  return await fetchFromAPI("gigs")
+    .then(function (gigs) {
+      return gigs.reverse().filter((item) => "recordedIn" in item);
+    })
+    .then(function (gigs) {
+      return gigs.map((video) => {
+        return {
+          params: {
+            video: video.url.replace("/gigs/", ""),
+          },
+          props: { video },
+        };
+      });
+    });
+}
+
+const { video } = Astro.props;
+
+const title = "Recorded at " + video.location.name;
+const date = niceDate(video.startDate, false, false);
+---
+
+<Layout title={title} jsonLD={getJSONLD(video)}>
+  <div class="video">
+    <div class="video-wrapper">
+      <iframe src={video.recordedIn.embedUrl} allowfullscreen></iframe>
+    </div>
+    <h2>{video.location.name}, {date}</h3>
+  </div>
+</Layout>
+
+<style>
+  h2 {
+    text-align: center;
+  }
+
+  iframe {
+    border: none;
+  }
+</style>

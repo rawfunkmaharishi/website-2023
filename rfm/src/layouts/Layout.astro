@@ -1,7 +1,6 @@
 ---
 import Head from "../components/Head.astro";
 import Header from "../components/Header.astro";
-
 import Footer from "../components/Footer.astro";
 export interface Props {
   title: string;
@@ -26,7 +25,6 @@ const { title, jsonLD } = Astro.props;
         <slot />
       </div>
     </main>
-
     <Footer />
     <style is:global>
       @import url("https://fonts.googleapis.com/css?family=Roboto");
@@ -57,7 +55,18 @@ const { title, jsonLD } = Astro.props;
         margin: 0;
       }
 
+      body {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-areas: "nav" "main" "footer";
+        grid-template-rows: auto auto 1fr;
+        min-height: 100vh;
+        overflow: auto;
+      }
+
       main {
+        grid-area: main;
+
         display: grid;
         grid-template-areas:
           "logo content"
@@ -136,6 +145,54 @@ const { title, jsonLD } = Astro.props;
         left: 0;
         width: 100%;
         height: 100%;
+      }
+
+      .paginated-links > ul {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      @media only screen and (max-width: 600px) {
+        .paginated-links > ul {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      .paginated-links > .dead {
+        color: var(--colour-grey);
+      }
+
+      @media only screen and (max-width: 600px) {
+        .paginated-links > #paginators {
+          text-align: center;
+        }
+      }
+
+      .venue {
+        display: block;
+        font-size: 1.5rem;
+      }
+
+      .paginated-links {
+        display: grid;
+        grid-template-areas:
+        "links"
+        "paginators"
+        ;
+        height: 50vh;
+      }
+
+      .paginated-links > ul {
+        grid-area: links;
+        align-self: start;
+
+      }
+
+      #paginators {
+        grid-area: paginators;
+        align-self: end;
+
       }
     </style>
   </body>

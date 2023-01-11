@@ -11,39 +11,41 @@ export async function getStaticPaths({ paginate }) {
     .then(function (videos) {
       return videos.map((video) => {
         return {
-          date: video.startDate,
-          venue: video.location.name,
-          youtube: video.recordedIn.embedUrl,
+          href: video.url.replace("/gigs", "/videos"),
+          date: video.startDate.slice(0, 10),
+          name: video.location.name,
         };
       });
     });
-  return paginate(videos, { pageSize: 1 });
+  return paginate(videos, { pageSize: 4 });
 }
 
 const { page } = Astro.props;
 ---
 
 <Layout title="Videos">
+  <div class="paginated-links">
+
     <ul>
       {page.data.map((video) => <li>
-        <h2>{video.venue}<small>
-            </small></h2>
-        <h3>{moment(video.date).format("MMMM Do YYYY")}</h3>
-        <div class="video-wrapper">
-            <iframe src={video.youtube} allowfullscreen
-              frameborder="0"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
-          </div>
-        </li>)}
-    </ul>
+         <a href={video.href}>
+          {moment(video.date).format("MMMM YYYY", true, false)}
+          <span class="venue">{video.name}</span>
+          </a>
+          </li>)}
+  </ul>
 
-    <div id="paginators">
-        {page.url.prev && <a href={page.url.prev}>«</a> || <span class="dead">«</span>}
-        {page.url.next && <a href={page.url.next}>»</a> || <span class="dead">»</span>}
-      </div>
+  <div id="paginators">
+    {
+      (page.url.prev && <a href={page.url.prev}>«</a>) || (
+        <span class="dead">«</span>
+        )
+      }
+    {
+      (page.url.next && <a href={page.url.next}>»</a>) || (
+        <span class="dead">»</span>
+        )
+      }
+  </div>
+</div>
 </Layout>
-
-<style>
-
-
-  </style>

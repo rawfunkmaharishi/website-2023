@@ -1,4 +1,4 @@
-import { streamingServices, kebabCase } from "../src/lib/tools.js";
+import { streamingServices, kebabCase, isActive } from "../src/lib/tools.js";
 
 it("structures the data", () => {
   const sameAs = [
@@ -49,4 +49,10 @@ it("kebabs a name", () => {
   expect(kebabCase("name")).toEqual("name");
   expect(kebabCase("two names")).toEqual("two-names");
   expect(kebabCase("Capital Name")).toEqual("capital-name");
+});
+
+it("knows if a link is active", () => {
+  expect(isActive("/the-band", "/the-band")).toEqual(true);
+  expect(isActive("/records", "/the-band")).toEqual(false);
+  expect(isActive("/gigs/1", "/gigs/2")).toEqual(true);
 });

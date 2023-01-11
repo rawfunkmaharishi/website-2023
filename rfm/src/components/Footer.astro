@@ -1,0 +1,36 @@
+---
+import "@mdi/font/css/materialdesignicons.css";
+---
+
+<footer>
+  <a href="/gigs/rss.xml" title="RSS feed of our gig calendar">
+    <span class:list={["mdi", "mdi-rss"]}></span>
+  </a>
+  <a href="/gigs/calendar.ics" title="ICS gig calendar">
+    <span class:list={["mdi", "mdi-calendar"]}></span>
+  </a>
+  <a
+    href="https://mastodon.me.uk/@rawfunkmaharishi"
+    title="Raw Funk Maharishi on Mastodon"
+    target="_blank"
+  >
+    <span class:list={["mdi mdi-mastodon"]}></span>
+  </a>
+</footer>
+
+<style>
+  footer {
+    grid-area: footer;
+    align-self: end;
+    height: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 1rem;
+  }
+
+  footer > * {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+</style>

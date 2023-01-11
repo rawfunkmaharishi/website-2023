@@ -1,4 +1,5 @@
-name: Playwright Tests
+name: End-to-End Tests
+
 on:
   push:
     branches: [ main ]

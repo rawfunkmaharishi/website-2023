@@ -5,6 +5,9 @@ on:
   pull_request:
     branches: [ main ]
 
+env:
+  GITHUB_PR_NUMBER: ${{github.event.pull_request.number}}
+
 jobs:
   test:
     timeout-minutes: 60
@@ -29,8 +32,8 @@ jobs:
       working-directory: rfm
       run: npx playwright test
       env:
-        PLAYWRIGHT_TEST_BASE_URL: ${{ github.event.deployment_status.target_url }}
-
+          PLAYWRIGHT_TEST_BASE_URL: "https://deploy-preview-${{env.GITHUB_PR_NUMBER}}--rawfunkmaharishi.netlify.app"
+          DEBUG: pw:api
     - uses: actions/upload-artifact@v3
       if: always()
       with:

@@ -12,7 +12,7 @@ const expectations = [
 
 expectations.forEach(function (expectation) {
   test(expectation.url + " has correct title", async ({ page }) => {
-    await page.goto("http://localhost:3002" + expectation.url);
+    await page.goto(process.env.PLAYWRIGHT_TEST_BASE_URL + expectation.url);
     await expect(page).toHaveTitle(expectation.title);
   });
 });

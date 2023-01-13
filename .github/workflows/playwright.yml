@@ -2,7 +2,10 @@ name: End-to-End Tests
 
 on:
   pull_request:
-    branches: [ main ]
+    branches:
+    - main
+    paths:
+    - 'rfm/**'
 
 env:
   GITHUB_PR_NUMBER: ${{github.event.pull_request.number}}

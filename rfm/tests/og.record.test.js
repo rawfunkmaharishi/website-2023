@@ -5,10 +5,10 @@ it("gets the data", () => {
 
   expect(og.render()).toEqual(String.raw`
   <meta property="og:description" content="Re:Designed by Raw Funk Maharishi" />
-  <meta property="og:image" content="https://somesite.co/record-covers/re:designed.jpg" />
+  <meta property="og:image" content="https://somesite.com/record-covers/re:designed.jpg" />
   <meta property="og:title" content="Re:Designed" />
   <meta property="og:type" content="music.album" />
-  <meta property="og:url" content="https://somesite.co/records/re:designed" />
+  <meta property="og:url" content="https://somesite.com/records/re:designed" />
 `);
 });
 

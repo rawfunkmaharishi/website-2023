@@ -5,7 +5,7 @@ it("gets the data", () => {
 
   expect(og.render()).toEqual(String.raw`
   <meta property="og:description" content="Raw Funk Maharishi" />
-  <meta property="og:image" content="https://somesite.co/logos/rfm.png" />
+  <meta property="og:image" content="https://somesite.com/logos/rfm.png" />
   <meta property="og:title" content="Raw Funk Maharishi" />
   <meta property="og:type" content="profile" />
   <meta property="og:url" content="https://rawfunkmaharishi.uk/" />

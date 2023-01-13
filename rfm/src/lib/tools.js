@@ -80,3 +80,16 @@ export function kebabCase(name) {
 export function isActive(link, url) {
   return link.split("/")[1] == url.split("/")[1];
 }
+
+export function cleanUrl(...parts) {
+  return parts.map(trimSlashes).join("/");
+}
+export function trimSlashes(word) {
+  while (word.slice(0, 1) == "/") {
+    word = word.slice(1);
+  }
+  while (word.slice(-1) == "/") {
+    word = word.slice(0, -1);
+  }
+  return word;
+}

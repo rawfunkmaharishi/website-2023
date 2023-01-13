@@ -1,7 +1,8 @@
 ---
-import moment from "moment";
-import Layout from "../../layouts/Layout.astro";
 import { fetchFromAPI } from "../../lib/tools";
+
+import Layout from "../../layouts/Layout.astro";
+import PaginatedLinks from "../../components/PaginatedLinks.astro";
 
 export async function getStaticPaths({ paginate }) {
   const videos = await fetchFromAPI("gigs")
@@ -24,28 +25,5 @@ const { page } = Astro.props;
 ---
 
 <Layout title="Videos">
-  <div class="paginated-links">
-
-    <ul>
-      {page.data.map((video) => <li>
-         <a href={video.href}>
-          {moment(video.date).format("MMMM YYYY", true, false)}
-          <span class="venue">{video.name}</span>
-          </a>
-          </li>)}
-  </ul>
-
-  <div id="paginators">
-    {
-      (page.url.prev && <a href={page.url.prev}>«</a>) || (
-        <span class="dead">«</span>
-        )
-      }
-    {
-      (page.url.next && <a href={page.url.next}>»</a>) || (
-        <span class="dead">»</span>
-        )
-      }
-  </div>
-</div>
+  <PaginatedLinks page={page} dateFormat="MMMM YYYY" />
 </Layout>

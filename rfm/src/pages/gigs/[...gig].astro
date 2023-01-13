@@ -22,8 +22,7 @@ const date = niceDate(gig.startDate);
 const time = gig.startDate.split("T").slice(1);
 
 // const tiles = "Stamen.TonerLite"
-const tiles="Stadia.AlidadeSmoothDark"
-
+const tiles = "Stadia.AlidadeSmoothDark";
 ---
 
 <Layout title={title} jsonLD={getJSONLD(gig)}>
@@ -38,6 +37,7 @@ const tiles="Stadia.AlidadeSmoothDark"
 
       {
         gig.performer instanceof Array && (
+          <>
             <dt>With:</dt>
             <dd>
               <ul>
@@ -50,6 +50,7 @@ const tiles="Stadia.AlidadeSmoothDark"
                   ))}
               </ul>
             </dd>
+          </>
         )
       }
 
@@ -81,9 +82,10 @@ const tiles="Stadia.AlidadeSmoothDark"
 
 <script
   define:vars={{
+    venue: gig.location.name,
     latitude: gig.location.geo.latitude,
     longitude: gig.location.geo.longitude,
-    tiles: tiles
+    tiles: tiles,
   }}
 >
   const map = L.map("map").setView([latitude, longitude], 16);
@@ -94,7 +96,9 @@ const tiles="Stadia.AlidadeSmoothDark"
   }).addTo(map);
   L.tileLayer.provider(tiles).addTo(map);
 
-  L.marker([latitude, longitude]).addTo(map);
+  L.marker([latitude, longitude])
+    .addTo(map)
+    .bindPopup("<span>" + venue + "</span>");
 </script>
 
 <style>

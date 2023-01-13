@@ -1,0 +1,52 @@
+---
+import moment from "moment";
+
+import Paginators from "./Paginators.astro";
+const { page, dateFormat } = Astro.props;
+---
+
+<div>
+  <ul>
+    {
+      page.data.map((item) => (
+        <li>
+          <a href={item.href}>
+            {moment(item.date).format(dateFormat)}
+            <span class="venue">{item.name}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+  <Paginators page={page} />
+</div>
+
+<style>
+  ul {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    grid-area: links;
+    align-self: start;
+  }
+
+  @media only screen and (max-width: 600px) {
+    ul {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .venue {
+    display: block;
+    font-size: 1.5rem;
+  }
+
+  div {
+    display: grid;
+    grid-template-areas:
+      "links"
+      "paginators";
+    height: 50vh;
+    background-color: ;
+  }
+</style>

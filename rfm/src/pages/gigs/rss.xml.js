@@ -1,5 +1,5 @@
 import rss from "@astrojs/rss";
-import { futureGigs, niceDate } from "../../lib/tools";
+import { futureGigs, niceDate, cleanUrl } from "../../lib/tools";
 
 export const get = async () =>
   rss({
@@ -11,14 +11,13 @@ export const get = async () =>
       '<atom:link href="' +
       import.meta.env.SITE +
       'gigs/rss.xml" rel="self" type="application/rss+xml" />',
-    stylesheet: "/styles.xsl",
     stylesheet: "/styles/rss.xsl",
 
     items: await futureGigs().then(function (gigs) {
       return gigs.map((gig) => {
         return {
           title: gig.location.name + ", " + niceDate(gig.startDate, true),
-          link: import.meta.env.SITE.slice(0, -1) + gig.url, // remove double-slash TODO playwright test here
+          link: cleanUrl(import.meta.env.SITE, gig.url),
           pubDate: new Date(),
         };
       });

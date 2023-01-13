@@ -1,9 +1,8 @@
 ---
-import moment from "moment";
-import "@mdi/font/css/materialdesignicons.css";
+import { futureGigs } from "../../lib/tools";
 
 import Layout from "../../layouts/Layout.astro";
-import { futureGigs } from "../../lib/tools";
+import PaginatedLinks from "../../components/PaginatedLinks.astro";
 
 export async function getStaticPaths({ paginate }) {
   const gigs = await futureGigs().then(function (items) {
@@ -22,31 +21,5 @@ const { page } = Astro.props;
 ---
 
 <Layout title="Upcoming Gigs">
-  <div class="paginated-links">
-    <ul>
-      {
-        page.data.map((gig) => (
-          <li>
-            <a href={gig.href}>
-              {moment(gig.date).format("dddd MMM Do")}
-              <span class="venue">{gig.name}</span>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-
-    <div id="paginators">
-      {
-        (page.url.prev && <a href={page.url.prev}>«</a>) || (
-          <span class="dead">«</span>
-        )
-      }
-      {
-        (page.url.next && <a href={page.url.next}>»</a>) || (
-          <span class="dead">»</span>
-        )
-      }
-    </div>
-  </div>
+    <PaginatedLinks page={page} dateFormat={"dddd MMM Do"} />
 </Layout>

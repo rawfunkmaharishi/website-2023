@@ -1,15 +1,14 @@
-import { niceDate } from "./tools";
+import { niceDate, cleanUrl } from "./tools";
 
 class ogFromJSON {
   constructor(data, site) {
-    site = site.slice(0, -1);
     this.title = data.name;
-    this.image = site + "/logos/rfm.png";
+    this.image = cleanUrl(site, "/logos/rfm.png");
 
     if (data.url.startsWith("http")) {
       this.url = data.url;
     } else {
-      this.url = site + data.url;
+      this.url = cleanUrl(site, data.url);
     }
 
     if (data["@type"] == "MusicEvent") {
@@ -19,7 +18,7 @@ class ogFromJSON {
 
     if (data["@type"] == "MusicAlbum") {
       this.type = "music.album";
-      this.image = site + data.image.contentUrl;
+      this.image = cleanUrl(site, data.image.contentUrl);
       this.description = data.name + " by " + data.byArtist.name;
     }
 

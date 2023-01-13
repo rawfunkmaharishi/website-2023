@@ -9,7 +9,7 @@ export async function getStaticPaths({ paginate }) {
     return items.map((gig) => {
       return {
         href: gig.url,
-        date: gig.startDate.slice(0, 10),
+        date: gig.startDate,
         name: gig.location.name,
       };
     });

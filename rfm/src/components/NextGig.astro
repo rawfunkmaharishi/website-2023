@@ -10,7 +10,7 @@ const nextGig = await futureGigs()
   .then(function (gig) {
     return {
       href: gig.url,
-      date: gig.startDate.slice(0, 10), // TODO make this a tools function
+      date: gig.startDate, // TODO make this a tools function
       name: gig.location.name,
     };
   });

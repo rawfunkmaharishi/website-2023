@@ -13,7 +13,7 @@ export async function getStaticPaths({ paginate }) {
       return videos.map((video) => {
         return {
           href: video.url.replace("/gigs", "/videos"),
-          date: video.startDate.slice(0, 10),
+          date: video.startDate,
           name: video.location.name,
         };
       });

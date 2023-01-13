@@ -12,6 +12,7 @@ export const get = async () =>
       import.meta.env.SITE +
       'gigs/rss.xml" rel="self" type="application/rss+xml" />',
     stylesheet: "/styles.xsl",
+    stylesheet: "/styles/rss.xsl",
 
     items: await futureGigs().then(function (gigs) {
       return gigs.map((gig) => {

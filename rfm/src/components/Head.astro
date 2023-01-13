@@ -1,4 +1,5 @@
 ---
+import Favicons from "./Favicons.astro";
 import Leaflet from "../components/Leaflet.astro";
 import { ogFromJSON } from "../lib/OpenGraph";
 import { fetchFromAPI } from "../lib/tools";
@@ -18,6 +19,8 @@ const headerTitle = title || "Raw Funk Maharishi"
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <meta name="generator" content={Astro.generator} />
+
+<Favicons />
 
   <Leaflet />
 

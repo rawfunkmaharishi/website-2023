@@ -1,0 +1,20 @@
+---
+const { musician } = Astro.props;
+
+const title = musician.name + ", " + musician.knowsAbout;
+---
+
+<img src={musician.image.contentUrl} title={title} />
+<h2>{musician.name}</h2>
+
+<style>
+  h2 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  img {
+    width: calc(var(--width) - 2vw);
+    margin-inline: 1vw;
+  }
+</style>

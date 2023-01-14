@@ -1,14 +1,13 @@
 ---
 import RecordSlide from "./slides/RecordSlide.astro";
 import MusicianSlide from "./slides/MusicianSlide.astro";
+import NavButtons from "./NavButtons.astro";
 
 const { items, slideType } = Astro.props;
 ---
 
 <section>
-  <button class="slide-arrow" id="slide-arrow-prev">&#8249;</button>
-  <button class="slide-arrow" id="slide-arrow-next">&#8250;</button>
-
+  <NavButtons />
   <ul id="slides-container">
     {
       items.map((item) => (
@@ -50,30 +49,6 @@ const { items, slideType } = Astro.props;
 
   li {
     align-items: center;
-  }
-
-  .slide-arrow {
-    position: absolute;
-    display: flex;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-    height: 2rem;
-    background-color: var(--colour-link);
-    border: none;
-    width: 2rem;
-    font-size: 1.5rem;
-    padding: 0;
-    cursor: pointer;
-    border-radius: 2rem;
-    justify-content: center;
-  }
-
-  #slide-arrow-prev {
-    left: 0;
-  }
-  #slide-arrow-next {
-    right: 0;
   }
 
   @media only screen and (min-width: 600px) {

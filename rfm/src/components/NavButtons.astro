@@ -1,0 +1,44 @@
+---
+const { urls } = Astro.props
+
+urls && console.log(urls)
+
+var prevHref = "#"
+var nextHref = "#"
+
+if(urls) {
+    prevHref = urls.prev
+    nextHref = urls.next
+}
+---
+
+<a class="slide-arrow" id="slide-arrow-prev" href={prevHref}>&#8249;</a>
+<a class="slide-arrow" id="slide-arrow-next" href={nextHref}>&#8250;</a>
+
+<style>
+.slide-arrow {
+    position: absolute;
+    display: flex;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 2rem;
+    background-color: var(--colour-link);
+    color: var(--colour-background);
+    border: none;
+    width: 2rem;
+    font-size: 1.5rem;
+    padding: 0;
+    cursor: pointer;
+    border-radius: 2rem;
+    justify-content: center;
+  }
+
+  #slide-arrow-prev {
+    left: 0;
+  }
+  #slide-arrow-next {
+    right: 0;
+  }
+
+  </style>

@@ -17,5 +17,5 @@ const records = await fetchFromAPI("records").then(function (records) {
 ---
 
 <Layout title="Records">
-  <Slider items={records} />
+  <Slider items={records} slideType="record" />
 </Layout>

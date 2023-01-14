@@ -1,7 +1,8 @@
 ---
 import RecordSlide from "./slides/RecordSlide.astro";
+import MusicianSlide from "./slides/MusicianSlide.astro";
 
-const { items } = Astro.props;
+const { items, slideType } = Astro.props;
 ---
 
 <section>
@@ -13,7 +14,8 @@ const { items } = Astro.props;
       items.map((item) => (
         <li>
           <div class="slide">
-            <RecordSlide record={item} />
+            {slideType == "record" && <RecordSlide record={item} />}
+            {slideType == "musician" && <MusicianSlide musician={item} />}
           </div>
         </li>
       ))

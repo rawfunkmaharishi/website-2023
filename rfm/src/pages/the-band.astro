@@ -1,5 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Slider from "../components/Slider.astro";
+
 import { fetchFromAPI, getJSONLD } from "../lib/tools";
 
 const band = await fetchFromAPI("raw-funk-maharishi")
@@ -7,17 +9,7 @@ const band = await fetchFromAPI("raw-funk-maharishi")
 ---
 
 <Layout title="The Band" jsonLD={getJSONLD(band)}>
-  <ul>
-    {
-      band.member.map((person) => (
-        <li>
-          <h2>{person.name}</h2>
-          <img src={person.image.contentUrl} />
-          <h3>{person.knowsAbout}</h3>
-        </li>
-      ))
-    }
-  </ul>
+  <Slider items={band.member} slideType="musician" />
 </Layout>
 
 <style>

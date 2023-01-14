@@ -15,45 +15,111 @@ const records = await fetchFromAPI("records").then(function (records) {
 ---
 
 <Layout title="Records">
-  <ul>
-    {
-      records.map((record) => (
-        <li>
-          <div class="record">
-            <h2>
-              {record.name} <small>({record.year})</small>
-            </h2>
-            <a href={record.href}>
-              <img src={record.image} />
-            </a>
-          </div>
-        </li>
-      ))
-    }
-  </ul>
+  <section>
+    <button class="slide-arrow" id="slide-arrow-prev"> &#8249;</button>
+    <button class="slide-arrow" id="slide-arrow-next"> &#8250;</button>
+
+    <ul id="slides-container">
+      {
+        records.map((record) => (
+          <li>
+            <div class="record">
+              <a href={record.href}>
+                <img src={record.image} class="record-sleeve" />
+              </a>
+              <h2>
+                {record.name} <small>({record.year})</small>
+              </h2>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
 </Layout>
 
 <style>
-  img {
-    width: 20vw;
+  :root {
+    --width: 60vw;
+  }
+
+  h2 {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  section {
+    position: relative;
+    margin: 0;
+    padding: 0;
   }
 
   ul {
+    margin-inline: auto;
     display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    align-items: center;
+    flex-direction: row;
+    width: var(--width);
+    overflow: hidden;
+    scroll-behavior: smooth;
   }
 
   li {
-    margin: auto;
-    padding-bottom: 1rem;
-    flex-basis: 40%;
+    align-items: center;
   }
 
-  @media only screen and (max-width: 600px) {
-    img {
-      width: 70vw;
-    }
+  img {
+    width: calc(var(--width) - 2vw);
+    margin-inline: 1vw;
+  }
+
+  .slide-arrow {
+    position: absolute;
+    display: flex;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 2rem;
+    background-color: var(--colour-link);
+    border: none;
+    width: 2rem;
+    font-size: 1.5rem;
+    padding: 0;
+    cursor: pointer;
+    border-radius: 2rem;
+    justify-content: center;
+  }
+
+  #slide-arrow-prev {
+    left: 0;
+  }
+  #slide-arrow-next {
+    right: 0;
+  }
+
+  @media only screen and (min-width: 600px) {
+    :root {
+    --width: 40vw;
+  }
+
   }
 </style>
+
+<script>
+  // https://webdesign.tutsplus.com/tutorials/how-to-build-a-simple-carousel-with-vanilla-javascript--cms-41734
+
+  const slidesContainer = document.getElementById("slides-container");
+  const slide = document.querySelector(".record");
+  const prevButton = document.getElementById("slide-arrow-prev");
+  const nextButton = document.getElementById("slide-arrow-next");
+
+  nextButton.addEventListener("click", () => {
+    const slideWidth = slide.clientWidth;
+    slidesContainer.scrollLeft += slideWidth;
+  });
+
+  prevButton.addEventListener("click", () => {
+    const slideWidth = slide.clientWidth;
+
+    slidesContainer.scrollLeft -= slideWidth;
+  });
+</script>

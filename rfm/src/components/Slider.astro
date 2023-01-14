@@ -1,22 +1,19 @@
 ---
+import RecordSlide from "./slides/RecordSlide.astro";
+
 const { items } = Astro.props;
 ---
 
 <section>
-  <button class="slide-arrow" id="slide-arrow-prev"> &#8249;</button>
-  <button class="slide-arrow" id="slide-arrow-next"> &#8250;</button>
+  <button class="slide-arrow" id="slide-arrow-prev">&#8249;</button>
+  <button class="slide-arrow" id="slide-arrow-next">&#8250;</button>
 
   <ul id="slides-container">
     {
       items.map((item) => (
         <li>
           <div class="slide">
-            <a href={item.href}>
-              <img src={item.image} />
-            </a>
-            <h2>
-              {item.name} <small>({item.year})</small>
-            </h2>
+            <RecordSlide record={item} />
           </div>
         </li>
       ))
@@ -51,11 +48,6 @@ const { items } = Astro.props;
 
   li {
     align-items: center;
-  }
-
-  img {
-    width: calc(var(--width) - 2vw);
-    margin-inline: 1vw;
   }
 
   .slide-arrow {

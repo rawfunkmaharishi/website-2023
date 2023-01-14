@@ -1,0 +1,23 @@
+---
+const { record } = Astro.props;
+---
+
+<a href={record.href}>
+  <img src={record.image} />
+</a>
+<h2>
+  {record.name}
+  <small>({record.year})</small>
+</h2>
+
+<style>
+  h2 {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  img {
+    width: calc(var(--width) - 2vw);
+    margin-inline: 1vw;
+  }
+</style>

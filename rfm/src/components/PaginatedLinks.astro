@@ -1,11 +1,11 @@
 ---
 import moment from "moment";
-
-import Paginators from "./Paginators.astro";
+import NavButtons from "./NavButtons.astro";
 const { page, dateFormat } = Astro.props;
 ---
 
 <div>
+  <NavButtons urls={page.url} />
   <ul>
     {
       page.data.map((item) => (
@@ -18,21 +18,21 @@ const { page, dateFormat } = Astro.props;
       ))
     }
   </ul>
-  <Paginators page={page} />
 </div>
 
 <style>
   ul {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    grid-area: links;
-    align-self: start;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-self: center;
+    text-align: center;
   }
 
   @media only screen and (max-width: 600px) {
     ul {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
+      gap: 1rem;
     }
   }
 
@@ -42,11 +42,10 @@ const { page, dateFormat } = Astro.props;
   }
 
   div {
-    display: grid;
-    grid-template-areas:
-      "links"
-      "paginators";
-    height: 50vh;
-    background-color: ;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
   }
 </style>

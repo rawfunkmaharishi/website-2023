@@ -1,6 +1,5 @@
 ---
 const { count, infinite } = Astro.props;
-// TODO disable buttons when nowhere to go
 ---
 
 <script define:vars={{ count: count, infinite: infinite }}>
@@ -13,20 +12,20 @@ const { count, infinite } = Astro.props;
 
   if (infinite) {
     nextButton.addEventListener("click", () => {
-      hideAll();
+      hideCurrent();
       counter = (counter + 1) % count;
       showSlide(counter);
     });
 
     prevButton.addEventListener("click", () => {
-      hideAll();
+      hideCurrent();
       counter = (counter - 1 + count) % count;
       showSlide(counter);
     });
   } else {
     nextButton.addEventListener("click", () => {
       if (counter < count - 1) {
-        hideAll();
+        hideCurrent();
         counter += 1;
         showSlide(counter);
       }
@@ -35,7 +34,7 @@ const { count, infinite } = Astro.props;
 
     prevButton.addEventListener("click", () => {
       if (counter > 0) {
-        hideAll();
+        hideCurrent();
         counter -= 1;
         showSlide(counter);
       }
@@ -59,9 +58,12 @@ const { count, infinite } = Astro.props;
     }
   }
 
-  function hideAll() {
+  function hideCurrent() {
     document.querySelectorAll(".slide").forEach((slide) => {
-      slide.style.display = "none";
+      if(slide.style.display == "inline")
+      {
+        slide.style.display = "none";
+      }
     });
   }
 

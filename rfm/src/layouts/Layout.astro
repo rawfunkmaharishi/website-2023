@@ -37,6 +37,7 @@ const { title, jsonLD } = Astro.props;
         --colour-link: rgb(104, 91, 30);
         --colour-link-hover: rgb(149, 130, 45);
         --colour-grey: rgb(46, 46, 46);
+        --colour-dead: rgb(131, 131, 131, 0.5);
 
         --font-primary: Roboto;
         --font-heading: "Josefin Sans";
@@ -89,6 +90,7 @@ const { title, jsonLD } = Astro.props;
 
       div#content {
         width: 100%;
+        position: relative;
       }
 
       div#logo {

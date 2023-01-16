@@ -1,0 +1,45 @@
+---
+import moment from "moment";
+
+const { eventSet, dateFormat } = Astro.props;
+---
+
+
+<ul>
+  {
+    eventSet.map((event) => (
+      <li>
+        <a href={event.href}>
+          {moment(event.date).format(dateFormat)}
+          <span class="venue">{event.name}</span>
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .venue {
+    display: block;
+    font-size: 1.5rem;
+  }
+
+  ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-self: center;
+    text-align: center;
+    justify-content: center;
+  }
+
+  @media only screen and (max-width: 600px) {
+    ul {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+
+  li {
+  }
+</style>

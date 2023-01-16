@@ -9,6 +9,7 @@ const { count, infinite } = Astro.props;
 
   var counter = 0;
   showSlide(counter);
+  refreshButtonStyles();
 
   if (infinite) {
     nextButton.addEventListener("click", () => {
@@ -29,6 +30,7 @@ const { count, infinite } = Astro.props;
         counter += 1;
         showSlide(counter);
       }
+      refreshButtonStyles();
     });
 
     prevButton.addEventListener("click", () => {
@@ -37,7 +39,24 @@ const { count, infinite } = Astro.props;
         counter -= 1;
         showSlide(counter);
       }
+      refreshButtonStyles();
     });
+  }
+
+  function refreshButtonStyles() {
+    if (!infinite) {
+      if (counter == 0) {
+        prevButton.classList.add("dead");
+      } else {
+        prevButton.classList.remove("dead");
+      }
+
+      if (counter == count - 1) {
+        nextButton.classList.add("dead");
+      } else {
+        nextButton.classList.remove("dead");
+      }
+    }
   }
 
   function hideAll() {

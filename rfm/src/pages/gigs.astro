@@ -17,6 +17,6 @@ const allGigs = await futureGigs().then(function (items) {
 const gigs = spliceIntoChunks(allGigs, 4);
 ---
 
-<Layout title="Upcoming gigs">
+<Layout title="Upcoming Gigs">
   <Slider items={gigs} slideType="gig" />
 </Layout>

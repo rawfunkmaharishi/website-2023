@@ -1,0 +1,53 @@
+---
+const { count, infinite } = Astro.props;
+// TODO disable buttons when nowhere to go
+---
+
+<script define:vars={{ count: count, infinite: infinite }}>
+  const prevButton = document.getElementById("slide-arrow-prev");
+  const nextButton = document.getElementById("slide-arrow-next");
+
+  var counter = 0;
+  showSlide(counter);
+
+  if (infinite) {
+    nextButton.addEventListener("click", () => {
+      hideAll();
+      counter = (counter + 1) % count;
+      showSlide(counter);
+    });
+
+    prevButton.addEventListener("click", () => {
+      hideAll();
+      counter = (counter - 1 + count) % count;
+      showSlide(counter);
+    });
+  } else {
+    nextButton.addEventListener("click", () => {
+      if (counter < count - 1) {
+        hideAll();
+        counter += 1;
+        showSlide(counter);
+      }
+    });
+
+    prevButton.addEventListener("click", () => {
+      if (counter > 0) {
+        hideAll();
+        counter -= 1;
+        showSlide(counter);
+      }
+    });
+  }
+
+  function hideAll() {
+    document.querySelectorAll(".slide").forEach((slide) => {
+      slide.style.display = "none";
+    });
+  }
+
+  function showSlide(index) {
+    slide = document.getElementById("slide-" + index);
+    slide.style.display = "inline";
+  }
+</script>

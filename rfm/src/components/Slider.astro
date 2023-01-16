@@ -1,30 +1,56 @@
 ---
 import RecordSlide from "./slides/RecordSlide.astro";
 import MusicianSlide from "./slides/MusicianSlide.astro";
+import GigSlide from "./slides/GigSlide.astro";
+import EventSlide from "./slides/EventSlide.astro";
+
+import SliderScript from "./scripts/SliderScript.astro";
 import NavButtons from "./NavButtons.astro";
 
 const { items, slideType } = Astro.props;
+
+const count = items.length;
+
+function slideName(index) {
+  return "slide-" + index;
+}
+
+const infinite = ["musician", "record"].includes(slideType);
 ---
 
 <section>
   <NavButtons />
   <ul id="slides-container">
     {
-      items.map((item) => (
+      items.map((item, index) => (
         <li>
-          <div class="slide">
+          <div class="slide" id={slideName(index)}>
             {slideType == "record" && <RecordSlide record={item} />}
             {slideType == "musician" && <MusicianSlide musician={item} />}
-          </div>
-        </li>
-      ))
-    }
+            {slideType == "gig" && (
+              <EventSlide eventSet={item} dateFormat="dddd MMM Do" />
+              )}
+              {slideType == "video" && (
+                <EventSlide eventSet={item} dateFormat="MMMM YYYY" />
+                )}
+                </div>
+                </li>
+                ))
+              }
   </ul>
 </section>
+
+<SliderScript count={count} infinite={infinite} />
 
 <style>
   :root {
     --width: 60vw;
+  }
+
+  @media only screen and (min-width: 600px) {
+    :root {
+      --width: 40vw;
+    }
   }
 
   h2 {
@@ -45,34 +71,15 @@ const { items, slideType } = Astro.props;
     width: var(--width);
     overflow: hidden;
     scroll-behavior: smooth;
+    justify-content: center;
   }
 
   li {
     align-items: center;
   }
 
-  @media only screen and (min-width: 600px) {
-    :root {
-      --width: 40vw;
-    }
+  div {
+    display: none;
   }
+
 </style>
-
-<script>
-  // https://webdesign.tutsplus.com/tutorials/how-to-build-a-simple-carousel-with-vanilla-javascript--cms-41734
-
-  const slidesContainer = document.getElementById("slides-container");
-  const slide = document.querySelector(".slide");
-  const prevButton = document.getElementById("slide-arrow-prev");
-  const nextButton = document.getElementById("slide-arrow-next");
-
-  nextButton.addEventListener("click", () => {
-    const slideWidth = slide.clientWidth;
-    slidesContainer.scrollLeft += slideWidth;
-  });
-
-  prevButton.addEventListener("click", () => {
-    const slideWidth = slide.clientWidth;
-    slidesContainer.scrollLeft -= slideWidth;
-  });
-</script>

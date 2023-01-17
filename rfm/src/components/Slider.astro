@@ -1,7 +1,6 @@
 ---
 import RecordSlide from "./slides/RecordSlide.astro";
 import MusicianSlide from "./slides/MusicianSlide.astro";
-import GigSlide from "./slides/GigSlide.astro";
 import EventSlide from "./slides/EventSlide.astro";
 
 import SliderScript from "./scripts/SliderScript.astro";
@@ -66,20 +65,11 @@ const infinite = ["musician", "record"].includes(slideType);
 
   ul {
     margin-inline: auto;
-    display: flex;
-    flex-direction: row;
     width: var(--width);
-    overflow: hidden;
-    scroll-behavior: smooth;
-    justify-content: center;
   }
 
   li {
-    align-items: center;
-  }
-
-  div {
     display: none;
+    position: relative;
   }
-
 </style>

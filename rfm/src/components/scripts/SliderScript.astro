@@ -63,13 +63,13 @@ const { count, infinite } = Astro.props;
   function hideCurrent() {
     slide = document.querySelector(".current-slide")
     slide.classList.remove("current-slide")
-    slide.style.display = "none"
+    slide.classList.add("hidden")
   }
 
   function showSlide(index) {
     slide = document.getElementById("slide-" + index);
-    slide.style.display = "inline";
     slide.classList.add("current-slide")
+    slide.classList.remove("hidden")
   }
 
   function hideAll() {

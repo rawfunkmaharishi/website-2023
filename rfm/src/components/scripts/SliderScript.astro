@@ -6,6 +6,8 @@ const { count, infinite } = Astro.props;
   const prevButton = document.getElementById("slide-arrow-prev");
   const nextButton = document.getElementById("slide-arrow-next");
 
+  hideAll()
+
   var counter = 0;
   showSlide(counter);
   refreshButtonStyles();
@@ -68,5 +70,11 @@ const { count, infinite } = Astro.props;
     slide = document.getElementById("slide-" + index);
     slide.style.display = "inline";
     slide.classList.add("current-slide")
+  }
+
+  function hideAll() {
+    document.querySelectorAll(".slide").forEach((slide) => {
+      slide.classList.add("hidden")
+    })
   }
 </script>

@@ -1,7 +1,6 @@
 ---
 import RecordSlide from "./slides/RecordSlide.astro";
 import MusicianSlide from "./slides/MusicianSlide.astro";
-import GigSlide from "./slides/GigSlide.astro";
 import EventSlide from "./slides/EventSlide.astro";
 
 import SliderScript from "./scripts/SliderScript.astro";
@@ -23,20 +22,20 @@ const infinite = ["musician", "record"].includes(slideType);
   <ul id="slides-container">
     {
       items.map((item, index) => (
-        <li>
-          <div class="slide" id={slideName(index)}>
+        <li class="slide" id={slideName(index)}>
+          <div>
             {slideType == "record" && <RecordSlide record={item} />}
             {slideType == "musician" && <MusicianSlide musician={item} />}
             {slideType == "gig" && (
               <EventSlide eventSet={item} dateFormat="dddd MMM Do" />
-              )}
-              {slideType == "video" && (
-                <EventSlide eventSet={item} dateFormat="MMMM YYYY" />
-                )}
-                </div>
-                </li>
-                ))
-              }
+            )}
+            {slideType == "video" && (
+              <EventSlide eventSet={item} dateFormat="MMMM YYYY" />
+            )}
+          </div>
+        </li>
+      ))
+    }
   </ul>
 </section>
 
@@ -66,20 +65,11 @@ const infinite = ["musician", "record"].includes(slideType);
 
   ul {
     margin-inline: auto;
-    display: flex;
-    flex-direction: row;
     width: var(--width);
-    overflow: hidden;
-    scroll-behavior: smooth;
-    justify-content: center;
   }
 
   li {
-    align-items: center;
-  }
-
-  div {
     display: none;
+    position: relative;
   }
-
 </style>

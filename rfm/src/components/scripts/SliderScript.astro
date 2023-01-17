@@ -59,16 +59,14 @@ const { count, infinite } = Astro.props;
   }
 
   function hideCurrent() {
-    document.querySelectorAll(".slide").forEach((slide) => {
-      if(slide.style.display == "inline")
-      {
-        slide.style.display = "none";
-      }
-    });
+    slide = document.querySelector(".current-slide")
+    slide.classList.remove("current-slide")
+    slide.style.display = "none"
   }
 
   function showSlide(index) {
     slide = document.getElementById("slide-" + index);
     slide.style.display = "inline";
+    slide.classList.add("current-slide")
   }
 </script>

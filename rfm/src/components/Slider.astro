@@ -23,20 +23,20 @@ const infinite = ["musician", "record"].includes(slideType);
   <ul id="slides-container">
     {
       items.map((item, index) => (
-        <li>
-          <div class="slide" id={slideName(index)}>
+        <li class="slide" id={slideName(index)}>
+          <div>
             {slideType == "record" && <RecordSlide record={item} />}
             {slideType == "musician" && <MusicianSlide musician={item} />}
             {slideType == "gig" && (
               <EventSlide eventSet={item} dateFormat="dddd MMM Do" />
-              )}
-              {slideType == "video" && (
-                <EventSlide eventSet={item} dateFormat="MMMM YYYY" />
-                )}
-                </div>
-                </li>
-                ))
-              }
+            )}
+            {slideType == "video" && (
+              <EventSlide eventSet={item} dateFormat="MMMM YYYY" />
+            )}
+          </div>
+        </li>
+      ))
+    }
   </ul>
 </section>
 

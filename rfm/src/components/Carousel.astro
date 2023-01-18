@@ -22,15 +22,15 @@ function slideName(prefix, index, withHash = false) {
 ---
 
 <section class="carousel">
-  <ol class="carousel__viewport">
+  <ol class="carousel-viewport">
     {
       items.map((item, index) => (
         <li
-          id={slideName("carousel__slide", index)}
+          id={slideName("carousel-slide", index)}
           data-index={index}
-          class="carousel__slide"
+          class="carousel-slide"
         >
-          <div class="carousel__snapper">
+          <div class="carousel-snapper">
             {item["@type"] == "MusicAlbum" && <RecordSlide record={item} />}
             {item["@type"] == "Person" && <MusicianSlide musician={item} />}
 
@@ -46,17 +46,17 @@ function slideName(prefix, index, withHash = false) {
       ))
     }
   </ol>
-  <aside class="carousel__navigation">
-    <ol class="carousel__navigation-list">
+  <aside class="carousel-navigation">
+    <ol class="carousel-navigation-list">
       {
         items.map((item, index) => (
           <li
-            class="carousel__navigation-item"
+            class="carousel-navigation-item"
           >
             <a
-              href={slideName("carousel__slide", index, true)}
-              class="carousel__navigation-button"
-              id={slideName("carousel__navigation-button", index)}
+              href={slideName("carousel-slide", index, true)}
+              class="carousel-navigation-button"
+              id={slideName("carousel-navigation-button", index)}
             >
               Go to slide {index}
             </a>
@@ -149,7 +149,7 @@ function slideName(prefix, index, withHash = false) {
     /* perspective: 100px; */
   }
 
-  .carousel__viewport {
+  .carousel-viewport {
     position: absolute;
     top: 0;
     right: 0;
@@ -161,14 +161,14 @@ function slideName(prefix, index, withHash = false) {
     scroll-snap-type: x mandatory;
   }
 
-  .carousel__slide {
+  .carousel-slide {
     position: relative;
     flex: 0 0 100%;
     width: 100%;
     counter-increment: item;
   }
 
-  .carousel__snapper {
+  .carousel-snapper {
     position: absolute;
     top: 0;
     left: 0;
@@ -179,17 +179,17 @@ function slideName(prefix, index, withHash = false) {
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .carousel__snapper {
+    .carousel-snapper {
       animation-name: none;
     }
   }
 
-  .carousel:hover .carousel__snapper,
-  .carousel:focus-within .carousel__snapper {
+  .carousel:hover .carousel-snapper,
+  .carousel:focus-within .carousel-snapper {
     animation-name: none;
   }
 
-  .carousel__navigation {
+  .carousel-navigation {
     position: absolute;
     right: 0;
     bottom: 0;
@@ -197,12 +197,12 @@ function slideName(prefix, index, withHash = false) {
     text-align: center;
   }
 
-  .carousel__navigation-list,
-  .carousel__navigation-item {
+  .carousel-navigation-list,
+  .carousel-navigation-item {
     display: inline-block;
   }
 
-  .carousel__navigation-button {
+  .carousel-navigation-button {
     display: inline-block;
     width: 1.2rem;
     height: 1.2rem;
@@ -214,7 +214,7 @@ function slideName(prefix, index, withHash = false) {
     transition: transform 0.1s;
   }
 
-  .carousel__navigation-button:hover {
+  .carousel-navigation-button:hover {
     background-color: var(--colour-link-hover);
   }
 
@@ -224,6 +224,7 @@ function slideName(prefix, index, withHash = false) {
 </style>
 
 <script>
+  // TODO I think this could be done with an intersectionObserver
   // https://www.javascripttutorial.net/dom/css/check-if-an-element-is-visible-in-the-viewport/
   function isInViewport(element) {
     const rect = element.getBoundingClientRect();
@@ -237,9 +238,9 @@ function slideName(prefix, index, withHash = false) {
   }
 
   setInterval(function () {
-    document.querySelectorAll(".carousel__slide").forEach((slide) => {
+    document.querySelectorAll(".carousel-slide").forEach((slide) => {
       const indicator = document.querySelector(
-        "#carousel__navigation-button" + slide.dataset.index
+        "#carousel-navigation-button" + slide.dataset.index
       );
 
       if (isInViewport(slide)) {
@@ -248,5 +249,5 @@ function slideName(prefix, index, withHash = false) {
         indicator.classList.remove("live");
       }
     });
-  }, 1000);
+  }, 500);
 </script>

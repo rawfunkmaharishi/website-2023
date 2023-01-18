@@ -1,22 +1,14 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Slider from "../components/Slider.astro";
+import Carousel from "../components/Carousel.astro";
 
 import { futureGigs, spliceIntoChunks } from "../lib/tools";
 
-const allGigs = await futureGigs().then(function (items) {
-  return items.map((gig) => {
-    return {
-      href: gig.url,
-      date: gig.startDate,
-      name: gig.location.name,
-    };
-  });
-});
+const allGigs = await futureGigs()
 
-const gigs = spliceIntoChunks(allGigs, 4);
+const gigs = spliceIntoChunks(allGigs, 3);
 ---
 
 <Layout title="Upcoming Gigs">
-  <Slider items={gigs} slideType="gig" />
+  <Carousel items={gigs} />
 </Layout>

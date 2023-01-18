@@ -3,15 +3,13 @@ import moment from "moment";
 
 const { eventSet, dateFormat } = Astro.props;
 ---
-
-
 <ul>
   {
     eventSet.map((event) => (
       <li>
         <a href={event.href}>
-          {moment(event.date).format(dateFormat)}
-          <span class="venue">{event.name}</span>
+          {moment(event.startDate).format(dateFormat)}
+          <span class="venue">{event.location.name}</span>
         </a>
       </li>
     ))
@@ -19,27 +17,36 @@ const { eventSet, dateFormat } = Astro.props;
 </ul>
 
 <style>
+  li {
+    font-size: 1.5rem;
+  }
+
   .venue {
     display: block;
-    font-size: 1.5rem;
+    font-size: 2.5rem;
   }
 
   ul {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    align-self: center;
-    text-align: center;
     justify-content: center;
+    height: 100%;
+    align-items: center;
+    padding-top: 10rem;
+    padding-bottom: 10rem;
   }
 
   @media only screen and (max-width: 600px) {
-    ul {
-      grid-template-columns: 1fr;
-      gap: 1rem;
+    li {
+      font-size: unset;
     }
-  }
 
-  li {
+    .venue {
+      font-size: 1.5rem;
+    }
+
+    ul {
+      gap: 0rem;
+      padding: 0;
+    }
   }
 </style>

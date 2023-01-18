@@ -95,11 +95,11 @@ export function trimSlashes(word) {
 }
 
 // https://stackabuse.com/how-to-split-an-array-into-even-chunks-in-javascript/
-export function spliceIntoChunks(arr, chunkSize) {
+export function spliceIntoChunks(arr, chunkSize, type = null) {
   const res = [];
   while (arr.length > 0) {
     const chunk = arr.splice(0, chunkSize);
-    res.push(chunk);
+    res.push({ "@type": type || chunk[0]["@type"], items: chunk });
   }
   return res;
 }

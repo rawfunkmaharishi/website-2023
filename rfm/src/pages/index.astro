@@ -1,7 +1,24 @@
 ---
 import Layout from "../layouts/Layout.astro";
-// import FeaturedItem from "../components/NextGig.astro"
-// import FeaturedItem from "../components/NewRecord.astro"
+import Carousel from "../components/Carousel.astro";
+
+import { fetchFromAPI, futureGigs } from "../lib/tools";
+
+const nextGig = await futureGigs().then(function (gigs) {
+  return gigs[0];
+});
+
+const record = await fetchFromAPI("records").then(function (records) {
+  return records.reverse()[0];
+});
+
+const items = [
+  record,
+  {
+    "@type": "MusicEvent",
+    items: [nextGig],
+  },
+];
 ---
 
 <Layout>

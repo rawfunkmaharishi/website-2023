@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Slider from "../components/Slider.astro";
+import Carousel from "../components/Carousel.astro";
 
 import { fetchFromAPI, spliceIntoChunks } from "../lib/tools";
 
@@ -8,21 +8,10 @@ const allVideos = await fetchFromAPI("gigs")
   .then(function (gigs) {
     return gigs.reverse().filter((item) => "recordedIn" in item);
   })
-  .then(function (videos) {
-    return videos.map((video) => {
-      return {
-        href: video.url.replace("/gigs", "/videos"),
-        date: video.startDate,
-        name: video.location.name,
-      };
-    });
-  });
 
-
-
-const videos = spliceIntoChunks(allVideos, 4);
+const videos = spliceIntoChunks(allVideos, 3, "Video");
 ---
 
 <Layout title="Videos">
-  <Slider items={videos} slideType="video" />
+  <Carousel items={videos} />
 </Layout>

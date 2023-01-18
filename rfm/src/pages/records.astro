@@ -1,21 +1,14 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Slider from "../components/Slider.astro";
+import Carousel from "../components/Carousel.astro";
 
 import { fetchFromAPI } from "../lib/tools";
 
 const records = await fetchFromAPI("records").then(function (records) {
-  return records.reverse().map((record) => {
-    return {
-      href: record.url,
-      year: record.datePublished.split("-").slice(0, 1)[0],
-      name: record.name,
-      image: record.image.contentUrl,
-    };
-  });
+  return records.reverse();
 });
 ---
 
 <Layout title="Records">
-  <Slider items={records} slideType="record" />
+  <Carousel items={records} />
 </Layout>

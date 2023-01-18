@@ -1,0 +1,252 @@
+---
+// https://codepen.io/Schepp/pen/WNbQByE
+import RecordSlide from "./slides/RecordSlide.astro";
+import MusicianSlide from "./slides/MusicianSlide.astro";
+import EventSlide from "./slides/EventSlide.astro";
+
+import { fetchFromAPI } from "../lib/tools";
+
+const { items } = Astro.props;
+
+const modulus = items.length;
+
+function slideName(prefix, index, withHash = false) {
+  var name = prefix + index;
+
+  if (withHash) {
+    name = "#" + name;
+  }
+
+  return name;
+}
+---
+
+<section class="carousel">
+  <ol class="carousel__viewport">
+    {
+      items.map((item, index) => (
+        <li
+          id={slideName("carousel__slide", index)}
+          data-index={index}
+          class="carousel__slide"
+        >
+          <div class="carousel__snapper">
+            {item["@type"] == "MusicAlbum" && <RecordSlide record={item} />}
+            {item["@type"] == "Person" && <MusicianSlide musician={item} />}
+
+            {item["@type"] == "MusicEvent" && (
+              <EventSlide eventSet={item.items} dateFormat="dddd MMM Do" />
+            )}
+
+            {item["@type"] == "Video" && (
+              <EventSlide eventSet={item.items} dateFormat="MMMM YYYY" />
+            )}
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+  <aside class="carousel__navigation">
+    <ol class="carousel__navigation-list">
+      {
+        items.map((item, index) => (
+          <li
+            class="carousel__navigation-item"
+          >
+            <a
+              href={slideName("carousel__slide", index, true)}
+              class="carousel__navigation-button"
+              id={slideName("carousel__navigation-button", index)}
+            >
+              Go to slide {index}
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </aside>
+</section>
+
+<style>
+  @keyframes tonext {
+    75% {
+      left: 0;
+    }
+    95% {
+      left: 100%;
+    }
+    98% {
+      left: 100%;
+    }
+    99% {
+      left: 0;
+    }
+  }
+
+  @keyframes tostart {
+    75% {
+      left: 0;
+    }
+    95% {
+      left: -300%;
+    }
+    98% {
+      left: -300%;
+    }
+    99% {
+      left: 0;
+    }
+  }
+
+  @keyframes snap {
+    96% {
+      scroll-snap-align: center;
+    }
+    97% {
+      scroll-snap-align: none;
+    }
+    99% {
+      scroll-snap-align: none;
+    }
+    100% {
+      scroll-snap-align: center;
+    }
+  }
+
+  * {
+    scrollbar-color: transparent transparent; /* thumb and track color */
+    scrollbar-width: 0px;
+  }
+
+  *::-webkit-scrollbar {
+    width: 0;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: transparent;
+    border: none;
+  }
+
+  * {
+    -ms-overflow-style: none;
+  }
+
+  ol,
+  li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .carousel {
+    position: relative;
+    padding-top: 75%;
+    /* filter: drop-shadow(0 0 10px #0003); */
+    /* perspective: 100px; */
+  }
+
+  .carousel__viewport {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+  }
+
+  .carousel__slide {
+    position: relative;
+    flex: 0 0 100%;
+    width: 100%;
+    counter-increment: item;
+  }
+
+  .carousel__snapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    scroll-snap-align: center;
+    text-align: center;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .carousel__snapper {
+      animation-name: none;
+    }
+  }
+
+  .carousel:hover .carousel__snapper,
+  .carousel:focus-within .carousel__snapper {
+    animation-name: none;
+  }
+
+  .carousel__navigation {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+  }
+
+  .carousel__navigation-list,
+  .carousel__navigation-item {
+    display: inline-block;
+  }
+
+  .carousel__navigation-button {
+    display: inline-block;
+    width: 1.2rem;
+    height: 1.2rem;
+    background-color: var(--colour-link);
+    background-clip: content-box;
+    border: 0.25rem solid transparent;
+    border-radius: 50%;
+    font-size: 0;
+    transition: transform 0.1s;
+  }
+
+  .carousel__navigation-button:hover {
+    background-color: var(--colour-link-hover);
+  }
+
+  .live {
+    background-color: var(--colour-link-hover);
+  }
+</style>
+
+<script>
+  // https://www.javascripttutorial.net/dom/css/check-if-an-element-is-visible-in-the-viewport/
+  function isInViewport(element) {
+    const rect = element.getBoundingClientRect();
+    return (
+      rect.top >= 0 &&
+      rect.left >= 0 &&
+      rect.bottom <=
+        (window.innerHeight || document.documentElement.clientHeight) &&
+      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+  }
+
+  setInterval(function () {
+    document.querySelectorAll(".carousel__slide").forEach((slide) => {
+      const indicator = document.querySelector(
+        "#carousel__navigation-button" + slide.dataset.index
+      );
+
+      if (isInViewport(slide)) {
+        indicator.classList.add("live");
+      } else {
+        indicator.classList.remove("live");
+      }
+    });
+  }, 1000);
+</script>

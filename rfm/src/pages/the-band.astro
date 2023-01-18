@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Slider from "../components/Slider.astro";
-
+import Carousel
+ from "../components/Carousel.astro";
 import { fetchFromAPI, getJSONLD } from "../lib/tools";
 
 const band = await fetchFromAPI("raw-funk-maharishi")
@@ -9,20 +9,5 @@ const band = await fetchFromAPI("raw-funk-maharishi")
 ---
 
 <Layout title="The Band" jsonLD={getJSONLD(band)}>
-  <Slider items={band.member} slideType="musician" />
+  <Carousel items={band.member} />
 </Layout>
-
-<style>
-  ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    align-items: center;
-  }
-
-  li {
-    margin: auto;
-    padding-bottom: 1rem;
-    flex-basis: 40%;
-  }
-</style>

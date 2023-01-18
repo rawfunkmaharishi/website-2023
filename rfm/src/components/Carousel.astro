@@ -10,8 +10,8 @@ const { items } = Astro.props;
 
 const modulus = items.length;
 
-function slideName(index, withHash = false) {
-  var name = "carousel__slide" + index;
+function slideName(prefix, index, withHash = false) {
+  var name = prefix + index;
 
   if (withHash) {
     name = "#" + name;
@@ -25,7 +25,11 @@ function slideName(index, withHash = false) {
   <ol class="carousel__viewport">
     {
       items.map((item, index) => (
-        <li id={slideName(index)} class="carousel__slide">
+        <li
+          id={slideName("carousel__slide", index)}
+          data-index={index}
+          class="carousel__slide"
+        >
           <div class="carousel__snapper">
             {item["@type"] == "MusicAlbum" && <RecordSlide record={item} />}
             {item["@type"] == "Person" && <MusicianSlide musician={item} />}
@@ -46,10 +50,13 @@ function slideName(index, withHash = false) {
     <ol class="carousel__navigation-list">
       {
         items.map((item, index) => (
-          <li class="carousel__navigation-item">
+          <li
+            class="carousel__navigation-item"
+          >
             <a
-              href={slideName(index, true)}
+              href={slideName("carousel__slide", index, true)}
               class="carousel__navigation-button"
+              id={slideName("carousel__navigation-button", index)}
             >
               Go to slide {index}
             </a>
@@ -211,5 +218,35 @@ function slideName(index, withHash = false) {
     background-color: var(--colour-link-hover);
   }
 
-
+  .live {
+    background-color: var(--colour-link-hover);
+  }
 </style>
+
+<script>
+  // https://www.javascripttutorial.net/dom/css/check-if-an-element-is-visible-in-the-viewport/
+  function isInViewport(element) {
+    const rect = element.getBoundingClientRect();
+    return (
+      rect.top >= 0 &&
+      rect.left >= 0 &&
+      rect.bottom <=
+        (window.innerHeight || document.documentElement.clientHeight) &&
+      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+  }
+
+  setInterval(function () {
+    document.querySelectorAll(".carousel__slide").forEach((slide) => {
+      const indicator = document.querySelector(
+        "#carousel__navigation-button" + slide.dataset.index
+      );
+
+      if (isInViewport(slide)) {
+        indicator.classList.add("live");
+      } else {
+        indicator.classList.remove("live");
+      }
+    });
+  }, 1000);
+</script>

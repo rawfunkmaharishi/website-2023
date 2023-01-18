@@ -25,7 +25,7 @@ function slideName(index, withHash = false) {
   <ol class="carousel__viewport">
     {
       items.map((item, index) => (
-        <li id={slideName(index)} tabindex="0" class="carousel__slide">
+        <li id={slideName(index)} class="carousel__slide">
           <div class="carousel__snapper">
             {item["@type"] == "MusicAlbum" && <RecordSlide record={item} />}
             {item["@type"] == "Person" && <MusicianSlide musician={item} />}
@@ -37,19 +37,6 @@ function slideName(index, withHash = false) {
             {item["@type"] == "Video" && (
               <EventSlide eventSet={item.items} dateFormat="MMMM YYYY" />
             )}
-
-            <a
-              href={slideName((index - 1 + modulus) % modulus, true)}
-              class="carousel__prev"
-            >
-              Go to previous slide
-            </a>
-            <a
-              href={slideName((index + 1) % modulus, true)}
-              class="carousel__next"
-            >
-              Go to next slide
-            </a>
           </div>
         </li>
       ))
@@ -174,15 +161,6 @@ function slideName(index, withHash = false) {
     counter-increment: item;
   }
 
-  /* .carousel__slide:before {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate3d(-50%, -40%, 70px);
-    color: #fff;
-    font-size: 2em;
-  } */
-
   .carousel__snapper {
     position: absolute;
     top: 0;
@@ -219,8 +197,8 @@ function slideName(index, withHash = false) {
 
   .carousel__navigation-button {
     display: inline-block;
-    width: 1rem;
-    height: 1rem;
+    width: 1.2rem;
+    height: 1.2rem;
     background-color: var(--colour-link);
     background-clip: content-box;
     border: 0.25rem solid transparent;
@@ -233,55 +211,5 @@ function slideName(index, withHash = false) {
     background-color: var(--colour-link-hover);
   }
 
-  .carousel::before,
-  .carousel::after,
-  .carousel__prev,
-  .carousel__next {
-    position: absolute;
-    top: 0;
-    margin-top: 37.5%;
-    width: 2.5rem;
-    height: 2.5rem;
-    transform: translateY(-50%);
-    border-radius: 50%;
-    font-size: 0;
-    outline: 0;
-  }
 
-  .carousel::before,
-  .carousel__prev {
-    left: -1rem;
-  }
-
-  .carousel::after,
-  .carousel__next {
-    right: -1rem;
-  }
-
-  .carousel::before,
-  .carousel::after {
-    content: "";
-    z-index: 1;
-    background-color: var(--colour-link);
-    background-size: 1rem 1rem;
-    background-repeat: no-repeat;
-    background-position: center center;
-    font-size: 2.5rem;
-    text-align: center;
-    pointer-events: none;
-  }
-
-  /* HARDCODED COLOUR HERE!!! */
-  .carousel::before {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='0,50 80,100 80,0' fill='rgb(27, 17, 4'/%3E%3C/svg%3E");
-  }
-
-  .carousel::after {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='100,50 20,100 20,0' fill='rgb(27, 17, 4'/%3E%3C/svg%3E");
-  }
-
-  .carousel:hover::before,
-  .carousel:hover::after {
-    background-color: var(--colour-link-hover);
-  }
 </style>

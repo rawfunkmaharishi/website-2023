@@ -1,13 +1,21 @@
 ---
 import moment from "moment";
 
-const { eventSet, dateFormat } = Astro.props;
+const { eventSet, dateFormat, type } = Astro.props;
+
+function getURL(url) {
+  if (type) {
+    url = url.replace("gigs", type)
+  }
+
+  return url
+}
 ---
 <ul>
   {
     eventSet.map((event) => (
       <li>
-        <a href={event.href}>
+        <a href={getURL(event.url)}>
           {moment(event.startDate).format(dateFormat)}
           <span class="venue">{event.location.name}</span>
         </a>
@@ -24,6 +32,7 @@ const { eventSet, dateFormat } = Astro.props;
   .venue {
     display: block;
     font-size: 2.5rem;
+    margin-top: -0.75rem;
   }
 
   ul {
@@ -33,6 +42,7 @@ const { eventSet, dateFormat } = Astro.props;
     align-items: center;
     padding-top: 10rem;
     padding-bottom: 10rem;
+    gap: 1rem;
   }
 
   @media only screen and (max-width: 600px) {
@@ -42,11 +52,13 @@ const { eventSet, dateFormat } = Astro.props;
 
     .venue {
       font-size: 1.5rem;
+      margin-top: -0.5rem;
     }
 
     ul {
-      gap: 0rem;
+      gap: 0;
       padding: 0;
+      padding-bottom: 1rem;
     }
   }
 </style>

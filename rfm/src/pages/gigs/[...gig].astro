@@ -72,7 +72,7 @@ function fullAddress(gig) {
       {
         Array.isArray(gig.sameAs) && (
           <>
-            <dt>More info:</dt>
+            <dt>Whatever:</dt>
             <dd>
               <ul>
                 {gig.sameAs
@@ -87,6 +87,13 @@ function fullAddress(gig) {
               </ul>
             </dd>
           </>
+        )
+      }
+
+      {
+        gig.recordedIn && (
+          <dt>Watch:</dt>
+          <dd><a href={gig.url.replace("gigs", "videos")}>Video</a></dd>
         )
       }
     </dl>

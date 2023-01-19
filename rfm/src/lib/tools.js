@@ -29,8 +29,8 @@ export function streamingServices(referenceUrls) {
       name: "YouTube",
       icon: "mdi-youtube",
     },
-    { matcher: "deezer.com", name: "Deezer", icon: "mdi-chart-bar-stacked" },
-    { matcher: "music.amazon.co", name: "Amazon Music", icon: "mdi-music" },
+    // { matcher: "deezer.com", name: "Deezer", icon: "mdi-chart-bar-stacked" },
+    // { matcher: "music.amazon.co", name: "Amazon Music", icon: "mdi-music" },
   ];
 
   const services = [];

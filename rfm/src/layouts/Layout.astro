@@ -2,6 +2,11 @@
 import Head from "../components/Head.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import Logo from "../components/Logo.astro";
+
+import Colours from "../components/styles/Colours.astro";
+import Fonts from "../components/styles/Fonts.astro";
+
 export interface Props {
   title: string;
 }
@@ -12,13 +17,13 @@ const { title, jsonLD } = Astro.props;
 <!DOCTYPE html>
 <html lang="en">
   <Head title={title} jsonLD={jsonLD} />
+  <Colours />
+  <Fonts />
   <body>
     <Header title={title} />
     <main>
       <div id="logo">
-        <a href="/">
-          <img src="/logos/rfm.svg" />
-        </a>
+          <Logo />
         <h1>{title}</h1>
       </div>
       <div id="content">
@@ -27,27 +32,16 @@ const { title, jsonLD } = Astro.props;
     </main>
     <Footer />
     <style is:global>
-      @import url("https://fonts.googleapis.com/css?family=Roboto");
-      @import url("https://fonts.googleapis.com/css?family=Josefin+Sans");
 
       :root {
-        --colour-background: rgb(27, 17, 4);
-        --colour-panel: rgb(82, 64, 30);
-        --colour-primary: rgb(121, 121, 121);
-        --colour-link: rgb(104, 91, 30);
-        --colour-link-hover: rgb(149, 130, 45);
-        --colour-grey: rgb(46, 46, 46);
-        --colour-dead: rgb(131, 131, 131, 0.5);
-
-        --font-primary: Roboto;
-        --font-heading: "Josefin Sans";
-
-        --padding: 2rem;
+        --transition-time: 250ms;
       }
+
       html {
         font-family: var(--font-primary);
         background-color: var(--colour-background);
         color: var(--colour-primary);
+        background-image: url(http://www.transparenttextures.com/patterns/concrete-wall.png);
       }
 
       * {
@@ -61,7 +55,7 @@ const { title, jsonLD } = Astro.props;
         grid-template-columns: 1fr;
         grid-template-areas: "nav" "main" "footer";
         grid-template-rows: auto auto 1fr;
-        min-height: 100vh;
+        height: 100vh;
         overflow: auto;
       }
 
@@ -74,9 +68,9 @@ const { title, jsonLD } = Astro.props;
           ". content";
         grid-template-columns: 2fr 3fr;
         grid-template-rows: 2fr auto;
-        gap: var(--padding);
+        gap: 2rem;
 
-        margin: var(--padding);
+        margin: 2rem;
       }
 
       @media only screen and (max-width: 600px) {
@@ -85,6 +79,7 @@ const { title, jsonLD } = Astro.props;
             "logo"
             "content";
           grid-template-columns: 1fr;
+          gap: 0.5rem;
         }
       }
 
@@ -96,6 +91,7 @@ const { title, jsonLD } = Astro.props;
       div#logo {
         grid-area: logo;
       }
+
       h1 {
         font-family: var(--font-heading);
         text-transform: uppercase;
@@ -107,9 +103,11 @@ const { title, jsonLD } = Astro.props;
       #content {
         grid-area: content;
       }
+
       a {
         color: var(--colour-link);
         text-decoration: none;
+        transition: color var(--transition-time);
       }
 
       a:hover {

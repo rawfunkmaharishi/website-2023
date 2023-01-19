@@ -33,45 +33,60 @@ const services = streamingServices(record.sameAs);
 <Layout title={title} jsonLD={jsonLD}>
   <div class="record">
     <img class="record-sleeve" src={record.image.contentUrl} />
+    <ul class="streaming-services">
+      {services.map((service) => <VideoModalLink data={service} />)}
+    </ul>
 
-    <dl id="record-description">
-      <dt>Released:</dt>
-      <dd>{releaseDate}</dd>
-      <dt>Listen:</dt>
-      <dd>
-        <ul>
-          {services.map((service) => <VideoModalLink data={service} />)}
-        </ul>
-      </dd>
-      <dt>Tracks:</dt>
-      <dd>
-        <ul>
-          {record.track.map((trk) => <li>{trk.name}</li>)}
-        </ul>
-      </dd>
-    </dl>
+    <ol class="track-list">
+      {record.track.map((trk) => <li>{trk.name}</li>)}
+    </ol>
+
+    <h3>Released {releaseDate}</h3>
   </div>
   {services.map((service) => <VideoModal data={service} />)}
 
-<style>
-  div.record {
-    display: grid;
-    grid-template-rows: auto auto;
-    justify-content: center;
-    gap: 1rem;
-  }
-  img {
-    max-width: 50%;
-    margin-inline: auto;
-  }
+  <style>
+    div.record {
+      display: grid;
+      grid-template-rows: auto auto;
+      justify-content: center;
+      gap: 1rem;
+    }
+    img {
+      max-width: 50%;
+      margin-inline: auto;
+    }
 
-  dl {
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    gap: 1rem;
-  }
+    h3 {
+      text-align: center;
+    }
 
-  dt {
-    text-align: right;
-  }
-</style>
+    ul {
+      display: flex;
+      font-size: 3rem;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    ol {
+      margin-inline: auto;
+      padding-left: 1rem;
+      counter-reset: counter;
+    }
+
+    ol li {
+      counter-increment: counter;
+    }
+
+    ol li::before {
+      content: counter(counter) ": ";
+      font-size: 0.7rem;
+    }
+
+    @media only screen and (max-width: 600px) {
+      img {
+        max-width: 90%;
+      }
+    }
+  </style>
+</Layout>

@@ -4,12 +4,15 @@ const { data } = Astro.props;
 const classes = ["mdi", data.icon];
 const name = data.name;
 const elementId = data.id + "-control";
+
+function makeTitle(name) {
+  return "Listen on " + name
+}
 ---
 
 <li>
-  <a href="#" id={elementId}>
+  <a href="#" id={elementId} title={makeTitle(name)}>
     <span class:list={classes}></span>
-    {name}
   </a>
 </li>
 

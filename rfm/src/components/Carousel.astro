@@ -4,14 +4,10 @@ import RecordSlide from "./slides/RecordSlide.astro";
 import MusicianSlide from "./slides/MusicianSlide.astro";
 import EventSlide from "./slides/EventSlide.astro";
 
-import { fetchFromAPI } from "../lib/tools";
-
 const { items } = Astro.props;
 
-const modulus = items.length;
-
 function slideName(prefix, index, withHash = false) {
-  var name = prefix + index;
+  var name = prefix + "-" + index;
 
   if (withHash) {
     name = "#" + name;
@@ -21,12 +17,12 @@ function slideName(prefix, index, withHash = false) {
 }
 ---
 
-<section class="carousel">
+<section class="carousel" id="carousel">
   <ol class="carousel-viewport">
     {
       items.map((item, index) => (
         <li
-          id={slideName("carousel-slide", index)}
+          id={slideName("slide", index)}
           data-index={index}
           class="carousel-slide"
         >
@@ -39,22 +35,20 @@ function slideName(prefix, index, withHash = false) {
             )}
 
             {item["@type"] == "Video" && (
-              <EventSlide eventSet={item.items} dateFormat="MMMM YYYY" />
+              <EventSlide eventSet={item.items} dateFormat="MMMM YYYY" type="videos" />
             )}
           </div>
         </li>
       ))
     }
   </ol>
-  <aside class="carousel-navigation">
+  <div class="carousel-navigation">
     <ol class="carousel-navigation-list">
       {
         items.map((item, index) => (
-          <li
-            class="carousel-navigation-item"
-          >
+          <li class="carousel-navigation-item">
             <a
-              href={slideName("carousel-slide", index, true)}
+              href={slideName("slide", index, true)}
               class="carousel-navigation-button"
               id={slideName("carousel-navigation-button", index)}
             >
@@ -64,8 +58,34 @@ function slideName(prefix, index, withHash = false) {
         ))
       }
     </ol>
-  </aside>
+  </div>
 </section>
+
+<script>
+  const options = {
+    root: document.getElementById("carousel"),
+    rootMargin: "100px",
+    threshold: 0.75,
+  };
+
+  const intersectionCallback = (entries, observer) => {
+    entries.forEach((entry) => {
+      const indicator = document.querySelector(
+        "#carousel-navigation-button-" + entry.target.dataset.index
+      );
+
+      if (entry.isIntersecting) {
+        indicator.classList.add("live");
+      } else {
+        indicator.classList.remove("live");
+      }
+    });
+  };
+
+  let observer = new IntersectionObserver(intersectionCallback, options);
+  let slides = document.querySelectorAll(".carousel-slide");
+  slides.forEach((slide) => observer.observe(slide));
+</script>
 
 <style>
   @keyframes tonext {
@@ -211,7 +231,7 @@ function slideName(prefix, index, withHash = false) {
     border: 0.25rem solid transparent;
     border-radius: 50%;
     font-size: 0;
-    transition: transform 0.1s;
+    transition: background-color var(--transition-time);
   }
 
   .carousel-navigation-button:hover {
@@ -222,32 +242,3 @@ function slideName(prefix, index, withHash = false) {
     background-color: var(--colour-link-hover);
   }
 </style>
-
-<script>
-  // TODO I think this could be done with an intersectionObserver
-  // https://www.javascripttutorial.net/dom/css/check-if-an-element-is-visible-in-the-viewport/
-  function isInViewport(element) {
-    const rect = element.getBoundingClientRect();
-    return (
-      rect.top >= 0 &&
-      rect.left >= 0 &&
-      rect.bottom <=
-        (window.innerHeight || document.documentElement.clientHeight) &&
-      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
-  }
-
-  setInterval(function () {
-    document.querySelectorAll(".carousel-slide").forEach((slide) => {
-      const indicator = document.querySelector(
-        "#carousel-navigation-button" + slide.dataset.index
-      );
-
-      if (isInViewport(slide)) {
-        indicator.classList.add("live");
-      } else {
-        indicator.classList.remove("live");
-      }
-    });
-  }, 500);
-</script>

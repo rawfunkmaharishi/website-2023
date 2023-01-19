@@ -4,7 +4,7 @@ import moment from "moment";
 const { record } = Astro.props;
 ---
 
-<a href={record.href}>
+<a href={record.url}>
   <img src={record.image.contentUrl} />
   <h2>
     {record.name}

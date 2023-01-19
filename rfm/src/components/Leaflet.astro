@@ -5,12 +5,23 @@ const cssHash =
 const jsHash =
   "sha512-Dqm3h1Y4qiHUjbhxTuBGQsza0Tfppn53SHlu/uj1f+RT+xfShfe7r6czRf5r2NmllO2aKx+tYJgoxboOkn1Scg==";
 
+const providersVersion = "1.13.0";
+const providersHash =
+  "sha512-5EYsvqNbFZ8HX60keFbe56Wr0Mq5J1RrA0KdVcfGDhnjnzIRsDrT/S3cxdzpVN2NGxAB9omgqnlh4/06TvWCMw==";
+
 const cssURL =
   "https://cdnjs.cloudflare.com/ajax/libs/leaflet/" +
   version +
   "/leaflet.min.css";
+
 const jsURL =
   "https://cdnjs.cloudflare.com/ajax/libs/leaflet/" + version + "/leaflet.js";
+
+// https://github.com/leaflet-extras/leaflet-providers
+const providersURL =
+  "https://cdnjs.cloudflare.com/ajax/libs/leaflet-providers/" +
+  providersVersion +
+  "/leaflet-providers.min.js";
 ---
 
 <link
@@ -27,10 +38,9 @@ const jsURL =
   referrerpolicy="no-referrer"
 ></script>
 
-<!-- https://github.com/leaflet-extras/leaflet-providers -->
 <script
-  src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-providers/1.13.0/leaflet-providers.min.js"
-  integrity="sha512-5EYsvqNbFZ8HX60keFbe56Wr0Mq5J1RrA0KdVcfGDhnjnzIRsDrT/S3cxdzpVN2NGxAB9omgqnlh4/06TvWCMw=="
+  src={providersURL}
+  integrity={providersHash}
   crossorigin="anonymous"
   referrerpolicy="no-referrer"
 ></script>

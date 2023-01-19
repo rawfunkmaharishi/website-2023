@@ -30,7 +30,11 @@ const date = niceDate(video.startDate, false, false);
     <div class="video-wrapper">
       <iframe src={video.recordedIn.embedUrl} allowfullscreen></iframe>
     </div>
-    <h2>{video.location.name}, {date}</h3>
+    <h2>
+      <a href={video.url}>
+        {video.location.name}, {date}
+      </a>
+    </h3>
   </div>
 </Layout>
 

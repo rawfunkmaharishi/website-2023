@@ -23,17 +23,32 @@ const time = gig.startDate.split("T").slice(1);
 
 // const tiles = "Stamen.TonerLite"
 const tiles = "Stadia.AlidadeSmoothDark";
+
+function fullAddress(gig) {
+  var location = gig.location.name;
+
+  if (gig.location.url) {
+    var preamble = '<a href="';
+    preamble += gig.location.url;
+    preamble += '">';
+    var postamble = "</a>";
+    location = preamble + location + postamble;
+  }
+
+  var address = location + ', ' + gig.location.address.streetAddress + ', ' + gig.location.address.postalCode
+  address = address.replaceAll(",", "<br>")  // in case there are embedded commas in the `streetAddress`
+
+  return address;
+}
 ---
 
 <Layout title={title} jsonLD={getJSONLD(gig)}>
   <div class="gig">
     <dl>
-      <dt>Date:</dt>
-      <dd>{date}</dd>
-      <dt>Time:</dt>
-      <dd>{time}</dd>
-      <dt>Address:</dt>
-      <dd>{gig.location.address.streetAddress}</dd>
+      <dt>When:</dt>
+      <dd>{time} on {date}</dd>
+       <dt>Where:</dt>
+      <dd set:html={fullAddress(gig)} />
 
       {
         gig.performer instanceof Array && (
@@ -42,10 +57,10 @@ const tiles = "Stadia.AlidadeSmoothDark";
             <dd>
               <ul>
                 {gig.performer
-                  .filter((act) => act.sameAs != "https://rawfunkmaharishi.uk/")
+                  .filter((act) => act.url != "https://rawfunkmaharishi.uk/")
                   .map((act) => (
                     <li>
-                      <a href={act.sameAs}>{act.name}</a>
+                      <a href={act.url}>{act.name}</a>
                     </li>
                   ))}
               </ul>
@@ -104,14 +119,16 @@ const tiles = "Stadia.AlidadeSmoothDark";
 <style>
   dl {
     display: grid;
-    grid-template-columns: 1fr 3fr;
-    gap: 1rem;
-    padding-bottom: 5rem;
+    grid-template-columns: 2fr 3fr;
+    gap: 0.5rem;
+    padding-bottom: 2rem;
+    font-size: 1.2rem;
   }
 
   dt {
     text-align: right;
   }
+
   div#map {
     height: 50vh;
     width: 80%;

@@ -57,13 +57,24 @@ nav {
     list-style-type: none;
     flex-grow: 1;
     text-align: center;
-    margin: 1rem;
+    /* margin: 1rem; */
     margin-top: 2rem;
     font-size: 1rem;
   }
 
-  a {
+  nav a {
     text-decoration: none;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent;
+
+    transition: border-color ease 0.5s;
+  }
+
+  nav a:hover, .active {
+    border-color: var(--colour-border);
   }
 
   .active {

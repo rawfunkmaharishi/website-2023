@@ -8,7 +8,7 @@ const navs = [
   },
   {
     title: "Gigs",
-    path: "/gigs/"
+    path: "/gigs/",
   },
   {
     title: "Records",
@@ -20,9 +20,9 @@ const navs = [
   },
 ];
 
-for(const property in navs) {
-  if (isActive(navs[property]['path'], Astro.url.pathname)) {
-    navs[property]['class'] = 'active'
+for (const property in navs) {
+  if (isActive(navs[property]["path"], Astro.url.pathname)) {
+    navs[property]["class"] = "active";
   }
 }
 
@@ -34,18 +34,19 @@ const { title } = Astro.props;
     {
       navs.map((item) => (
         <li>
-          <a href={item.path} class={item.class}>{item.title}</a>
+          <a href={item.path} class={item.class}>
+            {item.title}
+          </a>
         </li>
       ))
     }
   </ul>
 </nav>
 
-
 <style>
-nav {
-  grid-area: nav;
-}
+  nav {
+    grid-area: nav;
+  }
 
   ul {
     display: flex;
@@ -72,7 +73,8 @@ nav {
     transition: border-bottom-color ease 0.5s;
   }
 
-  nav a:hover, .active {
+  nav a:hover,
+  .active {
     border-bottom-color: var(--colour-border);
   }
 

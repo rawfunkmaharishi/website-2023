@@ -1,6 +1,7 @@
 ---
 import Favicons from "./Favicons.astro";
 import Leaflet from "../components/Leaflet.astro";
+import Libs from "../components/Libs.astro";
 
 import { ogFromJSON } from "../lib/OpenGraph";
 import { fetchFromAPI } from "../lib/tools";
@@ -12,7 +13,7 @@ if (!jsonLD) {
 
 const og = new ogFromJSON(JSON.parse(jsonLD), import.meta.env.SITE);
 
-const headerTitle = title || "Raw Funk Maharishi"
+const headerTitle = title || "Raw Funk Maharishi";
 ---
 
 <head>
@@ -21,19 +22,14 @@ const headerTitle = title || "Raw Funk Maharishi"
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <meta name="generator" content={Astro.generator} />
 
-<Favicons />
-
+  <Favicons />
+  <Libs />
   <Leaflet />
 
   {jsonLD && <script type="application/ld+json" set:html={jsonLD} />}
 
-  {
-    og && (
-        <Fragment set:html={og.render()}></Fragment>
-        )
-      }
-      <title>{headerTitle}</title>
+  {og && <Fragment set:html={og.render()} />}
+  <title>{headerTitle}</title>
 
-      <link rel="me" href="https://mastodon.me.uk/@rawfunkmaharishi">
-
+  <link rel="me" href="https://mastodon.me.uk/@rawfunkmaharishi" />
 </head>

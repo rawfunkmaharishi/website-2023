@@ -1,13 +1,26 @@
 ---
 import Layout from "../layouts/Layout.astro";
+
+import { qrcode } from "qrcode";
 ---
 
 <Layout title="QR Code">
-    <img src="/logos/qr.png" />
+  <canvas id="qr"></canvas>
 </Layout>
 
 <style>
-    img {
+    canvas {
         max-width: 100%;
     }
 </style>
+
+<script define:vars={{
+    url: import.meta.env.SITE
+}}>
+  var canvas = document.getElementById("qr");
+
+  QRCode.toCanvas(canvas, url, {width: 300}, function (error) {
+    if (error) console.error(error);
+    console.log("success!");
+  });
+</script>

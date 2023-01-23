@@ -32,9 +32,9 @@ const date = niceDate(video.startDate, false, false);
     </div>
     <h2>
       <a href={video.url}>
-        {video.location.name}, {date}
+        {video.location.name}<br /> {date}
       </a>
-    </h3>
+    </h2>
   </div>
 </Layout>
 
@@ -43,30 +43,29 @@ const date = niceDate(video.startDate, false, false);
     text-align: center;
   }
 
-        /* responsive video */
-      /* https://techstacker.com/how-to-responsive-youtube-videos/ */
-      .video-wrapper {
-        position: relative;
-        overflow: hidden;
-        width: 80%;
-        margin-bottom: 2rem;
-        margin-top: 1rem;
-        margin-inline: auto;
-      }
+  /* responsive video */
+  /* https://techstacker.com/how-to-responsive-youtube-videos/ */
+  .video-wrapper {
+    position: relative;
+    overflow: hidden;
+    width: 80%;
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+    margin-inline: auto;
+  }
 
-      .video-wrapper::after {
-        display: block;
-        content: "";
-        padding-top: 56.25%;
-      }
+  .video-wrapper::after {
+    display: block;
+    content: "";
+    padding-top: 56.25%;
+  }
 
-      .video-wrapper iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+  .video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     border: none;
-
-      }
+  }
 </style>

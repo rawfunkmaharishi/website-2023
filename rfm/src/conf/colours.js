@@ -1,4 +1,4 @@
-const colours = {
+const RGBs = {
   background: [255, 255, 255],
   primary: [161, 25, 25],
   link: [112, 80, 176],
@@ -6,8 +6,9 @@ const colours = {
   border: [82, 82, 82],
 };
 
-for (var key in colours) {
-  colours[key] = "rgb(" + colours[key].join(", ") + ")";
+const colours = {};
+for (var key in RGBs) {
+  colours[key] = "rgb(" + RGBs[key].join(", ") + ")";
 }
 
-export { colours };
+export { RGBs, colours };

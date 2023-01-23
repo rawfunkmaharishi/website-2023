@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 
-import { colours } from "../conf/colours";
+import { RGBs } from "../conf/colours";
 ---
 
 <Layout title="QR Code">
@@ -18,8 +18,8 @@ import { colours } from "../conf/colours";
 <script
   define:vars={{
     url: import.meta.env.SITE,
-    fg: colours.primary,
-    bg: colours.background
+    fg: RGBs.primary,
+    bg: RGBs.background,
   }}
 >
   var canvas = document.getElementById("qr");
@@ -42,14 +42,7 @@ import { colours } from "../conf/colours";
 
   function fixColour(rgb) {
     return (
-      "#" +
-      rgb
-        .split("(")[1]
-        .split(")")[0]
-        .split(",")
-        .map(parseFloat)
-        .map((number) => number.toString(16).padStart(2, 0))
-        .join("")
+      "#" + rgb.map((number) => number.toString(16).padStart(2, 0)).join("")
     );
   }
 </script>

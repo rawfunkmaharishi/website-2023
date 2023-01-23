@@ -4,20 +4,21 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import Logo from "../components/Logo.astro";
 
-import Colours from "../components/styles/Colours.astro";
 import Fonts from "../components/styles/Fonts.astro";
+
+import { colours } from "../conf/colours.js"
 
 export interface Props {
   title: string;
 }
 
 const { title, jsonLD } = Astro.props;
+
 ---
 
 <!DOCTYPE html>
 <html lang="en">
   <Head title={title} jsonLD={jsonLD} />
-  <Colours />
   <Fonts />
   <body>
     <Header title={title} />
@@ -31,10 +32,16 @@ const { title, jsonLD } = Astro.props;
       </div>
     </main>
     <Footer />
-    <style is:global>
+    <style is:global define:vars={colours}>
 
       :root {
         --transition-time: 250ms;
+
+        --colour-background: var(--background); /* TODO generate this */
+        --colour-primary: var(--primary);
+        --colour-link: var(--link);
+        --colour-hover: var(--hover);
+        --colour-border: var(--border);
       }
 
       html {

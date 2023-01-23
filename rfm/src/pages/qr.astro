@@ -1,7 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-
-import { qrcode } from "qrcode";
 ---
 
 <Layout title="QR Code">
@@ -9,9 +7,10 @@ import { qrcode } from "qrcode";
 </Layout>
 
 <style>
-    canvas {
-        max-width: 100%;
-    }
+canvas {
+    margin-inline: auto;
+    display: block;
+}
 </style>
 
 <script define:vars={{

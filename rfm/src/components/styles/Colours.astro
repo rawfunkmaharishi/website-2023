@@ -1,0 +1,18 @@
+---
+import { colours } from "../../conf/colours.js"
+
+var c = ""
+
+c += ":root {\n"
+
+for (var key in colours) {
+    c += "  --colour-"
+    c += key
+    c += ": var(--"
+    c += key
+    c += ");\n"
+}
+c += "}\n"
+---
+
+<style is:global set:html={c}><style>

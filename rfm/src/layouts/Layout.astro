@@ -5,6 +5,7 @@ import Footer from "../components/Footer.astro";
 import Logo from "../components/Logo.astro";
 
 import Fonts from "../components/styles/Fonts.astro";
+import Colours from "../components/styles/Colours.astro";
 
 import { colours } from "../conf/colours.js"
 
@@ -20,6 +21,7 @@ const { title, jsonLD } = Astro.props;
 <html lang="en">
   <Head title={title} jsonLD={jsonLD} />
   <Fonts />
+  <Colours />
   <body>
     <Header title={title} />
     <main>
@@ -36,12 +38,6 @@ const { title, jsonLD } = Astro.props;
 
       :root {
         --transition-time: 250ms;
-
-        --colour-background: var(--background); /* TODO generate this */
-        --colour-primary: var(--primary);
-        --colour-link: var(--link);
-        --colour-hover: var(--hover);
-        --colour-border: var(--border);
       }
 
       html {

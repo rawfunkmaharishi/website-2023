@@ -27,7 +27,7 @@ const { title, jsonLD } = Astro.props;
     <main>
       <div id="logo">
           <Logo />
-        <h1>{title}</h1>
+        <h1 id="main-title">{title}</h1>
       </div>
       <div id="content">
         <slot />
@@ -37,7 +37,7 @@ const { title, jsonLD } = Astro.props;
     <style is:global define:vars={colours}>
 
       :root {
-        --transition-time: 250ms;
+        --transition-time: 500ms;
       }
 
       html {
@@ -101,6 +101,7 @@ const { title, jsonLD } = Astro.props;
         text-align: center;
         grid-area: title;
         padding-top: 3rem;
+        height: 6rem;
       }
 
       #content {
@@ -114,7 +115,7 @@ const { title, jsonLD } = Astro.props;
       }
 
       a:hover {
-        color: var(--colour-link-hover);
+        color: var(--colour-hover);
       }
 
       li {

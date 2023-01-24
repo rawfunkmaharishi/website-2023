@@ -12,12 +12,18 @@ function closeLink() {
 }
 ---
 
-{musician.url && <Fragment set:html={openLink(musician)} />}
-<img src={musician.image.contentUrl} title={title} />
-<h2>{musician.name}</h2>
-{musician.url && <Fragment set:html={closeLink()} />}
+<div>
+  {musician.url && <Fragment set:html={openLink(musician)} />}
+  <img src={musician.image.contentUrl} title={title} />
+  <h2>{musician.name}</h2>
+  {musician.url && <Fragment set:html={closeLink()} />}
+</div>
 
 <style>
+  div {
+    height: 100%;
+  }
+
   h2 {
     font-size: 1.5rem;
     text-align: center;

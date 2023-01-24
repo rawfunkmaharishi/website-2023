@@ -24,6 +24,7 @@ function slideName(prefix, index, withHash = false) {
         <li
           id={slideName("slide", index)}
           data-index={index}
+          data-title={item.additionalTitle}
           class="carousel-slide"
         >
           <div class="carousel-snapper">
@@ -35,30 +36,36 @@ function slideName(prefix, index, withHash = false) {
             )}
 
             {item["@type"] == "Video" && (
-              <EventSlide eventSet={item.items} dateFormat="MMMM YYYY" type="videos" />
+              <EventSlide
+                eventSet={item.items}
+                dateFormat="MMMM YYYY"
+                type="videos"
+              />
             )}
           </div>
         </li>
       ))
     }
   </ol>
-  <div class="carousel-navigation">
-    <ol class="carousel-navigation-list">
-      {
-        items.map((item, index) => (
-          <li class="carousel-navigation-item">
-            <a
-              href={slideName("slide", index, true)}
-              class="carousel-navigation-button"
-              id={slideName("carousel-navigation-button", index)}
-            >
-              Go to slide {index}
-            </a>
-          </li>
-        ))
-      }
-    </ol>
-  </div>
+  {
+    items.length > 1 && (
+      <div class="carousel-navigation">
+        <ol class="carousel-navigation-list">
+          {items.map((item, index) => (
+            <li class="carousel-navigation-item">
+              <a
+                href={slideName("slide", index, true)}
+                class="carousel-navigation-button"
+                id={slideName("carousel-navigation-button", index)}
+              >
+                Go to slide {index}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </div>
+    )
+  }
 </section>
 
 <script>
@@ -75,6 +82,10 @@ function slideName(prefix, index, withHash = false) {
       );
 
       if (entry.isIntersecting) {
+        if (entry.target.dataset.title) {
+          document.getElementById("main-title").textContent =
+            entry.target.dataset.title;
+        }
         indicator.classList.add("live");
       } else {
         indicator.classList.remove("live");
@@ -235,10 +246,10 @@ function slideName(prefix, index, withHash = false) {
   }
 
   .carousel-navigation-button:hover {
-    background-color: var(--colour-link-hover);
+    background-color: var(--colour-hover);
   }
 
   .live {
-    background-color: var(--colour-link-hover);
+    background-color: var(--colour-hover);
   }
 </style>

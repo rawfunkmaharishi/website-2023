@@ -4,22 +4,43 @@ import Carousel from "../components/Carousel.astro";
 
 import { fetchFromAPI, futureGigs } from "../lib/tools";
 
-const nextGig = await futureGigs().then(function (gigs) {
-  return gigs[0];
+const gigCount = 2;
+const videoCount = 1;
+
+const titles = {
+  gigs: "Upcoming live shows",
+  video: "Latest video",
+  record: "New record",
+};
+
+const gigs = await futureGigs().then(function (gigs) {
+  return {
+    "@type": "MusicEvent",
+    items: gigs.slice(0, gigCount),
+    additionalTitle: titles.gigs,
+  };
+});
+
+const video = await fetchFromAPI("gigs").then(function (gigs) {
+  return {
+    "@type": "Video",
+    items: gigs
+      .reverse()
+      .filter((item) => "recordedIn" in item)
+      .slice(0, videoCount),
+    additionalTitle: titles.video,
+  };
 });
 
 const record = await fetchFromAPI("records").then(function (records) {
-  return records.reverse()[0];
+  const record = records.reverse()[0];
+  record.additionalTitle = titles.record;
+  return record;
 });
 
-const items = [
-  record,
-  {
-    "@type": "MusicEvent",
-    items: [nextGig],
-  },
-];
+const items = [gigs, video, record];
 ---
 
 <Layout>
+  <Carousel items={items} />
 </Layout>

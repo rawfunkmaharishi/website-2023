@@ -4,11 +4,11 @@ import Carousel from "../components/Carousel.astro";
 
 import { fetchFromAPI, futureGigs } from "../lib/tools";
 
-const gigCount = 2;
+const gigCount = 1;
 const videoCount = 1;
 
 const titles = {
-  gigs: "Upcoming live shows",
+  gigs: "Next gig",
   video: "New video",
   record: "Latest record",
 };
@@ -42,5 +42,5 @@ const items = [gigs, video, record];
 ---
 
 <Layout>
-  <Carousel items={items} />
+  <Carousel items={items} autoSlide=true />
 </Layout>

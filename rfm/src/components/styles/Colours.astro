@@ -1,5 +1,14 @@
 ---
-import { colours } from "../../conf/colours.js"
+import { RGBs } from "../../conf/colours.js";
+
+const colours = Object.assign(
+  {},
+  ...Object.keys(RGBs).map(function (key) {
+    return {
+      [key]: "rgb(" + RGBs[key].join(", ") + ")",
+    };
+  })
+);
 
 var c = ""
 
@@ -8,11 +17,11 @@ c += ":root {\n"
 for (var key in colours) {
     c += "  --colour-"
     c += key
-    c += ": var(--"
-    c += key
-    c += ");\n"
+    c += ": "
+    c += colours[key];
+    c += ";\n"
 }
 c += "}\n"
----
 
-<style is:global set:html={c}><style>
+---
+<style set:html={c}><style>

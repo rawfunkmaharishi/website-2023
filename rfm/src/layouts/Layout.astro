@@ -4,29 +4,21 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import Logo from "../components/Logo.astro";
 
-import Fonts from "../components/styles/Fonts.astro";
-import Colours from "../components/styles/Colours.astro";
-
-import { colours } from "../conf/colours.js"
-
 export interface Props {
   title: string;
 }
 
 const { title, jsonLD } = Astro.props;
-
 ---
 
 <!DOCTYPE html>
 <html lang="en">
   <Head title={title} jsonLD={jsonLD} />
-  <Fonts />
-  <Colours />
   <body>
     <Header title={title} />
     <main>
       <div id="logo">
-          <Logo />
+        <Logo />
         <h1 id="main-title">{title}</h1>
       </div>
       <div id="content">
@@ -34,23 +26,40 @@ const { title, jsonLD } = Astro.props;
       </div>
     </main>
     <Footer />
-    <style is:global define:vars={colours}>
 
+    <style is:global>
+      * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+      }
+
+      a {
+        color: var(--colour-link);
+        text-decoration: none;
+        transition: color var(--transition-time);
+      }
+
+      a:hover {
+        color: var(--colour-hover);
+      }
+
+      li {
+        list-style-type: none;
+      }
+    </style>
+
+    <style>
       :root {
         --transition-time: 500ms;
       }
 
       html {
         font-family: var(--font-primary);
+        /* font-variant: small-caps; */
         background-color: var(--colour-background);
         color: var(--colour-primary);
-        background-image: url(http://www.transparenttextures.com/patterns/concrete-wall.png);
-      }
-
-      * {
-        box-sizing: border-box;
-        padding: 0;
-        margin: 0;
+        /* background-image: url(http://www.transparenttextures.com/patterns/concrete-wall.png); */
       }
 
       body {
@@ -89,6 +98,7 @@ const { title, jsonLD } = Astro.props;
       div#content {
         width: 100%;
         position: relative;
+        margin-top: 2rem;
       }
 
       div#logo {
@@ -106,20 +116,6 @@ const { title, jsonLD } = Astro.props;
 
       #content {
         grid-area: content;
-      }
-
-      a {
-        color: var(--colour-link);
-        text-decoration: none;
-        transition: color var(--transition-time);
-      }
-
-      a:hover {
-        color: var(--colour-hover);
-      }
-
-      li {
-        list-style-type: none;
       }
     </style>
   </body>

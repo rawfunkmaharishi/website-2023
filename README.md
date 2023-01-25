@@ -1,1 +1,1 @@
-![ci](https://github.com/rawfunkmaharishi/website-2023/actions/workflows/playwright.yml/badge.svg)
+# All-new [Astro](https://astro.build/)-generated band website for 2023

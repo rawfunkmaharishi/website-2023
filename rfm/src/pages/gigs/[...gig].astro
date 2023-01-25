@@ -36,8 +36,13 @@ function fullAddress(gig) {
     location = preamble + location + postamble;
   }
 
-  var address = location + ', ' + gig.location.address.streetAddress + ', ' + gig.location.address.postalCode
-  address = address.replaceAll(",", "<br>")  // in case there are embedded commas in the `streetAddress`
+  var address =
+    location +
+    ", " +
+    gig.location.address.streetAddress +
+    ", " +
+    gig.location.address.postalCode;
+  address = address.replaceAll(",", "<br>"); // in case there are embedded commas in the `streetAddress`
 
   return address;
 }
@@ -48,7 +53,7 @@ function fullAddress(gig) {
     <dl>
       <dt>When:</dt>
       <dd>{time} on {date}</dd>
-       <dt>Where:</dt>
+      <dt>Where:</dt>
       <dd set:html={fullAddress(gig)} />
 
       {
@@ -93,8 +98,12 @@ function fullAddress(gig) {
 
       {
         gig.recordedIn && (
-          <dt>Watch:</dt>
-          <dd><a href={gig.url.replace("gigs", "videos")}>Video</a></dd>
+          <>
+            <dt>Watch:</dt>
+            <dd>
+              <a href={gig.url.replace("gigs", "videos")}>Video</a>
+            </dd>
+          </>
         )
       }
     </dl>
@@ -141,5 +150,9 @@ function fullAddress(gig) {
     height: 50vh;
     width: 80%;
     margin-inline: auto;
+
+    border-color: var(--colour-border);
+    border-width: 1px;
+    border-style: solid;
   }
 </style>

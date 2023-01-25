@@ -47,6 +47,13 @@ const { title, jsonLD } = Astro.props;
       li {
         list-style-type: none;
       }
+
+      img {
+        border-color: var(--colour-border);
+        border-width: 1px;
+        border-style: solid;
+        margin-bottom: 1rem;
+      }
     </style>
 
     <style>
@@ -64,9 +71,9 @@ const { title, jsonLD } = Astro.props;
 
       body {
         display: grid;
-        grid-template-columns: 1fr;
+        /* grid-template-columns: 1fr; */
         grid-template-areas: "nav" "main" "footer";
-        grid-template-rows: auto auto 1fr;
+        /* grid-template-rows: 1fr auto 1fr; */
         height: 100vh;
         overflow: auto;
       }
@@ -79,10 +86,12 @@ const { title, jsonLD } = Astro.props;
           "logo content"
           ". content";
         grid-template-columns: 2fr 3fr;
-        grid-template-rows: 2fr auto;
+        /* grid-template-rows: 2fr auto; */
         gap: 2rem;
 
-        margin: 2rem;
+        margin-left: 2rem;
+        margin-right: 2rem;
+        margin-top: 2rem;
       }
 
       @media only screen and (max-width: 600px) {

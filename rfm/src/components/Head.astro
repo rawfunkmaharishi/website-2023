@@ -2,6 +2,8 @@
 import Favicons from "./Favicons.astro";
 import Leaflet from "../components/Leaflet.astro";
 import Libs from "../components/Libs.astro";
+import Fonts from "../components/styles/Fonts.astro";
+import Colours from "../components/styles/Colours.astro";
 
 import { ogFromJSON } from "../lib/OpenGraph";
 import { fetchFromAPI } from "../lib/tools";
@@ -25,6 +27,8 @@ const headerTitle = title || "Raw Funk Maharishi";
   <Favicons />
   <Libs />
   <Leaflet />
+  <Fonts />
+  <Colours />
 
   {jsonLD && <script type="application/ld+json" set:html={jsonLD} />}
 

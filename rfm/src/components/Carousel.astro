@@ -4,7 +4,9 @@ import RecordSlide from "./slides/RecordSlide.astro";
 import MusicianSlide from "./slides/MusicianSlide.astro";
 import EventSlide from "./slides/EventSlide.astro";
 
-const { items } = Astro.props;
+const { items, autoSlide } = Astro.props;
+
+const autoSlideInterval = 4000;
 
 function slideName(prefix, index, withHash = false) {
   var name = prefix + "-" + index;
@@ -68,7 +70,13 @@ function slideName(prefix, index, withHash = false) {
   }
 </section>
 
-<script>
+<script
+  define:vars={{
+    items: items,
+    autoSlide: autoSlide,
+    autoSlideInterval: autoSlideInterval,
+  }}
+>
   const options = {
     root: document.getElementById("carousel"),
     rootMargin: "100px",
@@ -83,8 +91,7 @@ function slideName(prefix, index, withHash = false) {
 
       if (entry.isIntersecting) {
         if (entry.target.dataset.title) {
-          document.getElementById("main-title").textContent =
-            entry.target.dataset.title;
+          document.getElementById("main-title").textContent = entry.target.dataset.title;
         }
         indicator.classList.add("live");
       } else {
@@ -96,6 +103,26 @@ function slideName(prefix, index, withHash = false) {
   let observer = new IntersectionObserver(intersectionCallback, options);
   let slides = document.querySelectorAll(".carousel-slide");
   slides.forEach((slide) => observer.observe(slide));
+
+  if (autoSlide) {
+    var count = 1;
+    const runner = setInterval(function () {
+      document.getElementById("carousel-navigation-button-" + count).click();
+      count = (count + 1) % items.length;
+    }, autoSlideInterval);
+
+    document.getElementById("carousel").addEventListener("mousemove", () => {
+      stopSlide();
+    });
+
+    document.getElementById("carousel").addEventListener("touchstart", () => {
+      stopSlide();
+    });
+
+    function stopSlide() {
+      clearInterval(runner);
+    }
+  }
 </script>
 
 <style>

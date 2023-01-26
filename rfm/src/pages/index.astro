@@ -18,6 +18,7 @@ const gigs = await futureGigs().then(function (gigs) {
     "@type": "MusicEvent",
     items: gigs.slice(0, gigCount),
     additionalTitle: titles.gigs,
+    withImage: true
   };
 });
 
@@ -29,6 +30,7 @@ const video = await fetchFromAPI("gigs").then(function (gigs) {
       .filter((item) => "recordedIn" in item)
       .slice(0, videoCount),
     additionalTitle: titles.video,
+    withImage: true
   };
 });
 

@@ -63,55 +63,38 @@ const { title, jsonLD } = Astro.props;
 
       html {
         font-family: var(--font-primary);
-        /* font-variant: small-caps; */
         background-color: var(--colour-background);
         color: var(--colour-primary);
-        /* background-image: url(http://www.transparenttextures.com/patterns/concrete-wall.png); */
       }
 
       body {
         display: grid;
-        /* grid-template-columns: 1fr; */
         grid-template-areas: "nav" "main" "footer";
-        /* grid-template-rows: 1fr auto 1fr; */
-        height: 100vh;
         overflow: auto;
       }
 
       main {
+        background-color: green;
         grid-area: main;
-
         display: grid;
         grid-template-areas:
-          "logo content"
-          ". content";
-        grid-template-columns: 2fr 3fr;
-        /* grid-template-rows: 2fr auto; */
-        gap: 2rem;
-
-        margin-left: 2rem;
-        margin-right: 2rem;
-        margin-top: 2rem;
-      }
-
-      @media only screen and (max-width: 600px) {
-        main {
-          grid-template-areas:
-            "logo"
-            "content";
-          grid-template-columns: 1fr;
-          gap: 0.5rem;
-        }
+          "logo"
+          "content";
+        grid-template-rows: 2fr 5fr;
+        gap: 0;
+        margin-inline: 1rem;
       }
 
       div#content {
         width: 100%;
         position: relative;
-        margin-top: 2rem;
+        margin-top: 1rem;
       }
 
       div#logo {
         grid-area: logo;
+        margin-top: 1rem;
+        padding-inline: 1rem;
       }
 
       h1 {
@@ -119,12 +102,39 @@ const { title, jsonLD } = Astro.props;
         text-transform: uppercase;
         text-align: center;
         grid-area: title;
-        padding-top: 3rem;
-        height: 6rem;
+        padding-top: 1rem;
       }
 
       #content {
         grid-area: content;
+      }
+
+      #logo {
+        background-color: pink;
+      }
+
+      #content {
+        background-color: cyan;
+      }
+
+      @media only screen and (max-width: 600px) {
+        /* body {
+          grid-template-rows: 5vh 82vh 3vh;
+          height: 90vh;
+        }
+
+        main {
+          grid-template-areas:
+            "logo"
+            "content";
+          grid-template-columns: 1fr;
+          grid-template-rows: 2fr 5fr;
+          gap: 0;
+        }
+
+        h1 {
+          padding-top: 1.5rem;
+        } */
       }
     </style>
   </body>

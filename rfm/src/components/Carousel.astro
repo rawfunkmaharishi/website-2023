@@ -6,7 +6,7 @@ import EventSlide from "./slides/EventSlide.astro";
 
 const { items, autoSlide } = Astro.props;
 
-const autoSlideInterval = 4000;
+const autoSlideInterval = 5000;
 
 function slideName(prefix, index, withHash = false) {
   var name = prefix + "-" + index;
@@ -34,12 +34,12 @@ function slideName(prefix, index, withHash = false) {
             {item["@type"] == "Person" && <MusicianSlide musician={item} />}
 
             {item["@type"] == "MusicEvent" && (
-              <EventSlide eventSet={item.items} dateFormat="dddd MMM Do" />
+              <EventSlide eventSet={item} dateFormat="dddd MMM Do" />
             )}
 
             {item["@type"] == "Video" && (
               <EventSlide
-                eventSet={item.items}
+                eventSet={item}
                 dateFormat="MMMM YYYY"
                 type="videos"
               />
@@ -91,7 +91,8 @@ function slideName(prefix, index, withHash = false) {
 
       if (entry.isIntersecting) {
         if (entry.target.dataset.title) {
-          document.getElementById("main-title").textContent = entry.target.dataset.title;
+          document.getElementById("main-title").textContent =
+            entry.target.dataset.title;
         }
         indicator.classList.add("live");
       } else {
@@ -203,8 +204,6 @@ function slideName(prefix, index, withHash = false) {
   .carousel {
     position: relative;
     padding-top: 75%;
-    /* filter: drop-shadow(0 0 10px #0003); */
-    /* perspective: 100px; */
   }
 
   .carousel-viewport {
@@ -279,4 +278,10 @@ function slideName(prefix, index, withHash = false) {
   .live {
     background-color: var(--colour-hover);
   }
+
+  /* @media only screen and (max-width: 600px) {
+    section {
+      height: 97%;
+    }
+  } */
 </style>

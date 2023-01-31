@@ -3,6 +3,7 @@
 import RecordSlide from "./slides/RecordSlide.astro";
 import MusicianSlide from "./slides/MusicianSlide.astro";
 import EventSlide from "./slides/EventSlide.astro";
+import PromoSlide from "./slides/PromoSlide.astro";
 
 const { items, autoSlide } = Astro.props;
 
@@ -44,6 +45,11 @@ function slideName(prefix, index, withHash = false) {
                 type="videos"
               />
             )}
+
+            {item["@type"] == "Promo" && (
+              <PromoSlide data={item} />
+            )
+          }
           </div>
         </li>
       ))
@@ -78,7 +84,8 @@ function slideName(prefix, index, withHash = false) {
   }}
 >
   const options = {
-    root: document.getElementById("carousel"),
+    // root: document.getElementById("carousel"),
+    root: document.getElementsByClassName("carousel-viewport")[0],
     rootMargin: "100px",
     threshold: 0.75,
   };
@@ -203,7 +210,7 @@ function slideName(prefix, index, withHash = false) {
 
   .carousel {
     position: relative;
-    padding-top: 75%;
+    padding-top: 80%;
   }
 
   .carousel-viewport {
@@ -279,9 +286,7 @@ function slideName(prefix, index, withHash = false) {
     background-color: var(--colour-hover);
   }
 
-  /* @media only screen and (max-width: 600px) {
-    section {
-      height: 97%;
-    }
-  } */
+  section {
+    /* overflow: auto; */
+  }
 </style>

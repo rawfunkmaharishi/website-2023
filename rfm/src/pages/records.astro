@@ -10,5 +10,5 @@ const records = await fetchFromAPI("records").then(function (records) {
 ---
 
 <Layout title="Records">
-  <Carousel items={records} />
+  <Carousel items={records} autoSlide=true />
 </Layout>

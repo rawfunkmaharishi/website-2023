@@ -74,13 +74,12 @@ const { title, jsonLD } = Astro.props;
       }
 
       main {
-        background-color: green;
         grid-area: main;
         display: grid;
         grid-template-areas:
           "logo"
           "content";
-        grid-template-rows: 2fr 5fr;
+        grid-template-rows: 1fr 2fr;
         gap: 0;
         margin-inline: 1rem;
       }
@@ -107,34 +106,6 @@ const { title, jsonLD } = Astro.props;
 
       #content {
         grid-area: content;
-      }
-
-      #logo {
-        background-color: pink;
-      }
-
-      #content {
-        background-color: cyan;
-      }
-
-      @media only screen and (max-width: 600px) {
-        /* body {
-          grid-template-rows: 5vh 82vh 3vh;
-          height: 90vh;
-        }
-
-        main {
-          grid-template-areas:
-            "logo"
-            "content";
-          grid-template-columns: 1fr;
-          grid-template-rows: 2fr 5fr;
-          gap: 0;
-        }
-
-        h1 {
-          padding-top: 1.5rem;
-        } */
       }
     </style>
   </body>

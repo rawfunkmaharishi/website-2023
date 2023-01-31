@@ -10,14 +10,6 @@ function getURL(url) {
 
   return url;
 }
-
-function getImage() {
-  if (type && type == "videos") {
-    return eventSet.items[0].recordedIn.thumbnailUrl
-  }
-
-  return eventSet.items[0].location.image.contentUrl
-}
 ---
 
 <ul>
@@ -25,7 +17,6 @@ function getImage() {
     eventSet.items.map((event) => (
       <li>
         <a href={getURL(event.url)}>
-          {eventSet.withImage && <img src={getImage()} />}
           {moment(event.startDate).format(dateFormat)}
           <span class="venue">{event.location.name}</span>
         </a>
@@ -36,13 +27,13 @@ function getImage() {
 
 <style>
   li {
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
 
   .venue {
     display: block;
-    font-size: 2.5rem;
-    margin-top: -0.75rem;
+    font-size: 1.5rem;
+    margin-top: -0.25rem;
   }
 
   ul {
@@ -50,30 +41,8 @@ function getImage() {
     justify-content: center;
     height: 100%;
     align-items: center;
-    padding-top: 10rem;
-    padding-bottom: 10rem;
-    gap: 1rem;
-  }
-
-  @media only screen and (max-width: 600px) {
-    li {
-      font-size: unset;
-    }
-
-    .venue {
-      font-size: 1.5rem;
-      margin-top: -0.5rem;
-    }
-
-    ul {
-      gap: 0;
-      padding: 0;
-      padding-bottom: 1rem;
-    }
-
-    img {
-      width: 100%;
-      object-fit: cover;
-    }
+    padding: 0;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
   }
 </style>

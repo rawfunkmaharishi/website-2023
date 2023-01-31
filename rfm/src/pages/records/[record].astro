@@ -48,12 +48,13 @@ const services = streamingServices(record.sameAs);
   <style>
     div.record {
       display: grid;
-      grid-template-rows: auto auto;
+      /* grid-template-rows: auto auto; */
       justify-content: center;
       gap: 1rem;
     }
+
     img {
-      max-width: 50%;
+      max-width: 80%;
       margin-inline: auto;
     }
 
@@ -63,7 +64,7 @@ const services = streamingServices(record.sameAs);
 
     ul {
       display: flex;
-      font-size: 3rem;
+      font-size: 2rem;
       gap: 1rem;
       justify-content: center;
     }
@@ -81,12 +82,6 @@ const services = streamingServices(record.sameAs);
     ol li::before {
       content: counter(counter) ": ";
       font-size: 0.7rem;
-    }
-
-    @media only screen and (max-width: 600px) {
-      img {
-        max-width: 90%;
-      }
     }
   </style>
 </Layout>

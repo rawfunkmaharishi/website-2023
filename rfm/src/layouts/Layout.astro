@@ -71,6 +71,8 @@ const { title, jsonLD } = Astro.props;
         display: grid;
         grid-template-areas: "nav" "main" "footer";
         overflow: auto;
+        grid-template-rows: auto auto 1fr;
+        height: 100dvh;
       }
 
       main {
@@ -79,7 +81,7 @@ const { title, jsonLD } = Astro.props;
         grid-template-areas:
           "logo"
           "content";
-        grid-template-rows: 1fr 2fr;
+        grid-template-rows: 1fr auto;
         gap: 0;
         margin-inline: 1rem;
       }
@@ -107,6 +109,12 @@ const { title, jsonLD } = Astro.props;
       #content {
         grid-area: content;
       }
+
+      @media only screen and (max-width: 600px) {
+    /* li {
+      margin-top: 1.5rem;
+    } */
+  }
     </style>
   </body>
 </html>

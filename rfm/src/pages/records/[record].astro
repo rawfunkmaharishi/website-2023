@@ -54,8 +54,8 @@ const services = streamingServices(record.sameAs);
     }
 
     img {
-      max-width: 80%;
-      margin-inline: auto;
+      width: 80dvw;
+      height: 80dvw;
     }
 
     h3 {
@@ -82,6 +82,13 @@ const services = streamingServices(record.sameAs);
     ol li::before {
       content: counter(counter) ": ";
       font-size: 0.7rem;
+    }
+
+    @media only screen and (min-width: 600px) {
+      img {
+        width: 60dvh;
+        height: 60dvh;
+      }
     }
   </style>
 </Layout>

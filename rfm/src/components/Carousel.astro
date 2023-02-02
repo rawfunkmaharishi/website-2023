@@ -226,7 +226,6 @@ function slideName(prefix, index, withHash = false) {
     position: relative;
     flex: 0 0 100%;
     width: 100%;
-    counter-increment: item;
   }
 
   .carousel-snapper {
@@ -265,12 +264,12 @@ function slideName(prefix, index, withHash = false) {
 
   .carousel-navigation-button {
     display: inline-block;
-    width: 1.2rem;
-    height: 1.2rem;
+    width: 1.5rem;
+    height: 1.5rem;
     background-color: var(--colour-link);
     background-clip: content-box;
     border: 0.25rem solid transparent;
-    border-radius: 50%;
+    border-radius: 0.5rem;
     font-size: 0;
     transition: background-color var(--transition-time);
   }

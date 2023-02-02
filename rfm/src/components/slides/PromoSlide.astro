@@ -1,0 +1,38 @@
+---
+import moment from "moment";
+
+const { data } = Astro.props;
+
+function getURL(url) {
+  if (data.subType) {
+    url = url.replace("gigs", data.subType);
+  }
+
+  return url;
+}
+
+function getDate() {
+  var dateFormat = "dddd MMM Do";
+  if (data.subType == "videos") {
+    dateFormat = "MMMM YYYY";
+  }
+
+  return moment(data.item.startDate).format(dateFormat);
+}
+
+function getImage() {
+  if (data.subType == "videos") {
+    return data.item.recordedIn.thumbnailUrl;
+  }
+
+  return data.item.location.image.contentUrl;
+}
+---
+
+<a href={getURL(data.item.url)}>
+  <img src={getImage()} />
+  <h2>
+    {getDate()}<br>
+    {data.item.location.name}
+  </h2>
+</a>

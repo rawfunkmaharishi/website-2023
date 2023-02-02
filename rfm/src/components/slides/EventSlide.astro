@@ -5,15 +5,16 @@ const { eventSet, dateFormat, type } = Astro.props;
 
 function getURL(url) {
   if (type) {
-    url = url.replace("gigs", type)
+    url = url.replace("gigs", type);
   }
 
-  return url
+  return url;
 }
 ---
+
 <ul>
   {
-    eventSet.map((event) => (
+    eventSet.items.map((event) => (
       <li>
         <a href={getURL(event.url)}>
           {moment(event.startDate).format(dateFormat)}
@@ -26,13 +27,13 @@ function getURL(url) {
 
 <style>
   li {
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
 
   .venue {
     display: block;
-    font-size: 2.5rem;
-    margin-top: -0.75rem;
+    font-size: 1.5rem;
+    margin-top: -0.25rem;
   }
 
   ul {
@@ -40,25 +41,15 @@ function getURL(url) {
     justify-content: center;
     height: 100%;
     align-items: center;
-    padding-top: 10rem;
-    padding-bottom: 10rem;
-    gap: 1rem;
+    padding: 0;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
   }
 
-  @media only screen and (max-width: 600px) {
-    li {
-      font-size: unset;
-    }
-
-    .venue {
-      font-size: 1.5rem;
-      margin-top: -0.5rem;
-    }
-
+  @media only screen and (min-width: 600px) {
     ul {
-      gap: 0;
-      padding: 0;
-      padding-bottom: 1rem;
+      padding-top: 10rem;
+      padding-bottom: 10rem;
     }
   }
 </style>

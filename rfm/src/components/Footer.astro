@@ -3,34 +3,59 @@ import "@mdi/font/css/materialdesignicons.css";
 ---
 
 <footer>
-  <a href="/gigs/rss.xml" title="RSS feed of our gig calendar">
-    <span class:list={["mdi", "mdi-rss"]}></span>
-  </a>
-  <a href="/gigs/calendar.ics" title="ICS gig calendar">
-    <span class:list={["mdi", "mdi-calendar"]}></span>
-  </a>
-  <a
-    href="https://mastodon.me.uk/@rawfunkmaharishi"
-    title="Raw Funk Maharishi on Mastodon"
-    target="_blank"
-  >
-    <span class:list={["mdi mdi-mastodon"]}></span>
-  </a>
+  <ul>
+    <li>
+      <a href="/gigs/rss.xml" title="RSS feed of our gig calendar">
+        <span class:list={["mdi", "mdi-rss"]}></span>
+      </a>
+    </li>
+    <li>
+      <a href="/gigs/calendar.ics" title="ICS gig calendar">
+        <span class:list={["mdi", "mdi-calendar"]}></span>
+      </a>
+    </li>
+    <li>
+      <a
+        href="https://mastodon.me.uk/@rawfunkmaharishi"
+        title="Raw Funk Maharishi on Mastodon"
+        target="_blank"
+      >
+        <span class:list={["mdi mdi-mastodon"]}></span>
+      </a>
+    </li>
+  </ul>
 </footer>
 
 <style>
   footer {
     grid-area: footer;
     align-self: end;
-    height: 2rem;
+    height: 2.5rem;
+    margin-top: 2rem;
+  }
+
+  ul {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    width: 20%;
+    margin-inline: auto;
+    align-items: center;
+  }
+
+  li {
+    list-style-type: none;
+    flex-grow: 1;
+    text-align: center;
     font-size: 1rem;
   }
 
-  footer > * {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+  @media only screen and (min-width: 600px) {
+    footer {
+      height: 2rem;
+    }
+
+    ul {
+      max-width: 5rem;
+   }
   }
+
 </style>

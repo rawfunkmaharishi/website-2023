@@ -48,13 +48,14 @@ const services = streamingServices(record.sameAs);
   <style>
     div.record {
       display: grid;
-      grid-template-rows: auto auto;
+      /* grid-template-rows: auto auto; */
       justify-content: center;
       gap: 1rem;
     }
+
     img {
-      max-width: 50%;
-      margin-inline: auto;
+      width: 80dvw;
+      height: 80dvw;
     }
 
     h3 {
@@ -63,7 +64,7 @@ const services = streamingServices(record.sameAs);
 
     ul {
       display: flex;
-      font-size: 3rem;
+      font-size: 2rem;
       gap: 1rem;
       justify-content: center;
     }
@@ -83,9 +84,10 @@ const services = streamingServices(record.sameAs);
       font-size: 0.7rem;
     }
 
-    @media only screen and (max-width: 600px) {
+    @media only screen and (min-width: 600px) {
       img {
-        max-width: 90%;
+        width: 50dvh;
+        height: 50dvh;
       }
     }
   </style>

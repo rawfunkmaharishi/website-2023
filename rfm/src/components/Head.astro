@@ -2,6 +2,7 @@
 import Favicons from "./Favicons.astro";
 import Leaflet from "../components/Leaflet.astro";
 import Libs from "../components/Libs.astro";
+
 import Fonts from "../components/styles/Fonts.astro";
 import Colours from "../components/styles/Colours.astro";
 
@@ -20,13 +21,14 @@ const headerTitle = title || "Raw Funk Maharishi";
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <meta name="generator" content={Astro.generator} />
 
   <Favicons />
   <Libs />
   <Leaflet />
+
   <Fonts />
   <Colours />
 

@@ -13,22 +13,23 @@ const titles = {
   record: "Latest record",
 };
 
-const gigs = await futureGigs().then(function (gigs) {
+const gig = await futureGigs().then(function (gigs) {
   return {
-    "@type": "MusicEvent",
-    items: gigs.slice(0, gigCount),
-    additionalTitle: titles.gigs,
+    "@type": "Promo",
+    item: gigs.slice(0, gigCount)[0],
+    additionalTitle: titles.gigs
   };
 });
 
 const video = await fetchFromAPI("gigs").then(function (gigs) {
   return {
-    "@type": "Video",
-    items: gigs
+    "@type": "Promo",
+    item: gigs
       .reverse()
       .filter((item) => "recordedIn" in item)
-      .slice(0, videoCount),
-    additionalTitle: titles.video,
+      .slice(0, videoCount)[0],
+      subType: "videos",
+    additionalTitle: titles.video
   };
 });
 
@@ -38,7 +39,7 @@ const record = await fetchFromAPI("records").then(function (records) {
   return record;
 });
 
-const items = [gigs, video, record];
+const items = [gig, video, record];
 ---
 
 <Layout>

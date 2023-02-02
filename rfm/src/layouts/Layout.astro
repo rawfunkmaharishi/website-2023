@@ -126,14 +126,18 @@ const { title, jsonLD } = Astro.props;
       }
 
       @media only screen and (min-width: 600px) {
-        body {
-          grid-template-rows: auto auto auto;
-        }
         main {
           grid-template-areas:
             "logo content"
             ". content";
-          grid-template-columns: 1fr 1fr;
+          grid-template-columns: 1fr 1.3fr;
+          margin-top: 1rem;
+        }
+      }
+
+      @media only screen and (min-width: 1000px) {
+        main {
+                    grid-template-columns: 1fr 2fr;
         }
       }
     </style>

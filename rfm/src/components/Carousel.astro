@@ -46,10 +46,7 @@ function slideName(prefix, index, withHash = false) {
               />
             )}
 
-            {item["@type"] == "Promo" && (
-              <PromoSlide data={item} />
-            )
-          }
+            {item["@type"] == "Promo" && <PromoSlide data={item} />}
           </div>
         </li>
       ))
@@ -286,7 +283,15 @@ function slideName(prefix, index, withHash = false) {
     background-color: var(--colour-hover);
   }
 
-  section {
-    /* overflow: auto; */
+  @media only screen and (min-width: 600px) {
+    .carousel {
+      padding-top: 55%;
+    }
+  }
+
+  @media only screen and (min-width: 1500px) {
+    .carousel {
+      padding-top: 40%;
+    }
   }
 </style>

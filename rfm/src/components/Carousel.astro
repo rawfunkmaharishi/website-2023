@@ -5,14 +5,25 @@ import MusicianSlide from "./slides/MusicianSlide.astro";
 import EventSlide from "./slides/EventSlide.astro";
 import PromoSlide from "./slides/PromoSlide.astro";
 
-const { items } = Astro.props;
+const { items, wrapAround } = Astro.props;
+
+const vars = { foo: 1 };
+
+function cellId(index) {
+  return "cell-" + index;
+}
 ---
 
 <ol class="main-carousel">
   {
-    items.map((item) => (
-      <li class="carousel-cell">
+    items.map((item, index) => (
+      <li
+        class="carousel-cell"
+        id={cellId(index)}
+        data-title={item.additionalTitle}
+      >
         {item["@type"] == "MusicAlbum" && <RecordSlide record={item} />}
+
         {item["@type"] == "Person" && <MusicianSlide musician={item} />}
 
         {item["@type"] == "MusicEvent" && (
@@ -29,17 +40,33 @@ const { items } = Astro.props;
   }
 </ol>
 
-<script>
+<script define:vars={{ wrapAround: wrapAround }}>
+  function setTitle(index) {
+    const cell = document.getElementById("cell-" + index);
+    if (cell.dataset.title) {
+      document.getElementById("main-title").textContent = cell.dataset.title;
+    }
+  }
+
   var elem = document.querySelector(".main-carousel");
   var flkty = new Flickity(elem, {
-    wrapAround: true,
-    autoPlay: 5000,
+    wrapAround: wrapAround,
+    autoPlay: 3000,
+    on: {
+      ready: function () {
+        setTitle(0);
+      },
+    },
+  });
+
+  flkty.on("settle", function (index) {
+    setTitle(index);
   });
 </script>
 
 <style>
   li {
-    margin-inline: 30%;
+    margin-inline: 15%;
   }
 </style>
 
@@ -66,7 +93,7 @@ const { items } = Astro.props;
     border-style: solid;
     border-color: var(--colour-link);
   }
-  /* fill-in selected dot */
+
   .flickity-page-dots .dot.is-selected {
     background: var(--colour-link);
   }

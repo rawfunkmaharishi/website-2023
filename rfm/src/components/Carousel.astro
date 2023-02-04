@@ -5,19 +5,7 @@ import MusicianSlide from "./slides/MusicianSlide.astro";
 import EventSlide from "./slides/EventSlide.astro";
 import PromoSlide from "./slides/PromoSlide.astro";
 
-const { items, autoSlide } = Astro.props;
-
-const autoSlideInterval = 5000;
-
-function slideName(prefix, index, withHash = false) {
-  var name = prefix + "-" + index;
-
-  if (withHash) {
-    name = "#" + name;
-  }
-
-  return name;
-}
+const { items } = Astro.props;
 ---
 
 <ol class="main-carousel">
@@ -75,8 +63,8 @@ function slideName(prefix, index, withHash = false) {
     opacity: 1;
     background: transparent;
     border-width: 1px;
-    border-style:  solid;
-    border-color:  var(--colour-link);
+    border-style: solid;
+    border-color: var(--colour-link);
   }
   /* fill-in selected dot */
   .flickity-page-dots .dot.is-selected {

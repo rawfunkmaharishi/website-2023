@@ -20,277 +20,66 @@ function slideName(prefix, index, withHash = false) {
 }
 ---
 
-<section class="carousel" id="carousel">
-  <ol class="carousel-viewport">
-    {
-      items.map((item, index) => (
-        <li
-          id={slideName("slide", index)}
-          data-index={index}
-          data-title={item.additionalTitle}
-          class="carousel-slide"
-        >
-          <div class="carousel-snapper">
-            {item["@type"] == "MusicAlbum" && <RecordSlide record={item} />}
-            {item["@type"] == "Person" && <MusicianSlide musician={item} />}
-
-            {item["@type"] == "MusicEvent" && (
-              <EventSlide eventSet={item} dateFormat="dddd MMM Do" />
-            )}
-
-            {item["@type"] == "Video" && (
-              <EventSlide
-                eventSet={item}
-                dateFormat="MMMM YYYY"
-                type="videos"
-              />
-            )}
-
-            {item["@type"] == "Promo" && <PromoSlide data={item} />}
-          </div>
-        </li>
-      ))
-    }
-  </ol>
+<ol class="main-carousel">
   {
-    items.length > 1 && (
-      <div class="carousel-navigation">
-        <ol class="carousel-navigation-list">
-          {items.map((item, index) => (
-            <li class="carousel-navigation-item">
-              <a
-                href={slideName("slide", index, true)}
-                class="carousel-navigation-button"
-                id={slideName("carousel-navigation-button", index)}
-              >
-                Go to slide {index}
-              </a>
-            </li>
-          ))}
-        </ol>
-      </div>
-    )
+    items.map((item) => (
+      <li class="carousel-cell">
+        {item["@type"] == "MusicAlbum" && <RecordSlide record={item} />}
+        {item["@type"] == "Person" && <MusicianSlide musician={item} />}
+
+        {item["@type"] == "MusicEvent" && (
+          <EventSlide eventSet={item} dateFormat="dddd MMM Do" />
+        )}
+
+        {item["@type"] == "Video" && (
+          <EventSlide eventSet={item} dateFormat="MMMM YYYY" type="videos" />
+        )}
+
+        {item["@type"] == "Promo" && <PromoSlide data={item} />}
+      </li>
+    ))
   }
-</section>
+</ol>
 
-<script
-  define:vars={{
-    items: items,
-    autoSlide: autoSlide,
-    autoSlideInterval: autoSlideInterval,
-  }}
->
-  const options = {
-    // root: document.getElementById("carousel"),
-    root: document.getElementsByClassName("carousel-viewport")[0],
-    rootMargin: "100px",
-    threshold: 0.75,
-  };
-
-  const intersectionCallback = (entries, observer) => {
-    entries.forEach((entry) => {
-      const indicator = document.querySelector(
-        "#carousel-navigation-button-" + entry.target.dataset.index
-      );
-
-      if (entry.isIntersecting) {
-        if (entry.target.dataset.title) {
-          document.getElementById("main-title").textContent =
-            entry.target.dataset.title;
-        }
-        indicator.classList.add("live");
-      } else {
-        indicator.classList.remove("live");
-      }
-    });
-  };
-
-  let observer = new IntersectionObserver(intersectionCallback, options);
-  let slides = document.querySelectorAll(".carousel-slide");
-  slides.forEach((slide) => observer.observe(slide));
-
-  if (autoSlide) {
-    var count = 1;
-    const runner = setInterval(function () {
-      document.getElementById("carousel-navigation-button-" + count).click();
-      count = (count + 1) % items.length;
-    }, autoSlideInterval);
-
-    document.getElementById("carousel").addEventListener("mousemove", () => {
-      stopSlide();
-    });
-
-    document.getElementById("carousel").addEventListener("touchstart", () => {
-      stopSlide();
-    });
-
-    function stopSlide() {
-      clearInterval(runner);
-    }
-  }
+<script>
+  var elem = document.querySelector(".main-carousel");
+  var flkty = new Flickity(elem, {
+    wrapAround: true,
+    autoPlay: 5000,
+  });
 </script>
 
 <style>
-  @keyframes tonext {
-    75% {
-      left: 0;
-    }
-    95% {
-      left: 100%;
-    }
-    98% {
-      left: 100%;
-    }
-    99% {
-      left: 0;
-    }
-  }
-
-  @keyframes tostart {
-    75% {
-      left: 0;
-    }
-    95% {
-      left: -300%;
-    }
-    98% {
-      left: -300%;
-    }
-    99% {
-      left: 0;
-    }
-  }
-
-  @keyframes snap {
-    96% {
-      scroll-snap-align: center;
-    }
-    97% {
-      scroll-snap-align: none;
-    }
-    99% {
-      scroll-snap-align: none;
-    }
-    100% {
-      scroll-snap-align: center;
-    }
-  }
-
-  * {
-    scrollbar-color: transparent transparent; /* thumb and track color */
-    scrollbar-width: 0px;
-  }
-
-  *::-webkit-scrollbar {
-    width: 0;
-  }
-
-  *::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  *::-webkit-scrollbar-thumb {
-    background: transparent;
-    border: none;
-  }
-
-  * {
-    -ms-overflow-style: none;
-  }
-
-  ol,
   li {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+    margin-inline: 30%;
   }
+</style>
 
-  .carousel {
-    position: relative;
-    padding-top: 80%;
-  }
-
-  .carousel-viewport {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    display: flex;
-    overflow-x: scroll;
-    scroll-behavior: smooth;
-    scroll-snap-type: x mandatory;
-  }
-
-  .carousel-slide {
-    position: relative;
-    flex: 0 0 100%;
-    width: 100%;
-  }
-
-  .carousel-snapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    scroll-snap-align: center;
-    text-align: center;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .carousel-snapper {
-      animation-name: none;
-    }
-  }
-
-  .carousel:hover .carousel-snapper,
-  .carousel:focus-within .carousel-snapper {
-    animation-name: none;
-  }
-
-  .carousel-navigation {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    text-align: center;
-  }
-
-  .carousel-navigation-list,
-  .carousel-navigation-item {
-    display: inline-block;
-  }
-
-  .carousel-navigation-button {
-    display: inline-block;
-    width: 1.5rem;
-    height: 1.5rem;
+<style is:global>
+  .flickity-button {
     background-color: var(--colour-link);
-    background-clip: content-box;
-    border: 0.25rem solid transparent;
-    border-radius: 0.5rem;
-    font-size: 0;
-    transition: background-color var(--transition-time);
   }
 
-  .carousel-navigation-button:hover {
+  .flickity-button:hover {
     background-color: var(--colour-hover);
   }
 
-  .live {
-    background-color: var(--colour-hover);
+  .flickity-button:focus {
+    outline: none;
+    box-shadow: none;
   }
 
-  @media only screen and (min-width: 600px) {
-    .carousel {
-      padding-top: 55%;
-    }
+  .flickity-page-dots .dot {
+    width: 12px;
+    height: 12px;
+    opacity: 1;
+    background: transparent;
+    border-width: 1px;
+    border-style:  solid;
+    border-color:  var(--colour-link);
   }
-
-  @media only screen and (min-width: 1500px) {
-    .carousel {
-      padding-top: 40%;
-    }
+  /* fill-in selected dot */
+  .flickity-page-dots .dot.is-selected {
+    background: var(--colour-link);
   }
 </style>

@@ -1,5 +1,4 @@
 ---
-// https://codepen.io/Schepp/pen/WNbQByE
 import RecordSlide from "./slides/RecordSlide.astro";
 import MusicianSlide from "./slides/MusicianSlide.astro";
 import EventSlide from "./slides/EventSlide.astro";
@@ -7,14 +6,12 @@ import PromoSlide from "./slides/PromoSlide.astro";
 
 const { items, wrapAround } = Astro.props;
 
-const vars = { foo: 1 };
-
 function cellId(index) {
   return "cell-" + index;
 }
 ---
 
-<ol class="main-carousel">
+<ul class="main-carousel">
   {
     items.map((item, index) => (
       <li
@@ -38,7 +35,7 @@ function cellId(index) {
       </li>
     ))
   }
-</ol>
+</ul>
 
 <script define:vars={{ wrapAround: wrapAround }}>
   function setTitle(index) {
@@ -68,11 +65,22 @@ function cellId(index) {
   li {
     margin-inline: 15%;
   }
+
+  ul {
+    height: 65dvw;
+  }
+
+  @media only screen and (min-width: 600px) {
+    ul {
+      height: 60dvh;
+    }
+  }
 </style>
 
 <style is:global>
   .flickity-button {
     background-color: var(--colour-link);
+    top: 25dvw;
   }
 
   .flickity-button:hover {
@@ -88,6 +96,7 @@ function cellId(index) {
     width: 12px;
     height: 12px;
     opacity: 1;
+    margin-inline: 0.3rem;
     background: transparent;
     border-width: 1px;
     border-style: solid;
@@ -96,5 +105,11 @@ function cellId(index) {
 
   .flickity-page-dots .dot.is-selected {
     background: var(--colour-link);
+  }
+
+  @media only screen and (min-width: 600px) {
+    .flickity-button {
+      top: 15dvw;
+    }
   }
 </style>

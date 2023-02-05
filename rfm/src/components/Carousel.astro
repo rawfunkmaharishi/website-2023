@@ -1,13 +1,10 @@
 ---
-// https://codepen.io/Schepp/pen/WNbQByE
 import RecordSlide from "./slides/RecordSlide.astro";
 import MusicianSlide from "./slides/MusicianSlide.astro";
 import EventSlide from "./slides/EventSlide.astro";
 import PromoSlide from "./slides/PromoSlide.astro";
 
 const { items, wrapAround } = Astro.props;
-
-const vars = { foo: 1 };
 
 function cellId(index) {
   return "cell-" + index;
@@ -83,6 +80,7 @@ function cellId(index) {
 <style is:global>
   .flickity-button {
     background-color: var(--colour-link);
+    top: 25dvw;
   }
 
   .flickity-button:hover {
@@ -107,5 +105,11 @@ function cellId(index) {
 
   .flickity-page-dots .dot.is-selected {
     background: var(--colour-link);
+  }
+
+  @media only screen and (min-width: 600px) {
+    .flickity-button {
+      top: 15dvw;
+    }
   }
 </style>

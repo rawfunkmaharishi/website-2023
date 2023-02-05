@@ -8,7 +8,6 @@ const elementId = data.id + "-close";
   <a href="#" id={elementId} class="close" title="Close">✕</a>
 </dialog>
 
-
 <script define:vars={{ id: data.id }}>
   document.getElementById(id + "-close").addEventListener("click", () => {
     document.getElementById(id).close();
@@ -25,14 +24,14 @@ const elementId = data.id + "-close";
 
   dialog.player {
     position: fixed;
-    width: 70%;
-    height: 70%;
     margin: auto;
     border: none;
     overflow: hidden;
     background: rgb(0, 0, 0, 0.9);
     padding: 1rem;
     border-radius: 1rem;
+    width: 100%;
+    height: 100%;
   }
 
   iframe {
@@ -40,11 +39,11 @@ const elementId = data.id + "-close";
     height: 90%;
     border: none;
   }
-/* TODO invert these for mobile-first */
-  @media only screen and (max-width: 600px) {
+
+  @media only screen and (min-width: 600px) {
     dialog.player {
-      width: 100%;
-      height: 100%
+      width: 70%;
+      height: 70%;
     }
   }
 </style>

@@ -47,9 +47,9 @@ export const palette = [
 ];
 
 export const choices = {
-  background: "Rich Black FOGRA 39",
-  primary: "Alice Blue",
-  link: "Maya Blue",
-  hover: "Sea Green Crayola",
-  border: "Cool Grey",
+  background: 4,
+  primary: 2,
+  link: 1,
+  hover: 0,
+  border: 3,
 };

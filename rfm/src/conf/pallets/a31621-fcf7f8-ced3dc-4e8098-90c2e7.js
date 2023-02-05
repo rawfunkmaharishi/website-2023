@@ -47,9 +47,9 @@ export const palette = [
 ];
 
 export const choices = {
-  background: "Onyx",
-  primary: "Maize Crayola",
-  link: "Keppel",
-  hover: "Timberwolf",
-  border: "Platinum",
+  background: 0,
+  primary: 4,
+  link: 3,
+  hover: 1,
+  border: 2,
 };

@@ -1,6 +1,6 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import { fetchFromAPI, getJSONLD, niceDate } from "../../lib/tools";
+import Layout from "../../../layouts/Layout.astro";
+import { fetchFromAPI, getJSONLD, niceDate } from "../../../lib/tools";
 
 export async function getStaticPaths() {
   return await fetchFromAPI("gigs").then(function (items) {

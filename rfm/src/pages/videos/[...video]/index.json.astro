@@ -1,0 +1,24 @@
+---
+import { fetchFromAPI, getJSONLD } from "../../../lib/tools";
+
+export async function getStaticPaths() {
+  return await fetchFromAPI("gigs")
+    .then(function (gigs) {
+      return gigs.filter((item) => "recordedIn" in item);
+    })
+    .then(function (gigs) {
+      return gigs.map((video) => {
+        return {
+          params: {
+            video: video.url.replace("/gigs/", ""),
+          },
+          props: { video },
+        };
+      });
+    });
+}
+
+const { video } = Astro.props;
+---
+
+{getJSONLD(video)}

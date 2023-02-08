@@ -1,0 +1,20 @@
+---
+import { fetchFromAPI, getJSONLD } from "../../../lib/tools";
+
+export async function getStaticPaths() {
+  return await fetchFromAPI("gigs").then(function (items) {
+    return items.map((gig) => {
+      return {
+        params: {
+          gig: gig.url.replace("/gigs/", ""),
+        },
+        props: { gig },
+      };
+    });
+  });
+}
+
+const { gig } = Astro.props;
+---
+
+{getJSONLD(gig)}

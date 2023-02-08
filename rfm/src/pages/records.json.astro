@@ -1,0 +1,9 @@
+---
+import { fetchFromAPI, getJSONLD } from "../lib/tools";
+
+const records = await fetchFromAPI("records").then(function (records) {
+  return records;
+});
+---
+
+{getJSONLD(records)}

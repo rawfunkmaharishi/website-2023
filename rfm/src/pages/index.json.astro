@@ -1,0 +1,7 @@
+---
+import { fetchFromAPI, getJSONLD } from "../lib/tools";
+
+const json = await fetchFromAPI("raw-funk-maharishi")
+---
+
+{getJSONLD(json)}

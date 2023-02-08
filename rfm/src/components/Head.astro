@@ -8,11 +8,11 @@ import Fonts from "../components/styles/Fonts.astro";
 import Colours from "../components/styles/Colours.astro";
 
 import { ogFromJSON } from "../lib/OpenGraph";
-import { fetchFromAPI } from "../lib/tools";
+import { fetchFromAPI, getJSONLD } from "../lib/tools";
 var { title, jsonLD } = Astro.props;
 
 if (!jsonLD) {
-  jsonLD = JSON.stringify(await fetchFromAPI("raw-funk-maharishi"));
+  jsonLD = getJSONLD(await fetchFromAPI("raw-funk-maharishi"));
 }
 
 const og = new ogFromJSON(JSON.parse(jsonLD), import.meta.env.SITE);
@@ -34,7 +34,7 @@ const headerTitle = title || "Raw Funk Maharishi";
   <Fonts />
   <Colours />
 
-  {jsonLD && <script type="application/ld+json" set:html={jsonLD} />}
+  <script type="application/ld+json" set:html={jsonLD} />
 
   {og && <Fragment set:html={og.render()} />}
   <title>{headerTitle}</title>

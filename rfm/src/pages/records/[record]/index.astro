@@ -2,10 +2,10 @@
 import moment from "moment";
 import "@mdi/font/css/materialdesignicons.css";
 
-import Layout from "../../layouts/Layout.astro";
-import VideoModal from "../../components/VideoModal.astro";
-import VideoModalLink from "../../components/VideoModalLink.astro";
-import { fetchFromAPI, streamingServices } from "../../lib/tools";
+import Layout from "../../../layouts/Layout.astro";
+import VideoModal from "../../../components/VideoModal.astro";
+import VideoModalLink from "../../../components/VideoModalLink.astro";
+import { fetchFromAPI, streamingServices, getJSONLD } from "../../../lib/tools";
 
 export async function getStaticPaths() {
   return await fetchFromAPI("records").then(function (records) {
@@ -25,12 +25,10 @@ const { record } = Astro.props;
 const title = record.name;
 const releaseDate = moment(record.datePublished).format("MMMM YYYY");
 
-// https://stackoverflow.com/a/7220510
-const jsonLD = JSON.stringify(record, null, 2);
 const services = streamingServices(record.sameAs);
 ---
 
-<Layout title={title} jsonLD={jsonLD}>
+<Layout title={title} jsonLD={getJSONLD(record)}>
   <div class="record">
     <img class="record-sleeve" src={record.image.contentUrl} />
     <ul class="streaming-services">

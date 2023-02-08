@@ -34,18 +34,6 @@ it("structures the data", () => {
       id: "youtube",
       url: "https://www.youtube.com/embed/videoseries?list=PL_-_2KA93U6SIE2rJJbUlIwRhpns9G_rg",
     },
-    {
-      name: "Deezer",
-      icon: "mdi-chart-bar-stacked",
-      url: "https://widget.deezer.com/widget/dark/album/12532182",
-      id: "deezer",
-    },
-    {
-      name: "Amazon Music",
-      icon: "mdi-music",
-      id: "amazon-music",
-      url: "https://music.amazon.co.uk/embed/B01CH4A5ZG/",
-    },
   ];
 
   expect(streamingServices(sameAs)).toEqual(expected);

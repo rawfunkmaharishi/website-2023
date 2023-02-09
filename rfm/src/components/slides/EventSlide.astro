@@ -18,7 +18,7 @@ function getURL(url) {
       <li>
         <a href={getURL(event.url)}>
           {moment(event.startDate).format(dateFormat)}
-          <span class="venue">{event.location.name}</span>
+          <span>{event.location.name}</span>
         </a>
       </li>
     ))
@@ -31,7 +31,7 @@ function getURL(url) {
     text-align: center;
   }
 
-  .venue {
+  span {
     display: block;
     font-size: 1.5rem;
     margin-top: -0.5rem;

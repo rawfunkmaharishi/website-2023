@@ -3,9 +3,9 @@ const { data } = Astro.props;
 const elementId = data.id + "-close";
 ---
 
-<dialog id={data.id} class="player">
+<dialog id={data.id}>
   <iframe src={data.url}></iframe>
-  <a href="#" id={elementId} class="close" title="Close">✕</a>
+  <a href="#" id={elementId} title="Close">✕</a>
 </dialog>
 
 <script define:vars={{ id: data.id }}>
@@ -15,14 +15,14 @@ const elementId = data.id + "-close";
 </script>
 
 <style>
-  .close {
+  a {
     position: absolute;
     bottom: 1rem;
     right: 2rem;
     font-size: 1.5rem;
   }
 
-  dialog.player {
+  dialog {
     position: fixed;
     margin: auto;
     border: none;
@@ -41,7 +41,7 @@ const elementId = data.id + "-close";
   }
 
   @media only screen and (min-width: 600px) {
-    dialog.player {
+    dialog {
       width: 70%;
       height: 70%;
     }

@@ -29,24 +29,23 @@ const services = streamingServices(record.sameAs);
 ---
 
 <Layout title={title} jsonLD={getJSONLD(record)}>
-  <div class="record">
-    <img class="record-sleeve" src={record.image.contentUrl} />
-    <ul class="streaming-services">
+  <section>
+    <img src={record.image.contentUrl} />
+    <ul>
       {services.map((service) => <VideoModalLink data={service} />)}
     </ul>
 
-    <ol class="track-list">
+    <ol>
       {record.track.map((trk) => <li>{trk.name}</li>)}
     </ol>
 
     <h3>{releaseDate}</h3>
-  </div>
+  </section>
   {services.map((service) => <VideoModal data={service} />)}
 
   <style>
-    div.record {
+    section {
       display: grid;
-      /* grid-template-rows: auto auto; */
       justify-content: center;
       gap: 1rem;
     }
@@ -73,11 +72,11 @@ const services = streamingServices(record.sameAs);
       counter-reset: counter;
     }
 
-    ol li {
+    li {
       counter-increment: counter;
     }
 
-    ol li::before {
+    li::before {
       content: counter(counter) ": ";
       font-size: 0.7rem;
     }

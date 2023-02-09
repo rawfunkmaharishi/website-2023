@@ -26,16 +26,17 @@ const date = niceDate(video.startDate, false, false);
 ---
 
 <Layout title={title} jsonLD={getJSONLD(video)}>
-  <div class="video">
-    <div class="video-wrapper">
+  <section>
+    <div>
       <iframe src={video.recordedIn.embedUrl} allowfullscreen></iframe>
     </div>
     <h2>
       <a href={video.url}>
-        {video.location.name}<br /> {date}
+        {video.location.name}<br />
+        {date}
       </a>
     </h2>
-  </div>
+  </section>
 </Layout>
 
 <style>
@@ -45,7 +46,7 @@ const date = niceDate(video.startDate, false, false);
 
   /* responsive video */
   /* https://techstacker.com/how-to-responsive-youtube-videos/ */
-  .video-wrapper {
+  div {
     position: relative;
     overflow: hidden;
     width: 80%;
@@ -54,13 +55,13 @@ const date = niceDate(video.startDate, false, false);
     margin-inline: auto;
   }
 
-  .video-wrapper::after {
+  div::after {
     display: block;
     content: "";
     padding-top: 56.25%;
   }
 
-  .video-wrapper iframe {
+  iframe {
     position: absolute;
     top: 0;
     left: 0;

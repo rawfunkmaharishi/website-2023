@@ -13,11 +13,10 @@ function cellId(index) {
 const playSpeed = 3000
 ---
 
-<ul class="main-carousel">
+<ul id="carousel">
   {
     items.map((item, index) => (
       <li
-        class="carousel-cell"
         id={cellId(index)}
         data-title={item.additionalTitle}
       >
@@ -47,7 +46,7 @@ const playSpeed = 3000
     }
   }
 
-  var elem = document.querySelector(".main-carousel");
+  var elem = document.querySelector("#carousel");
   var flkty = new Flickity(elem, {
     wrapAround: wrapAround,
     autoPlay: autoPlay && playSpeed,

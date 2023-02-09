@@ -1,6 +1,6 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import { fetchFromAPI, getJSONLD, niceDate } from "../../lib/tools";
+import Layout from "../../../layouts/Layout.astro";
+import { fetchFromAPI, getJSONLD, niceDate } from "../../../lib/tools";
 
 export async function getStaticPaths() {
   return await fetchFromAPI("gigs").then(function (items) {
@@ -46,10 +46,28 @@ function fullAddress(gig) {
 
   return address;
 }
+
+function mapURL() {
+  var s = "https://www.openstreetmap.org/"
+
+  s += "?mlat="
+  s += gig.location.geo.latitude
+
+  s += "&mlon="
+  s += gig.location.geo.longitude
+
+  s += "#map=17"
+  s += "/"
+  s += gig.location.geo.latitude
+  s += "/"
+  s += gig.location.geo.longitude
+
+  return s
+}
 ---
 
 <Layout title={title} jsonLD={getJSONLD(gig)}>
-  <div class="gig">
+  <article>
     <dl>
       <dt>When:</dt>
       <dd>{time} on {date}</dd>
@@ -108,8 +126,13 @@ function fullAddress(gig) {
       }
     </dl>
 
-    <div id="map"></div>
-  </div>
+    <section id="map"></section>
+    <aside>
+      <a href={mapURL()} target="_blank">
+        View larger map
+      </a>
+    </aside>
+  </article>
 </Layout>
 
 <script
@@ -122,10 +145,8 @@ function fullAddress(gig) {
 >
   const map = L.map("map").setView([latitude, longitude], 16);
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 19,
-    attribution:
-      '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-  }).addTo(map);
+    maxZoom: 19
+    }).addTo(map);
   L.tileLayer.provider(tiles).addTo(map);
 
   L.marker([latitude, longitude])
@@ -146,7 +167,7 @@ function fullAddress(gig) {
     text-align: right;
   }
 
-  div#map {
+  #map {
     height: 50vh;
     width: 80%;
     margin-inline: auto;
@@ -154,5 +175,11 @@ function fullAddress(gig) {
     border-color: var(--colour-border);
     border-width: 1px;
     border-style: solid;
+  }
+
+  aside {
+    text-align: center;
+    font-size: 1rem;
+    margin-top: 1rem;
   }
 </style>

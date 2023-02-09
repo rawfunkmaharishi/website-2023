@@ -9,5 +9,5 @@ const band = await fetchFromAPI("raw-funk-maharishi")
 ---
 
 <Layout title="The Band" jsonLD={getJSONLD(band)}>
-  <Carousel items={band.member} wrapAround=true />
+  <Carousel items={band.member} wrapAround=true autoPlay=true />
 </Layout>

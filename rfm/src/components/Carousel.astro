@@ -4,11 +4,13 @@ import MusicianSlide from "./slides/MusicianSlide.astro";
 import EventSlide from "./slides/EventSlide.astro";
 import PromoSlide from "./slides/PromoSlide.astro";
 
-const { items, wrapAround } = Astro.props;
+const { items, wrapAround, autoPlay } = Astro.props;
 
 function cellId(index) {
   return "cell-" + index;
 }
+
+const playSpeed = 3000
 ---
 
 <ul class="main-carousel">
@@ -37,7 +39,7 @@ function cellId(index) {
   }
 </ul>
 
-<script define:vars={{ wrapAround: wrapAround }}>
+<script define:vars={{ wrapAround: wrapAround, autoPlay: autoPlay, playSpeed: playSpeed }}>
   function setTitle(index) {
     const cell = document.getElementById("cell-" + index);
     if (cell.dataset.title) {
@@ -48,7 +50,7 @@ function cellId(index) {
   var elem = document.querySelector(".main-carousel");
   var flkty = new Flickity(elem, {
     wrapAround: wrapAround,
-    autoPlay: 3000,
+    autoPlay: autoPlay && playSpeed,
     on: {
       ready: function () {
         setTitle(0);

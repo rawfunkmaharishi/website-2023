@@ -1,0 +1,10 @@
+---
+import { fetchFromAPI, getJSONLD } from "../lib/tools";
+
+const videos = await fetchFromAPI("gigs")
+  .then(function (gigs) {
+    return gigs.reverse().filter((item) => "recordedIn" in item);
+  })
+---
+
+{getJSONLD(videos)}

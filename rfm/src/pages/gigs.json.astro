@@ -1,0 +1,7 @@
+---
+import { fetchFromAPI, getJSONLD } from "../lib/tools";
+
+const gigs = await fetchFromAPI("gigs")
+---
+
+{getJSONLD(gigs)}

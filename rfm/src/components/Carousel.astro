@@ -10,16 +10,13 @@ function cellId(index) {
   return "cell-" + index;
 }
 
-const playSpeed = 3000
+const playSpeed = 3000;
 ---
 
 <ul id="carousel">
   {
     items.map((item, index) => (
-      <li
-        id={cellId(index)}
-        data-title={item.additionalTitle}
-      >
+      <li id={cellId(index)} data-title={item.additionalTitle}>
         {item["@type"] == "MusicAlbum" && <RecordSlide record={item} />}
 
         {item["@type"] == "Person" && <MusicianSlide musician={item} />}
@@ -38,7 +35,13 @@ const playSpeed = 3000
   }
 </ul>
 
-<script define:vars={{ wrapAround: wrapAround, autoPlay: autoPlay, playSpeed: playSpeed }}>
+<script
+  define:vars={{
+    wrapAround: wrapAround,
+    autoPlay: autoPlay,
+    playSpeed: playSpeed,
+  }}
+>
   function setTitle(index) {
     const cell = document.getElementById("cell-" + index);
     if (cell.dataset.title) {

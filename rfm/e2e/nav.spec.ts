@@ -14,6 +14,6 @@ expectations.forEach(function (expectation) {
     await expect(page).toHaveURL(expectation.url);
     await expect(
       page.getByRole("link", { name: expectation.page })
-    ).toHaveClass(/active/);
+    ).toHaveAttribute("aria-current", "page");
   });
 });

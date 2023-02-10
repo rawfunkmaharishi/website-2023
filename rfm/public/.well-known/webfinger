@@ -1,0 +1,23 @@
+{
+  "subject": "acct:rawfunkmaharishi@mastodon.me.uk",
+  "aliases": [
+    "https://mastodon.me.uk/@rawfunkmaharishi",
+    "https://mastodon.me.uk/users/rawfunkmaharishi"
+  ],
+  "links": [
+    {
+      "rel": "http://webfinger.net/rel/profile-page",
+      "type": "text/html",
+      "href": "https://mastodon.me.uk/@rawfunkmaharishi"
+    },
+    {
+      "rel": "self",
+      "type": "application/activity+json",
+      "href": "https://mastodon.me.uk/users/rawfunkmaharishi"
+    },
+    {
+      "rel": "http://ostatus.org/schema/1.0/subscribe",
+      "template": "https://mastodon.me.uk/authorize_interaction?uri={uri}"
+    }
+  ]
+}

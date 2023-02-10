@@ -1,28 +1,36 @@
 ---
 import "@mdi/font/css/materialdesignicons.css";
+
+const links = [
+  {
+    url: "/gigs/rss.xml",
+    mdi: "rss",
+    title: "RSS feed of our gig calendar",
+  },
+  {
+    url: "/gigs/calendar.ics",
+    mdi: "calendar",
+    title: "ICS gig calendar",
+  },
+  {
+    url: "@mastodon@" + import.meta.env.SITE.split("//")[1],
+    mdi: "mastodon",
+    title: "Raw Funk Maharishi on Mastodon",
+  },
+];
 ---
 
 <footer>
   <ul>
-    <li>
-      <a href="/gigs/rss.xml" title="RSS feed of our gig calendar">
-        <span class:list={["mdi", "mdi-rss"]}></span>
-      </a>
-    </li>
-    <li>
-      <a href="/gigs/calendar.ics" title="ICS gig calendar">
-        <span class:list={["mdi", "mdi-calendar"]}></span>
-      </a>
-    </li>
-    <li>
-      <a
-        href="https://mastodon.me.uk/@rawfunkmaharishi"
-        title="Raw Funk Maharishi on Mastodon"
-        target="_blank"
-      >
-        <span class:list={["mdi mdi-mastodon"]}></span>
-      </a>
-    </li>
+    {
+      links.map((link) => (
+        <li>
+          <a href={link.url} title={link.title}>
+            <span class:list={["mdi", "mdi-" + link.mdi]} />
+          </a>
+        </li>
+      ))
+    }
   </ul>
 </footer>
 
@@ -55,7 +63,6 @@ import "@mdi/font/css/materialdesignicons.css";
 
     ul {
       max-width: 5rem;
-   }
+    }
   }
-
 </style>

@@ -6,7 +6,7 @@ import { fetchFromAPI, spliceIntoChunks } from "../lib/tools";
 
 const allVideos = await fetchFromAPI("gigs")
   .then(function (gigs) {
-    return gigs.reverse().filter((item) => "recordedIn" in item);
+    return gigs.reverse().filter((item: object) => "recordedIn" in item);
   })
 
 const videos = spliceIntoChunks(allVideos, 3, "Video");

@@ -1,20 +1,27 @@
 ---
+interface Props {
+  musician: Musician
+}
+
 const { musician } = Astro.props;
 
-const title = musician.name + ", " + musician.knowsAbout;
-
-function openLink(musician) {
+function openLink(musician: Musician) {
   return "<a href='" + musician.url + "' target='_blank'>";
 }
 
 function closeLink() {
   return "</a>";
 }
+
+function title(musician: Musician) {
+  return musician.name + ", " + musician.knowsAbout
+}
+
 ---
 
 <div>
   {musician.url && <Fragment set:html={openLink(musician)} />}
-  <img src={musician.image.contentUrl} title={title} />
+  <img src={musician.image.contentUrl} title={title(musician)} />
   <h2>{musician.name}</h2>
   {musician.url && <Fragment set:html={closeLink()} />}
 </div>
@@ -22,9 +29,5 @@ function closeLink() {
 <style>
   h2 {
     font-size: 1.2rem;
-  }
-
-  @media only screen and (min-width: 600px) {
-
   }
 </style>

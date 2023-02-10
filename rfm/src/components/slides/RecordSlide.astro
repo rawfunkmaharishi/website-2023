@@ -1,6 +1,15 @@
 ---
 import moment from "moment";
 
+interface Props {
+  record: {
+    url: string,
+    image: Image,
+    name: string,
+    datePublished: string
+  }
+}
+
 const { record } = Astro.props;
 ---
 

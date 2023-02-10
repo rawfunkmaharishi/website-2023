@@ -1,9 +1,15 @@
 ---
 import moment from "moment";
 
+interface Props {
+  eventSet: EventSet;
+  dateFormat: string;
+  type?: string;
+}
+
 const { eventSet, dateFormat, type } = Astro.props;
 
-function getURL(url) {
+function getURL(url: string) {
   if (type) {
     url = url.replace("gigs", type);
   }
@@ -14,7 +20,7 @@ function getURL(url) {
 
 <ul>
   {
-    eventSet.items.map((event) => (
+    eventSet.items.map((event: SingleEvent) => (
       <li>
         <a href={getURL(event.url)}>
           {moment(event.startDate).format(dateFormat)}

@@ -7,7 +7,7 @@ interface Props {
 
 const { data } = Astro.props;
 
-function getURL(url: string) {
+function getURL(url: String) {
   if (data.subType) {
     url = url.replace("gigs", data.subType);
   }

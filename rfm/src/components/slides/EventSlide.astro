@@ -20,7 +20,7 @@ function getURL(url: string) {
 
 <ul>
   {
-    eventSet.items.map((event: Event) => (
+    eventSet.items.map((event: SingleEvent) => (
       <li>
         <a href={getURL(event.url)}>
           {moment(event.startDate).format(dateFormat)}

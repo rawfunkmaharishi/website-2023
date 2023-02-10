@@ -24,7 +24,7 @@ interface RecordAlbum extends SlideItem {
 }
 
 interface EventSet extends SlideItem {
-  items: Event[];
+  items: SingleEvent[];
 }
 
 interface GenericSlideItem {
@@ -42,5 +42,6 @@ interface SingleEvent extends SlideItem {
       image: Image;
       name: string;
     };
+    url: String;
   };
 }

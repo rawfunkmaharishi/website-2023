@@ -5,9 +5,9 @@ import EventSlide from "./slides/EventSlide.astro";
 import PromoSlide from "./slides/PromoSlide.astro";
 
 interface Props {
-  items: [];
-  wrapAround: Boolean;
-  autoPlay: Boolean;
+  items: any[];
+  wrapAround?: Boolean;
+  autoPlay?: Boolean;
 }
 
 const { items, wrapAround, autoPlay } = Astro.props;

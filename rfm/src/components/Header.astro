@@ -1,7 +1,11 @@
 ---
 import { isActive } from "../lib/tools";
 
-const navs = [
+const navs: {
+  title: String;
+  path: String;
+  current?: String;
+}[] = [
   {
     title: "Band",
     path: "/the-band/",
@@ -22,7 +26,7 @@ const navs = [
 
 for (const property in navs) {
   if (isActive(navs[property]["path"], Astro.url.pathname)) {
-    navs[property]["aria-current"] = "page";
+    navs[property].current = "page";
   }
 }
 
@@ -34,7 +38,7 @@ const { title } = Astro.props;
     {
       navs.map((item) => (
         <li>
-          <a href={item.path} aria-current={item["aria-current"]}>
+          <a href={item.path} aria-current={item.current}>
             {item.title}
           </a>
         </li>

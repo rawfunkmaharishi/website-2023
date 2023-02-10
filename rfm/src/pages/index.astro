@@ -26,7 +26,7 @@ const video = await fetchFromAPI("gigs").then(function (gigs) {
     "@type": "Promo",
     item: gigs
       .reverse()
-      .filter((item) => "recordedIn" in item)
+      .filter((item: object) => "recordedIn" in item)
       .slice(0, videoCount)[0],
       subType: "videos",
     additionalTitle: titles.video
@@ -43,5 +43,5 @@ const items = [gig, video, record];
 ---
 
 <Layout>
-  <Carousel items={items} wrapAround=true autoPlay=true />
+  <Carousel items={items} wrapAround={true} autoPlay={true} />
 </Layout>

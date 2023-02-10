@@ -11,7 +11,7 @@ function makeTitle(name) {
 ---
 
 <li>
-  <a href="#" id={elementId} title={makeTitle(name)}>
+  <a id={elementId} title={makeTitle(name)}>
     <span class:list={classes}></span>
   </a>
 </li>
@@ -21,3 +21,9 @@ function makeTitle(name) {
     document.getElementById(id).showModal();
   });
 </script>
+
+<style>
+  a {
+    cursor: pointer;
+  }
+</style>

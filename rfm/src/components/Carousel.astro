@@ -4,9 +4,15 @@ import MusicianSlide from "./slides/MusicianSlide.astro";
 import EventSlide from "./slides/EventSlide.astro";
 import PromoSlide from "./slides/PromoSlide.astro";
 
+interface Props {
+  items: [];
+  wrapAround: Boolean;
+  autoPlay: Boolean;
+}
+
 const { items, wrapAround, autoPlay } = Astro.props;
 
-function cellId(index) {
+function cellId(index: number) {
   return "cell-" + index;
 }
 
@@ -15,21 +21,21 @@ const playSpeed = 3000;
 
 <ul id="carousel">
   {
-    items.map((item, index) => (
+    items.map((item: SlideItem, index: number) => (
       <li id={cellId(index)} data-title={item.additionalTitle}>
-        {item["@type"] == "MusicAlbum" && <RecordSlide record={item} />}
+        {item["@type"] == "MusicAlbum" && <RecordSlide record={item as RecordAlbum} />}
 
-        {item["@type"] == "Person" && <MusicianSlide musician={item} />}
+        {item["@type"] == "Person" && <MusicianSlide musician={item as Musician} />}
 
         {item["@type"] == "MusicEvent" && (
-          <EventSlide eventSet={item} dateFormat="dddd MMM Do" />
+          <EventSlide eventSet={item as EventSet} dateFormat="dddd MMM Do" />
         )}
 
         {item["@type"] == "Video" && (
-          <EventSlide eventSet={item} dateFormat="MMMM YYYY" type="videos" />
+          <EventSlide eventSet={item as EventSet} dateFormat="MMMM YYYY" type="videos" />
         )}
 
-        {item["@type"] == "Promo" && <PromoSlide data={item} />}
+        {item["@type"] == "Promo" && <PromoSlide data={item as SingleEvent} />}
       </li>
     ))
   }

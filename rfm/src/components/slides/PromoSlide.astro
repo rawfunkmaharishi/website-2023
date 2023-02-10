@@ -1,9 +1,13 @@
 ---
 import moment from "moment";
 
+interface Props {
+  data: SingleEvent
+}
+
 const { data } = Astro.props;
 
-function getURL(url) {
+function getURL(url: string) {
   if (data.subType) {
     url = url.replace("gigs", data.subType);
   }
@@ -32,7 +36,7 @@ function getImage() {
 <a href={getURL(data.item.url)}>
   <img src={getImage()} />
   <h2>
-    {getDate()}<br>
+    {getDate()}<br />
     {data.item.location.name}
   </h2>
 </a>

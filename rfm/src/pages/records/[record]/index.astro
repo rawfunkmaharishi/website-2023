@@ -5,6 +5,7 @@ import "@mdi/font/css/materialdesignicons.css";
 import Layout from "../../../layouts/Layout.astro";
 import VideoModal from "../../../components/VideoModal.astro";
 import VideoModalLink from "../../../components/VideoModalLink.astro";
+import ShareThis from "../../../components/ShareThis.astro";
 import { fetchFromAPI, streamingServices, getJSONLD } from "../../../lib/tools";
 
 export async function getStaticPaths() {
@@ -22,13 +23,14 @@ export async function getStaticPaths() {
 
 const { record } = Astro.props;
 
-const title = record.name;
+const title = record.name + " by Raw Funk Maharishi"
+const shortTitle = record.name;
 const releaseDate = moment(record.datePublished).format("MMMM YYYY");
 
 const services = streamingServices(record.sameAs);
 ---
 
-<Layout title={title} jsonLD={getJSONLD(record)}>
+<Layout title={title} shortTitle={shortTitle} withSharing={true} jsonLD={getJSONLD(record)}>
   <section>
     <img src={record.image.contentUrl} />
     <ul>

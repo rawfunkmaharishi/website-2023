@@ -1,0 +1,55 @@
+---
+---
+
+<script is:inline>
+  // https://www.bentasker.co.uk/posts/documentation/general/adding-a-ephemeral-on-mastodon-button-to-a-website.html
+  function MastodonShare() {
+    var domain = prompt("Enter your Mastodon domain", "mastodon.me.uk");
+
+    if (domain == "" || domain == null) {
+      return;
+    }
+
+    // primary url
+    var url = "https://" + domain + "/share";
+
+    // query-string
+    url += "?text=";
+
+    // add the page title
+    url += document.title;
+
+    // two newlines - https://stackoverflow.com/a/3871762
+    url += "%0A%0A";
+
+    // ampersand
+    url += "&amp;";
+
+    // share the current page
+    url += "url=";
+    url += window.location.href;
+
+    window.open(url, "_blank");
+  }
+</script>
+
+<a class="share-button" onclick="MastodonShare()"
+  ><span class:list={["mdi", "mdi-mastodon"]}></span> Share on Mastodon</a
+>
+
+<style>
+  a.share-button {
+    font-size: 0.8rem;
+    cursor: pointer;
+    background-color: var(--colour-link);
+    color: var(--colour-background);
+    padding: 0.5rem;
+    border-radius: 0.2rem;
+    transition: background-color var(--transition-time);
+  }
+
+  a.share-button:hover {
+    background-color: var(--colour-hover);
+    color: var(--colour-background);
+  }
+</style>

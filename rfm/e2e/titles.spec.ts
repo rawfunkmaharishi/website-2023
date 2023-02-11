@@ -4,9 +4,12 @@ const expectations = [
   { url: "/", title: "Raw Funk Maharishi" },
   { url: "/the-band", title: "The Band" },
   { url: "/gigs", title: "Upcoming Gigs" },
-  { url: "/gigs/2023/06/08/luna", title: "Live at Luna Lounge" },
+  {
+    url: "/gigs/2023/06/08/luna",
+    title: "Raw Funk Maharishi live at Luna Lounge on Thursday June 8th",
+  },
   { url: "/records", title: "Records" },
-  { url: "/records/re:designed", title: "Re:Designed" },
+  { url: "/records/re:designed", title: "Re:Designed by Raw Funk Maharishi" },
   { url: "/videos", title: "Videos" },
 ];
 

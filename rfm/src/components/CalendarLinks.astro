@@ -11,6 +11,10 @@ const calendars = [
     title: "ICS",
   },
 ];
+
+function tooltipID(calendar: object) {
+  return "tooltip-" + calendar.title;
+}
 ---
 
 <section>
@@ -23,11 +27,14 @@ const calendars = [
           <a
             class="button"
             title={calendar.title}
-            data-clipboard-text={calendar.url}
+            data-clipboard-text={import.meta.env.SITE + calendar.url}
           >
             <span class:list={["mdi", "mdi-" + calendar.mdi]} />
             {calendar.title}
           </a>
+          <span class="tooltip" id={tooltipID(calendar)}>
+            Copied {calendar.title} calendar address!
+          </span>
         </li>
       ))
     }
@@ -38,9 +45,16 @@ const calendars = [
   var clipboard = new ClipboardJS("a");
 
   clipboard.on("success", function (e) {
-    console.info("Action:", e.action);
-    console.info("Text:", e.text);
-    console.info("Trigger:", e.trigger.title);
+    console.info("Trigger:", e.trigger);
+    console.log(document.getElementById("tooltip-" + e.trigger.title));
+
+    var tt = document.getElementById("tooltip-" + e.trigger.title);
+    setTimeout(function () {
+      tt.style.display = "block";
+      setTimeout(function () {
+        tt.style.display = "none";
+      }, 2000);
+    }, 100);
 
     e.clearSelection();
   });
@@ -59,5 +73,22 @@ const calendars = [
 
   a {
     cursor: pointer;
+  }
+
+  .tooltip {
+    display: none;
+    position: absolute;
+    bottom: 2rem;
+    left: 0rem;
+    font-size: 0.6rem;
+    text-align: center;
+    background-color: var(--colour-primary);
+    color: var(--colour-background);
+    border-radius: 0.3rem;
+    padding: 0.2rem;
+  }
+
+  li {
+    position: relative;
   }
 </style>

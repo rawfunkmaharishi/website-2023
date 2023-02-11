@@ -19,3 +19,11 @@ expectations.forEach(function (expectation) {
     await expect(page).toHaveTitle(expectation.title);
   });
 });
+
+test("It has the correct title *and* shortTitle", async ({ page }) => {
+  await page.goto("/gigs/2023/06/08/luna");
+  await expect(page).toHaveTitle(
+    "Raw Funk Maharishi live at Luna Lounge on Thursday June 8th"
+  );
+  expect(await page.locator("h1").textContent()).toBe("Live at Luna Lounge");
+});

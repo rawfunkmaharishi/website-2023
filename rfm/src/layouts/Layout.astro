@@ -6,10 +6,13 @@ import Logo from "../components/Logo.astro";
 
 export interface Props {
   title?: string;
+  shortTitle?: string;
   jsonLD?: Object
 }
 
-const { title, jsonLD } = Astro.props;
+const { title, shortTitle, jsonLD } = Astro.props;
+
+
 ---
 
 <!DOCTYPE html>
@@ -20,7 +23,7 @@ const { title, jsonLD } = Astro.props;
     <main>
       <div id="logo">
         <Logo />
-        <h1 id="main-title">{title}</h1>
+        <h1 id="main-title">{shortTitle || title}</h1>
       </div>
       <div id="content">
         <slot />

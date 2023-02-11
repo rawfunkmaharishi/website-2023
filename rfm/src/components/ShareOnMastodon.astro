@@ -1,0 +1,42 @@
+---
+---
+
+<script is:inline>
+  // https://www.bentasker.co.uk/posts/documentation/general/adding-a-share-on-mastodon-button-to-a-website.html
+  function MastodonShare() {
+    var domain = prompt("Enter your Mastodon domain", "mastodon.me.uk");
+
+    if (domain == "" || domain == null) {
+      return;
+    }
+
+    // primary url
+    var url = "https://" + domain + "/share";
+
+    // query-string
+    url += "?text=";
+
+    // add the page title
+    url += document.title;
+
+    // two newlines - https://stackoverflow.com/a/3871762
+    url += "%0A%0A";
+
+    // ampersand
+    url += "&amp;";
+
+    // share the current page
+    url += "url=";
+    url += window.location.href;
+
+    window.open(url, "_blank");
+  }
+</script>
+
+<a onclick="MastodonShare()"><span class:list={["mdi", "mdi-mastodon"]} /> Share on Mastodon</a>
+
+<style>
+    a {
+        cursor: pointer;
+    }
+</style>

@@ -1,5 +1,6 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
+import ShareOnMastodon from "../../../components/ShareOnMastodon.astro";
 import { fetchFromAPI, getJSONLD, niceDate } from "../../../lib/tools";
 
 export async function getStaticPaths() {
@@ -17,9 +18,11 @@ export async function getStaticPaths() {
 
 const { gig } = Astro.props;
 
-const title = "Live at " + gig.location.name;
 const date = niceDate(gig.startDate);
 const time = gig.startDate.split("T").slice(1);
+
+const shortTitle = "Live at " + gig.location.name
+const title = "Raw Funk Maharishi live at " + gig.location.name + " on " + date;
 
 // const tiles = "Stamen.TonerLite"
 // const tiles = "Stadia.AlidadeSmoothDark";
@@ -66,7 +69,7 @@ function mapURL() {
 }
 ---
 
-<Layout title={title} jsonLD={getJSONLD(gig)}>
+<Layout title={title} shortTitle={shortTitle} jsonLD={getJSONLD(gig)}>
   <article>
     <dl>
       <dt>When:</dt>
@@ -130,9 +133,12 @@ function mapURL() {
     <aside>
       <a href={mapURL()} target="_blank">
         View larger map
-      </a>
+      </a> |
+      <ShareOnMastodon/>
     </aside>
   </article>
+
+
 </Layout>
 
 <script
@@ -179,7 +185,7 @@ function mapURL() {
 
   aside {
     text-align: center;
-    font-size: 1rem;
+    font-size: 0.8rem;
     margin-top: 1rem;
   }
 </style>

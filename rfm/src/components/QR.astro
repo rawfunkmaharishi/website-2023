@@ -1,0 +1,49 @@
+---
+import { RGBs } from "../conf/colours";
+import { cleanUrl } from "../lib/tools";
+import Layout from "../layouts/Layout.astro";
+
+const { path, title, shortTitle } = Astro.props;
+---
+
+<Layout title={title}>
+  <canvas id="qr"></canvas>
+</Layout>
+
+<style>
+  canvas {
+    margin-inline: auto;
+    display: block;
+  }
+</style>
+
+<script
+  define:vars={{
+    url: cleanUrl(import.meta.env.SITE, path || "/"),
+    fg: RGBs.primary,
+    bg: RGBs.background,
+  }}
+>
+  var canvas = document.getElementById("qr");
+
+  QRCode.toCanvas(
+    canvas,
+    url,
+    {
+      width: 300,
+      color: {
+        dark: fixColour(fg),
+        light: fixColour(bg),
+      },
+    },
+    function (error) {
+      if (error) console.error(error);
+    }
+  );
+
+  function fixColour(rgb) {
+    return (
+      "#" + rgb.map((number) => number.toString(16).padStart(2, 0)).join("")
+    );
+  }
+</script>

@@ -12,34 +12,31 @@ const calendars = [
   },
 ];
 
-function tooltipID(calendar: object) {
-  return "tooltip-" + calendar.title;
+function makeID(prefix: string, calendar: object) {
+  return prefix + "-" + calendar.title;
 }
 ---
 
-<section>
-  <span>Subscribe to our gig calendar</span>
-
-  <ul>
-    {
-      calendars.map((calendar) => (
-        <li>
-          <a
-            class="button"
-            title={calendar.title}
-            data-clipboard-text={import.meta.env.SITE + calendar.url}
-          >
-            <span class:list={["mdi", "mdi-" + calendar.mdi]} />
-            {calendar.title}
-          </a>
-          <span class="tooltip" id={tooltipID(calendar)}>
-            Copied {calendar.title} calendar address!
-          </span>
-        </li>
-      ))
-    }
-  </ul>
-</section>
+<ul>
+  {
+    calendars.map((calendar) => (
+      <li>
+        <a
+          class="button"
+          title={calendar.title}
+          id={makeID("button", calendar)}
+          data-clipboard-text={import.meta.env.SITE + calendar.url}
+        >
+          <span class:list={["mdi", "mdi-" + calendar.mdi]} />
+          {calendar.title}
+        </a>
+        <span class="tooltip" id={makeID("tooltip", calendar)}>
+          Copied {calendar.title} calendar address!
+        </span>
+      </li>
+    ))
+  }
+</ul>
 
 <script>
   var clipboard = new ClipboardJS("a");
@@ -51,18 +48,13 @@ function tooltipID(calendar: object) {
       setTimeout(function () {
         tt.style.display = "none";
       }, 2000);
-    }, 100);
+    }, 200);
 
     e.clearSelection();
   });
 </script>
 
 <style>
-  section {
-    display: grid;
-    gap: 1rem;
-  }
-
   ul {
     display: flex;
     justify-content: center;

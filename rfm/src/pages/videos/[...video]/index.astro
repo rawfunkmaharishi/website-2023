@@ -21,11 +21,12 @@ export async function getStaticPaths() {
 
 const { video } = Astro.props;
 
-const title = "Recorded at " + video.location.name;
 const date = niceDate(video.startDate, false, false);
+const shortTitle = "Recorded at " + video.location.name;
+const title = "Raw Funk Maharishi recorded at " + video.location.name + " on " + date
 ---
 
-<Layout title={title} jsonLD={getJSONLD(video)}>
+<Layout title={title} shortTitle={shortTitle} withSharing={true} jsonLD={getJSONLD(video)}>
   <section>
     <div>
       <iframe src={video.recordedIn.embedUrl} allowfullscreen></iframe>

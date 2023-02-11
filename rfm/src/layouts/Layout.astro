@@ -3,16 +3,16 @@ import Head from "../components/Head.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import Logo from "../components/Logo.astro";
+import ShareThis from "../components/ShareThis.astro";
 
 export interface Props {
   title?: string;
   shortTitle?: string;
+  withSharing?: Boolean;
   jsonLD?: Object
 }
 
-const { title, shortTitle, jsonLD } = Astro.props;
-
-
+const { title, shortTitle, withSharing, jsonLD } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -27,6 +27,9 @@ const { title, shortTitle, jsonLD } = Astro.props;
       </div>
       <div id="content">
         <slot />
+      </div>
+      <div id="ephemeral">
+        {withSharing && <ShareThis/>}
       </div>
     </main>
     <Footer />
@@ -101,7 +104,8 @@ const { title, shortTitle, jsonLD } = Astro.props;
         display: grid;
         grid-template-areas:
           "logo"
-          "content";
+          "content"
+          "ephemeral";
         grid-template-rows: 1fr auto;
         gap: 1rem;
         margin-inline: 1rem;
@@ -132,12 +136,20 @@ const { title, shortTitle, jsonLD } = Astro.props;
         grid-area: content;
       }
 
+      #ephemeral {
+        grid-area: ephemeral;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
       @media only screen and (min-width: 600px) {
         main {
           grid-template-areas:
             "logo content"
-            ". content";
+            "ephemeral content";
           grid-template-columns: 1fr 1.3fr;
+          grid-template-rows: 1fr 1fr;
           margin-top: 1rem;
         }
       }

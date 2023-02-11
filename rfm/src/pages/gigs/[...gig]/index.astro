@@ -1,6 +1,6 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
-import ShareOnMastodon from "../../../components/ShareOnMastodon.astro";
+import ShareThis from "../../../components/ShareThis.astro";
 import { fetchFromAPI, getJSONLD, niceDate } from "../../../lib/tools";
 
 export async function getStaticPaths() {
@@ -69,7 +69,7 @@ function mapURL() {
 }
 ---
 
-<Layout title={title} shortTitle={shortTitle} jsonLD={getJSONLD(gig)}>
+<Layout title={title} shortTitle={shortTitle} withSharing={true} jsonLD={getJSONLD(gig)}>
   <article>
     <dl>
       <dt>When:</dt>
@@ -133,8 +133,7 @@ function mapURL() {
     <aside>
       <a href={mapURL()} target="_blank">
         View larger map
-      </a> |
-      <ShareOnMastodon/>
+      </a>
     </aside>
   </article>
 

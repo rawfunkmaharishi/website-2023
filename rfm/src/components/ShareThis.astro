@@ -33,23 +33,6 @@
   }
 </script>
 
-<a class="share-button" onclick="MastodonShare()"
+<a class="button" onclick="MastodonShare()"
   ><span class:list={["mdi", "mdi-mastodon"]}></span> Share on Mastodon</a
 >
-
-<style>
-  a.share-button {
-    font-size: 0.8rem;
-    cursor: pointer;
-    background-color: var(--colour-link);
-    color: var(--colour-background);
-    padding: 0.5rem;
-    border-radius: 0.2rem;
-    transition: background-color var(--transition-time);
-  }
-
-  a.share-button:hover {
-    background-color: var(--colour-hover);
-    color: var(--colour-background);
-  }
-</style>

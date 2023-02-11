@@ -1,0 +1,83 @@
+---
+const calendars = [
+  {
+    url: "/gigs/rss.xml",
+    mdi: "rss",
+    title: "RSS",
+  },
+  {
+    url: "/gigs/calendar.ics",
+    mdi: "calendar",
+    title: "ICS",
+  },
+];
+
+function makeID(prefix: string, calendar: object) {
+  return prefix + "-" + calendar.title;
+}
+---
+
+<ul>
+  {
+    calendars.map((calendar) => (
+      <li>
+        <a
+          class="button"
+          title={calendar.title}
+          id={makeID("button", calendar)}
+          data-clipboard-text={import.meta.env.SITE + calendar.url}
+        >
+          <span class:list={["mdi", "mdi-" + calendar.mdi]} />
+          {calendar.title}
+        </a>
+        <span class="tooltip" id={makeID("tooltip", calendar)}>
+          Copied {calendar.title} calendar address!
+        </span>
+      </li>
+    ))
+  }
+</ul>
+
+<script>
+  var clipboard = new ClipboardJS("a");
+
+  clipboard.on("success", function (e) {
+    var tt = document.getElementById("tooltip-" + e.trigger.title);
+    setTimeout(function () {
+      tt.style.display = "block";
+      setTimeout(function () {
+        tt.style.display = "none";
+      }, 2000);
+    }, 200);
+
+    e.clearSelection();
+  });
+</script>
+
+<style>
+  ul {
+    display: flex;
+    justify-content: center;
+  }
+
+  a {
+    cursor: pointer;
+  }
+
+  .tooltip {
+    display: none;
+    position: absolute;
+    bottom: 2rem;
+    left: 0rem;
+    font-size: 0.6rem;
+    text-align: center;
+    background-color: var(--colour-primary);
+    color: var(--colour-background);
+    border-radius: 0.3rem;
+    padding: 0.2rem;
+  }
+
+  li {
+    position: relative;
+  }
+</style>

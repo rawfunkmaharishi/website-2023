@@ -1,0 +1,63 @@
+---
+const calendars = [
+  {
+    url: "/gigs/rss.xml",
+    mdi: "rss",
+    title: "RSS",
+  },
+  {
+    url: "/gigs/calendar.ics",
+    mdi: "calendar",
+    title: "ICS",
+  },
+];
+---
+
+<section>
+  <span>Subscribe to our gig calendar</span>
+
+  <ul>
+    {
+      calendars.map((calendar) => (
+        <li>
+          <a
+            class="button"
+            title={calendar.title}
+            data-clipboard-text={calendar.url}
+          >
+            <span class:list={["mdi", "mdi-" + calendar.mdi]} />
+            {calendar.title}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<script>
+  var clipboard = new ClipboardJS("a");
+
+  clipboard.on("success", function (e) {
+    console.info("Action:", e.action);
+    console.info("Text:", e.text);
+    console.info("Trigger:", e.trigger.title);
+
+    e.clearSelection();
+  });
+</script>
+
+<style>
+  section {
+    display: grid;
+    gap: 1rem;
+  }
+
+  ul {
+    display: flex;
+    justify-content: center;
+  }
+
+  a {
+    cursor: pointer;
+  }
+</style>

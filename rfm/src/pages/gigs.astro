@@ -9,6 +9,6 @@ const allGigs = await futureGigs()
 const gigs = spliceIntoChunks(allGigs, 3);
 ---
 
-<Layout title="Upcoming Gigs">
+<Layout title="Upcoming Gigs" withCalendars={true}>
   <Carousel items={gigs} />
 </Layout>

@@ -70,6 +70,13 @@ const { title, shortTitle, withSharing, withCalendars, jsonLD } = Astro.props;
         color: var(--colour-background);
       }
 
+      @media (hover: none) {
+        a.button:hover {
+          background-color: var(--colour-link);
+          color: var(--colour-background);
+        }
+      }
+
       li {
         list-style-type: none;
       }
@@ -151,7 +158,6 @@ const { title, shortTitle, withSharing, withCalendars, jsonLD } = Astro.props;
         padding-top: 1rem;
         font-size: 1.8rem;
       }
-
 
       #ephemeral {
         grid-area: ephemeral;

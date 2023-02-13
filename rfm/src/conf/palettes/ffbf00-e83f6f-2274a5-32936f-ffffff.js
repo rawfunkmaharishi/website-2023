@@ -47,7 +47,6 @@ export const palette = [
 ];
 
 export const choices = {
-  background: 4,
   primary: 2,
   link: 1,
   hover: 0,

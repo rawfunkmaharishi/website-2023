@@ -71,6 +71,10 @@ const { title, shortTitle, withSharing, withCalendars, jsonLD } = Astro.props;
       }
 
       @media (hover: none) {
+        a:hover {
+          color: var(--colour-link);
+        }
+
         a.button:hover {
           background-color: var(--colour-link);
           color: var(--colour-background);

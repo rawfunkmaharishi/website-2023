@@ -42,6 +42,11 @@ function makeID(prefix: string, calendar: object) {
   var clipboard = new ClipboardJS("a");
 
   clipboard.on("success", function (e) {
+    // hide all tooltips
+    document
+      .querySelectorAll(".tooltip")
+      .forEach((tip) => (tip.style.display = "none"));
+
     var tt = document.getElementById("tooltip-" + e.trigger.title);
     setTimeout(function () {
       tt.style.display = "block";

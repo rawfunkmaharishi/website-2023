@@ -1,27 +1,39 @@
 ---
-import { RGBs } from "../../conf/colours.js";
+import { refinePalette } from "../../lib/tools";
 
-const colours = Object.assign(
-  {},
-  ...Object.keys(RGBs).map(function (key) {
-    return {
-      [key]: "rgb(" + RGBs[key].join(", ") + ")",
-    };
-  })
-);
+import { data as lightPalette } from "../../conf/palettes/820263-d90368-eadeda-2e294e-ffd400";
+import { data as darkPalette } from "../../conf/palettes/a31621-fcf7f8-ced3dc-4e8098-90c2e7";
 
-var c = ""
+function rgbise(triple: Array<number>) {
+  return "rgb(" + triple.join(", ") + ")";
+}
 
-c += ":root {\n"
+export const colours = {
+  light: refinePalette(lightPalette, [255, 255, 255]),
+  dark: refinePalette(darkPalette, [0, 0, 0]),
+};
+
+var bloc = "";
 
 for (var key in colours) {
-    c += "  --colour-"
-    c += key
-    c += ": "
-    c += colours[key];
-    c += ";\n"
-}
-c += "}\n"
+  bloc += "@media (prefers-color-scheme: ";
+  bloc += key;
+  bloc += ") {\n";
 
+  bloc += "  :root {\n";
+
+  for (var subKey in colours[key]) {
+    bloc += "    --colour-";
+    bloc += subKey;
+    bloc += ": ";
+    bloc += rgbise(colours[key][subKey]);
+    bloc += ";\n";
+  }
+
+  bloc += "  }\n";
+
+  bloc += "}\n";
+}
 ---
-<style set:html={c}><style>
+
+<style set:html={bloc}></style>

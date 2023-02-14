@@ -1,35 +1,16 @@
 ---
-import {
-  palette as lightPalette,
-  choices as lightChoices,
-} from "../../conf/palettes/820263-d90368-eadeda-2e294e-ffd400";
+import { refinePalette } from "../../lib/tools";
 
-import {
-  palette as darkPalette,
-  choices as darkChoices,
-} from "../../conf/palettes/a31621-fcf7f8-ced3dc-4e8098-90c2e7";
+import { data as lightPalette } from "../../conf/palettes/820263-d90368-eadeda-2e294e-ffd400";
+import { data as darkPalette } from "../../conf/palettes/a31621-fcf7f8-ced3dc-4e8098-90c2e7";
 
-function rgbise(triple) {
-  return "rgb(" + triple.join(", ") + ")"
+function rgbise(triple: Array<number>) {
+  return "rgb(" + triple.join(", ") + ")";
 }
 
-function RGBs(palette, choices, background) {
-  const data = Object.assign(
-    {},
-    ...Object.keys(choices).map(function (key) {
-      return {
-        [key]: rgbise(palette[choices[key]].rgb),
-      };
-    })
-  );
-  data.background = rgbise(background);
-
-  return data;
-}
-
-const colours = {
-  light: (RGBs(lightPalette, lightChoices, [255, 255, 255])),
-  dark: (RGBs(darkPalette, darkChoices, [0, 0, 0])),
+export const colours = {
+  light: refinePalette(lightPalette, [255, 255, 255]),
+  dark: refinePalette(darkPalette, [0, 0, 0]),
 };
 
 var bloc = "";
@@ -45,11 +26,11 @@ for (var key in colours) {
     bloc += "    --colour-";
     bloc += subKey;
     bloc += ": ";
-    bloc += colours[key][subKey];
+    bloc += rgbise(colours[key][subKey]);
     bloc += ";\n";
   }
 
-  bloc += "  }\n"
+  bloc += "  }\n";
 
   bloc += "}\n";
 }

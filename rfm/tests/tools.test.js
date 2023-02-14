@@ -4,7 +4,10 @@ import {
   isActive,
   cleanUrl,
   trimSlashes,
+  refinePalette,
 } from "../src/lib/tools.js";
+
+import { data as paletteData } from "../src/conf/palettes/820263-d90368-eadeda-2e294e-ffd400";
 
 it("structures the data", () => {
   const sameAs = [
@@ -62,4 +65,14 @@ it("trims slashes", () => {
   expect(trimSlashes("foo")).toEqual("foo");
   expect(trimSlashes("/foo")).toEqual("foo");
   expect(trimSlashes("/foo/bar//")).toEqual("foo/bar");
+});
+
+it("refines a palette", () => {
+  expect(refinePalette(paletteData, [127, 127, 127])).toEqual({
+    background: [127, 127, 127],
+    border: [255, 212, 0],
+    hover: [217, 3, 104],
+    link: [130, 2, 99],
+    primary: [46, 41, 78],
+  });
 });

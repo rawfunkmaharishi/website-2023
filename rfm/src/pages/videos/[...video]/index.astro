@@ -34,7 +34,9 @@ const title = "Raw Funk Maharishi recorded at " + video.location.name + " on " +
     <h2>
       <a href={video.url}>
         {video.location.name}<br />
-        {date}
+        <time datetime={video.startDate}>
+          {date}
+          </time>
       </a>
     </h2>
   </section>

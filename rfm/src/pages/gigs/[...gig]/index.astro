@@ -21,7 +21,7 @@ const { gig } = Astro.props;
 const date = niceDate(gig.startDate);
 const time = gig.startDate.split("T").slice(1);
 
-const shortTitle = "Live at " + gig.location.name
+const shortTitle = "Live at " + gig.location.name;
 const title = "Raw Funk Maharishi live at " + gig.location.name + " on " + date;
 
 // const tiles = "Stamen.TonerLite"
@@ -51,29 +51,38 @@ function fullAddress(gig) {
 }
 
 function mapURL() {
-  var s = "https://www.openstreetmap.org/"
+  var s = "https://www.openstreetmap.org/";
 
-  s += "?mlat="
-  s += gig.location.geo.latitude
+  s += "?mlat=";
+  s += gig.location.geo.latitude;
 
-  s += "&mlon="
-  s += gig.location.geo.longitude
+  s += "&mlon=";
+  s += gig.location.geo.longitude;
 
-  s += "#map=17"
-  s += "/"
-  s += gig.location.geo.latitude
-  s += "/"
-  s += gig.location.geo.longitude
+  s += "#map=17";
+  s += "/";
+  s += gig.location.geo.latitude;
+  s += "/";
+  s += gig.location.geo.longitude;
 
-  return s
+  return s;
 }
 ---
 
-<Layout title={title} shortTitle={shortTitle} withSharing={true} jsonLD={getJSONLD(gig)}>
+<Layout
+  title={title}
+  shortTitle={shortTitle}
+  withSharing={true}
+  jsonLD={getJSONLD(gig)}
+>
   <article>
     <dl>
       <dt>When:</dt>
-      <dd>{time} on {date}</dd>
+      <dd>
+        <time datetime={gig.startDate}>
+          {time} on {date}
+        </time>
+      </dd>
       <dt>Where:</dt>
       <dd set:html={fullAddress(gig)} />
 
@@ -131,13 +140,9 @@ function mapURL() {
 
     <section id="map"></section>
     <aside>
-      <a href={mapURL()} target="_blank">
-        View larger map
-      </a>
+      <a href={mapURL()} target="_blank"> View larger map</a>
     </aside>
   </article>
-
-
 </Layout>
 
 <script
@@ -150,8 +155,8 @@ function mapURL() {
 >
   const map = L.map("map").setView([latitude, longitude], 16);
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 19
-    }).addTo(map);
+    maxZoom: 19,
+  }).addTo(map);
   L.tileLayer.provider(tiles).addTo(map);
 
   L.marker([latitude, longitude])

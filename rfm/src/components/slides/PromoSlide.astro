@@ -36,7 +36,10 @@ function getImage() {
 <a href={getURL(data.item.url)}>
   <img src={getImage()} />
   <h2>
-    {getDate()}<br />
+    <time datetime={data.item.startDate}>
+      {getDate()}
+      </time>
+      <br />
     {data.item.location.name}
   </h2>
 </a>

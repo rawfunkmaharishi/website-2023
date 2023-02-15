@@ -26,7 +26,7 @@ function getURL(url: string) {
           <time datetime={event.startDate}>
             {moment(event.startDate).format(dateFormat)}
             </time>
-          <span class="location">{event.location.name}</span>
+          <span>{event.location.name}</span>
         </a>
       </li>
     ))
@@ -39,10 +39,10 @@ function getURL(url: string) {
     text-align: center;
   }
 
-  span.location {
+  span {
     display: block;
     font-size: 1.5rem;
-    margin-top: -0.5rem;
+    line-height: 1.4rem;
   }
 
   span.date-tag {

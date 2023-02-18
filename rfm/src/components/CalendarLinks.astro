@@ -1,86 +1,62 @@
 ---
-const calendars = [
-  // {
-  //   url: "/gigs/rss.xml",
-  //   mdi: "rss",
-  //   title: "RSS",
-  // },
-  {
-    url: "/gigs/calendar.ics",
-    mdi: "calendar",
-    title: "ICS",
-  },
-];
-
-function makeID(prefix: string, calendar: object) {
-  return prefix + "-" + calendar.title;
-}
 ---
 
-<a id="calendar-subscribe">Subscribe</a>
+<a class="button" id="calendar-subscribe">Subscribe</a>
 
 <dialog id="calendar-subscribe-links">
-  <span>Subscribe to our gig calendar: click the button to copy the address, then paste it into your calendar app</span>
-  <ul>
-    {
-      calendars.map((calendar) => (
-        <li>
-          <a
-            class="button"
-            title={calendar.title}
-            id={makeID("button", calendar)}
-            data-clipboard-text={import.meta.env.SITE + calendar.url}
-          >
-            <span class:list={["mdi", "mdi-" + calendar.mdi]} />
-            {calendar.title}
-          </a>
-          <span class="tooltip" id={makeID("tooltip", calendar)}>
-            Copied!
-          </span>
-        </li>
-      ))
-    }
-  </ul>
+  <section>
+    <span
+      >Subscribe to our gig calendar: click the button to copy the address, then
+      paste it into your calendar app</span
+    >
+
+    <a
+      class="button"
+      title="Subscribe to our Gig Calendar"
+      id="calendar-subscribe-button"
+      data-clipboard-text={import.meta.env.SITE + "/gigs/calendar.ics"}
+    >
+      <span class:list={["mdi", "mdi-calendar-month"]}></span>
+    </a>
+    <span class="tooltip" id="calendar-tooltip"> Copied!</span>
+  </section>
 </dialog>
 
 <script>
-  var clipboard = new ClipboardJS("a");
-  var linksModal = document.getElementById("calendar-subscribe-links")
+  var clipboard = new ClipboardJS("a", {
+    container: document.getElementById("calendar-subscribe-links"),
+  });
+  var linksModal = document.getElementById("calendar-subscribe-links");
+  var tooltip = document.getElementById("calendar-tooltip");
 
   clipboard.on("success", function (e) {
-    // hide all tooltips
-    document
-      .querySelectorAll(".tooltip")
-      .forEach((tip) => (tip.style.display = "none"));
+    console.info("Text:", e.text);
 
-    var tt = document.getElementById("tooltip-" + e.trigger.title);
     setTimeout(function () {
-      tt.style.display = "block";
+      tooltip.style.display = "block";
       setTimeout(function () {
-        tt.style.display = "none";
-        linksModal.close()
+        tooltip.style.display = "none";
+        linksModal.close();
       }, 2000);
     }, 200);
 
     e.clearSelection();
   });
 
-  document.getElementById("calendar-subscribe").addEventListener("click", () => {
-    linksModal.showModal()
-  })
+  document
+    .getElementById("calendar-subscribe")
+    .addEventListener("click", () => {
+      linksModal.showModal();
+    });
 </script>
-
-
 
 <style>
   a {
-    margin-top: 2rem;
     cursor: pointer;
     text-align: center;
   }
 
   dialog {
-    /* text-align: center; */
     position: absolute;
     top: 50%;
     margin-inline: auto;
@@ -93,6 +69,20 @@ function makeID(prefix: string, calendar: object) {
     border-color: var(--colour-border);
   }
 
+  #calendar-subscribe-button {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.2rem;
+    align-self: center;
+    justify-self: center;
+  }
+
+  section {
+    display: grid;
+    grid-template-rows: 2fr 1fr;
+    position: relative;
+  }
+
   ul {
     margin-top: 1rem;
     display: flex;
@@ -103,8 +93,11 @@ function makeID(prefix: string, calendar: object) {
   .tooltip {
     display: none;
     position: absolute;
-    bottom: 2rem;
-    width: 100%;
+    bottom: 3.5rem;
+    width: 3rem;
+    margin-inline: auto;
+    left: 0;
+    right: 0;
     font-size: 0.7rem;
     text-align: center;
     background-color: var(--colour-primary);

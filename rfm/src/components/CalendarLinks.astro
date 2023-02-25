@@ -22,7 +22,7 @@
   </section>
 </dialog>
 
-<script>
+<script is:inline>
   var clipboard = new ClipboardJS("a", {
     container: document.getElementById("calendar-subscribe-links"),
   });
@@ -30,8 +30,6 @@
   var tooltip = document.getElementById("calendar-tooltip");
 
   clipboard.on("success", function (e) {
-    console.info("Text:", e.text);
-
     setTimeout(function () {
       tooltip.style.display = "block";
       setTimeout(function () {

@@ -95,6 +95,11 @@ const { title, shortTitle, withSharing, withCalendars, jsonLD } = Astro.props;
         margin-bottom: 0rem;
         object-fit: cover;
         margin-inline: auto;
+        transition: filter var(--transition-time) ease;
+      }
+
+      img:hover {
+        filter: saturate(200%);
       }
 
       h2 {

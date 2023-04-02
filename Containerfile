@@ -11,7 +11,7 @@ RUN npm completion >> /root/.bashrc
 RUN npx playwright install-deps
 RUN npx playwright install
 
-COPY docker-config/bashrc /root/.bashrc
-COPY ./docker-config/entrypoint.sh /usr/local/bin/entrypoint
+COPY container-config/bashrc /root/.bashrc
+COPY ./container-config/entrypoint.sh /usr/local/bin/entrypoint
 RUN chmod +x /usr/local/bin/entrypoint
 ENTRYPOINT ["/usr/local/bin/entrypoint"]

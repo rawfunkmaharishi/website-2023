@@ -2,12 +2,12 @@ PROJECT = $(shell basename $(shell pwd))
 ID = rfm/${PROJECT}
 
 build:
-	docker build \
+	podman build \
 		--build-arg PROJECT=${PROJECT} \
 		--tag ${ID} .
 
 run:
-	docker run \
+	podman run \
 		--name ${PROJECT} \
 		--hostname ${PROJECT} \
 		--volume $(shell pwd):/opt/${PROJECT} \
@@ -19,7 +19,7 @@ run:
 		bash
 
 exec:
-	docker exec \
+	podman exec \
 		--interactive \
 		--tty \
 		${PROJECT} \

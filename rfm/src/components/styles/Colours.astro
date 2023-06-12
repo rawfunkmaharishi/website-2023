@@ -1,16 +1,16 @@
 ---
 import { refinePalette } from "../../lib/tools";
 
-import { data as lightPalette } from "../../conf/palettes/820263-d90368-eadeda-2e294e-ffd400";
-import { data as darkPalette } from "../../conf/palettes/a31621-fcf7f8-ced3dc-4e8098-90c2e7";
+import { data as lightPalette } from "../../conf/palettes/light";
+import { data as darkPalette } from "../../conf/palettes/dark";
 
 function rgbise(triple: Array<number>) {
   return "rgb(" + triple.join(", ") + ")";
 }
 
 export const colours = {
-  light: refinePalette(lightPalette, [255, 255, 255]),
-  dark: refinePalette(darkPalette, [0, 0, 0]),
+  light: refinePalette(lightPalette),
+  dark: refinePalette(darkPalette),
 };
 
 var bloc = "";

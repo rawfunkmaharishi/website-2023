@@ -104,7 +104,7 @@ export function spliceIntoChunks(arr, chunkSize, type = "") {
   return res;
 }
 
-export function refinePalette(palette, background) {
+export function refinePalette(palette) {
   const data = Object.assign(
     {},
     ...Object.keys(palette.choices).map(function (key) {
@@ -113,7 +113,5 @@ export function refinePalette(palette, background) {
       };
     })
   );
-  data.background = background;
-
   return data;
 }

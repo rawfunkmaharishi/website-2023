@@ -1,32 +1,24 @@
 ---
-import { refinePalette } from "../../lib/tools";
-
-import { data as lightPalette } from "../../conf/palettes/light";
-import { data as darkPalette } from "../../conf/palettes/dark";
+import { colours, palettes } from "../../conf/palettes/palette";
 
 function rgbise(triple: Array<number>) {
   return "rgb(" + triple.join(", ") + ")";
 }
 
-export const colours = {
-  light: refinePalette(lightPalette),
-  dark: refinePalette(darkPalette),
-};
-
 var bloc = "";
 
-for (var key in colours) {
+for (var palette in palettes) {
   bloc += "@media (prefers-color-scheme: ";
-  bloc += key;
+  bloc += palette;
   bloc += ") {\n";
 
   bloc += "  :root {\n";
 
-  for (var subKey in colours[key]) {
+  for (var key in palettes[palette]) {
     bloc += "    --colour-";
-    bloc += subKey;
+    bloc += key;
     bloc += ": ";
-    bloc += rgbise(colours[key][subKey]);
+    bloc += rgbise(colours[palettes[palette][key]]);
     bloc += ";\n";
   }
 

@@ -103,15 +103,3 @@ export function spliceIntoChunks(arr, chunkSize, type = "") {
   }
   return res;
 }
-
-export function refinePalette(palette) {
-  const data = Object.assign(
-    {},
-    ...Object.keys(palette.choices).map(function (key) {
-      return {
-        [key]: palette.palette[palette.choices[key]].rgb,
-      };
-    })
-  );
-  return data;
-}

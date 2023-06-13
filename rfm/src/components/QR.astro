@@ -1,6 +1,4 @@
 ---
-// import { RGBs } from "../conf/colours";
-import { colours } from "./styles/Colours.astro";
 import { cleanUrl } from "../lib/tools";
 import Layout from "../layouts/Layout.astro";
 
@@ -21,21 +19,8 @@ const { path, title } = Astro.props;
 <script
   define:vars={{
     url: cleanUrl(import.meta.env.SITE, path || "/"),
-    colours: colours,
   }}
 >
-  var colourScheme = "light";
-  if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-    colourScheme = "dark";
-  }
-
-  window
-    .matchMedia("(prefers-color-scheme: dark)")
-    .addEventListener("change", (event) => {
-      colourScheme = event.matches ? "dark" : "light";
-      drawQR();
-    });
-
   var canvas = document.getElementById("qr");
 
   function drawQR() {
@@ -45,19 +30,13 @@ const { path, title } = Astro.props;
       {
         width: 300,
         color: {
-          dark: fixColour(colours[colourScheme].primary),
-          light: fixColour(colours[colourScheme].background),
+          dark: "#000000",
+          light: "#ffffff",
         },
       },
       function (error) {
         if (error) console.error(error);
       }
-    );
-  }
-
-  function fixColour(rgb) {
-    return (
-      "#" + rgb.map((number) => number.toString(16).padStart(2, 0)).join("")
     );
   }
 

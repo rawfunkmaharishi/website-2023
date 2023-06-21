@@ -1,8 +1,8 @@
 export const colours = {
   "Dark grey": [59, 59, 59],
   "Off-white": [238, 238, 228],
-  "Teal": [113, 181, 146],
-  "Light blue": [148, 195, 208],
+  "Teal": [96, 172, 134],
+  "Light blue": [95, 160, 192],
 }
 
 export const palettes = {

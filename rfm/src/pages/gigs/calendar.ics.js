@@ -3,7 +3,7 @@ import { futureGigs } from "../../lib/tools";
 
 const boilerPlate = String.raw`BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//rawfunkhamarishi.uk//
+PRODID:-//import.meta.env.SITE//
 X-WR-CALNAME:Raw Funk Maharishi Gigs
 CALSCALE:GREGORIAN
 BEGIN:VTIMEZONE

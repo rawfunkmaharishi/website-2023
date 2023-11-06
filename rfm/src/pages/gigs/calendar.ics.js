@@ -1,10 +1,9 @@
 import moment from "moment";
 import { futureGigs } from "../../lib/tools";
 
-const boilerPlate = String.raw`
-BEGIN:VCALENDAR
+const boilerPlate = String.raw`BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//import.meta.env.SITE//
+PRODID:-//rawfunkhamarishi.uk//
 X-WR-CALNAME:Raw Funk Maharishi Gigs
 CALSCALE:GREGORIAN
 BEGIN:VTIMEZONE
@@ -73,6 +72,10 @@ function iCalEvent(gig) {
   event += "\n";
 
   event += "SUMMARY:Raw Funk Maharishi live at ";
+  event += gig.location.name;
+  event += "\n";
+
+  event += "DESCRIPTION:Raw Funk Maharishi live at ";
   event += gig.location.name;
   event += "\n";
 

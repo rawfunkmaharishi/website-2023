@@ -1,5 +1,6 @@
 ---
-import moment from "moment";
+import { format } from "date-fns";
+
 import "@mdi/font/css/materialdesignicons.css";
 
 import Layout from "../../../layouts/Layout.astro";
@@ -24,7 +25,7 @@ const { record } = Astro.props;
 
 const title = record.name + " by Raw Funk Maharishi";
 const shortTitle = record.name;
-const releaseDate = moment(record.datePublished).format("MMMM YYYY");
+const releaseDate = format(new Date(record.datePublished), "MMMM yyyy");
 
 const services = streamingServices(record.sameAs);
 ---

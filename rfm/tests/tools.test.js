@@ -4,6 +4,7 @@ import {
   isActive,
   cleanUrl,
   trimSlashes,
+  niceDate
 } from "../src/lib/tools.js";
 
 it("structures the data", () => {
@@ -64,3 +65,8 @@ it("trims slashes", () => {
   expect(trimSlashes("/foo/bar//")).toEqual("foo/bar");
 });
 
+it("cleans up dates", () => {
+  expect(niceDate("2023-11-07T00:00:00")).toEqual("Tuesday November 7th")
+  expect(niceDate("2023-11-07T00:00:00", true)).toEqual("Tuesday November 7th, 2023")
+  expect(niceDate("2023-11-07T00:00:00", true, false)).toEqual("November 7th, 2023")
+})

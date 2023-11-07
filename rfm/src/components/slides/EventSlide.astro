@@ -1,5 +1,5 @@
 ---
-import moment from "moment";
+import { format } from "date-fns";
 
 interface Props {
   eventSet: EventSet;
@@ -24,8 +24,8 @@ function getURL(url: string) {
       <li>
         <a href={getURL(event.url)}>
           <time datetime={event.startDate}>
-            {moment(event.startDate).format(dateFormat)}
-            </time>
+            {format(new Date(event.startDate), dateFormat)}
+          </time>
           <span>{event.location.name}</span>
         </a>
       </li>

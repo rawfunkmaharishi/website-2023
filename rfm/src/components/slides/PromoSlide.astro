@@ -1,5 +1,5 @@
 ---
-import moment from "moment";
+import { format } from "date-fns";
 
 interface Props {
   data: SingleEvent
@@ -16,12 +16,12 @@ function getURL(url: String) {
 }
 
 function getDate() {
-  var dateFormat = "dddd MMM Do";
+  var dateFormat = "EEEE MMM do";
   if (data.subType == "videos") {
-    dateFormat = "MMMM YYYY";
+    dateFormat = "MMMM yyyy";
   }
 
-  return moment(data.item.startDate).format(dateFormat);
+  return format(new Date(data.item.startDate), dateFormat);
 }
 
 function getImage() {

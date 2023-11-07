@@ -28,11 +28,11 @@ const playSpeed = 3000;
         {item["@type"] == "Person" && <MusicianSlide musician={item as Musician} />}
 
         {item["@type"] == "MusicEvent" && (
-          <EventSlide eventSet={item as EventSet} dateFormat="dddd MMM Do" />
+          <EventSlide eventSet={item as EventSet} dateFormat="EEEE MMM do" />
         )}
 
         {item["@type"] == "Video" && (
-          <EventSlide eventSet={item as EventSet} dateFormat="MMMM YYYY" type="videos" />
+          <EventSlide eventSet={item as EventSet} dateFormat="MMMM yyyy" type="videos" />
         )}
 
         {item["@type"] == "Promo" && <PromoSlide data={item as SingleEvent} />}

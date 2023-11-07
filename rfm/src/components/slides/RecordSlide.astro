@@ -1,13 +1,13 @@
 ---
-import moment from "moment";
+import { format } from "date-fns";
 
 interface Props {
   record: {
-    url: string,
-    image: Image,
-    name: string,
-    datePublished: string
-  }
+    url: string;
+    image: Image;
+    name: string;
+    datePublished: string;
+  };
 }
 
 const { record } = Astro.props;
@@ -17,6 +17,6 @@ const { record } = Astro.props;
   <img src={record.image.contentUrl} />
   <h2>
     {record.name}
-    <small>({moment(record.datePublished).format("YYYY")})</small>
+    <small>({format(new Date(record.datePublished), "yyyy")})</small>
   </h2>
 </a>

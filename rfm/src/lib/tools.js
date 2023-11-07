@@ -1,4 +1,4 @@
-import moment from "moment";
+import { format } from "date-fns";
 
 export async function fetchFromAPI(page) {
   return await fetch("https://json.rawfunkmaharishi.uk/" + page + ".json").then(
@@ -28,9 +28,7 @@ export function streamingServices(referenceUrls) {
       matcher: "youtube.com",
       name: "YouTube",
       icon: "mdi-youtube",
-    },
-    // { matcher: "deezer.com", name: "Deezer", icon: "mdi-chart-bar-stacked" },
-    // { matcher: "music.amazon.co", name: "Amazon Music", icon: "mdi-music" },
+    }
   ];
 
   const services = [];
@@ -57,20 +55,20 @@ export function getJSONLD(data) {
 }
 
 export function niceDate(uglyDate, forceYear = false, withDay = true) {
-  var formatString = "MMMM Do";
+  var formatString = "MMMM do";
 
   if (withDay) {
-    formatString = "dddd " + formatString;
+    formatString = "EEEE " + formatString;
   }
 
   if (
     new Date(uglyDate).getFullYear() != new Date().getFullYear() ||
     forceYear
   ) {
-    formatString += ", YYYY";
+    formatString += ", yyyy";
   }
 
-  return moment(uglyDate).format(formatString);
+  return format(new Date(uglyDate), formatString);
 }
 
 export function kebabCase(name) {

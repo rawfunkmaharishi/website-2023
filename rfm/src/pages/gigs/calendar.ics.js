@@ -1,4 +1,4 @@
-import moment from "moment";
+import { format } from "date-fns";
 import { futureGigs } from "../../lib/tools";
 
 const boilerPlate = String.raw`BEGIN:VCALENDAR
@@ -33,6 +33,7 @@ END:VCALENDAR
 
 export async function get() {
   const gigs = await futureGigs().then(function (gigs) {
+    gigs.reverse();
     return gigs.map(function (gig) {
       return gig;
     });
@@ -47,11 +48,10 @@ export async function get() {
 }
 
 function iCalEvent(gig) {
-  const dateFormat = "YYYYMMDDTHHmmss";
   const nativeDate = new Date(gig.startDate);
-  const start = moment(nativeDate).format(dateFormat);
+  const start = fixDate(nativeDate);
   nativeDate.setHours(nativeDate.getHours() + 2);
-  const end = moment(nativeDate).format(dateFormat);
+  const end = fixDate(nativeDate);
 
   var event = "BEGIN:VEVENT\n";
 
@@ -92,4 +92,8 @@ function iCalEvent(gig) {
   event += "END:VEVENT";
 
   return event;
+}
+
+function fixDate(date) {
+  return format(date, "yyyyMMdd'T'HHmmss");
 }

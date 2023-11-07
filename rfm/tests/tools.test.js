@@ -6,8 +6,6 @@ import {
   trimSlashes,
 } from "../src/lib/tools.js";
 
-import { data as paletteData } from "../src/conf/palettes/820263-d90368-eadeda-2e294e-ffd400";
-
 it("structures the data", () => {
   const sameAs = [
     "https://www.youtube.com/embed/videoseries?list=PL_-_2KA93U6SIE2rJJbUlIwRhpns9G_rg",

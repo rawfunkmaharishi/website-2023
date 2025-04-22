@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format, getDefaultOptions } from "date-fns";
 
 export async function fetchFromAPI(page) {
   return await fetch("https://json.rawfunkmaharishi.uk/" + page + ".json").then(
@@ -10,7 +10,16 @@ export async function fetchFromAPI(page) {
 
 export async function futureGigs() {
   return await fetchFromAPI("gigs").then(function (gigs) {
-    return gigs.filter((gig) => new Date(gig.startDate) > new Date());
+    const fGigs = gigs.filter((gig) => new Date(gig.startDate) > new Date());
+
+    if (fGigs.len > 0) {
+      return fGigs;
+    }
+
+    // maybe there are no future gigs
+    const defaultGigs = gigs.slice(-3)
+    defaultGigs.reverse()
+    return defaultGigs;
   });
 }
 
@@ -28,7 +37,7 @@ export function streamingServices(referenceUrls) {
       matcher: "youtube.com",
       name: "YouTube",
       icon: "mdi-youtube",
-    }
+    },
   ];
 
   const services = [];
